@@ -924,7 +924,7 @@ In alphabetischer Ordnung:
 
 # CAD Grabungsplan & GIS
 
-Der in dieser Übung bearbeitete Plan stammt von einer realen Ausgrabung. Aus dem Plan wurden an meherern Stellen Informationen, vor allem Befunde entfernt, der Plan ist somit für eine wissenschaftliche Auswertung unbrauchbar. Dennoch bitte ich darum, die für diese Übung bereitgestellten Daten nicht über diese Übung hinaus zu verweden und nach Abschluss zu löschen.
+Der in dieser Übung bearbeitete Plan stammt von einer realen Ausgrabung. Aus dem Plan wurden an mehreren Stellen Informationen, vor allem Befunde entfernt und der Plan als ganzes verschoben. Der Plan ist somit für eine wissenschaftliche Auswertung unbrauchbar. Dennoch bitte ich darum, die für diese Übung bereitgestellten Daten nicht über diese Übung hinaus zu verwenden und nach Abschluss zu löschen.
 
 Der Plan enthält zahlreiche technische Mängel. Es geht hier darum, aus diesen Mängeln zu lernen und diese möglichst effizient zu beheben. Es geht nicht darum, Kollegen oder deren Team zu kritisieren oder vorzuführen.
 
