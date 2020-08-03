@@ -29,6 +29,7 @@ Der Kurs sollte im Sommersemester 2020 im PC-Labor des Institutes für Ur- und F
 | Anmerkung |
 |----|
 | Statt der im PC-Labor installierten Version AutoCAD 2010 und der vereinzelt genutzten Version AutoCAD 2014 wurde bei der Übung die Version AutoCAD 2018 verwendet. Die damit einhergehenden Veränderungen im Menü aber auch von einzelnen Befehlen stellten auch für mich als Dozent eine Übung dar.| 
+| Diese Datei und die zugehörigen Daten der Übungen finden Sie in meinem Github-Verzeichnis: https://github.com/chrinne/tutorial-autocad2018 |
 
 ## Lernziele
 
