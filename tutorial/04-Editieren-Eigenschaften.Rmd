@@ -1,0 +1,83 @@
+---
+title: "Einführung in AutoCAD für Archäologen"
+author: Christoph Rinne
+email: crinne@ufg.uni-kiel.de
+date: "`r format(Sys.time(), '%d. %B %Y')`"
+license: "CC-BY-NC 4.0"
+header-includes:
+  \renewcommand{\contentsname}{Inhalt}
+  \renewcommand{\figurename}{Abb.}
+bibliography: AutoCAD-cours-references.bib
+csl: journal-of-archaeological-science.csl
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+    df_print: kable
+urlcolor: blue
+link-citations: yes # make citations hyperlinks
+linkcolor: blue
+number_sections: yes
+lang: de-DE
+---
+
+# Editieren, Eigenschaften, Ändern
+
+## Zusammenfassung des Vorangehenden
+
+Wir hatten beim letzten Mal eine Pyramide erstellt. Dabei haben wir die befehle "pl" (Polylinie) und "3dp" (3D-Polylinie) kennengelernt. Die möglichen Eingaben von Koordinaten ausprobiert: Maus, absolute Koordinaten, relativ zum Ausgangspunkt (\@100,100) oder mit Winkel und Distanz (\@100<180). Der Dynamische Modus beeinflusst diese Koordinateneingabe. Hinzu kamen diverse Fang, Objektfang und sonstige Modi für ein sauberes Editieren. Mit \<&#8593;> rufen wir die letzten Befehle auf und mit \<F2> sehen wir die gesamte Historie. Beachten Sie, dass für Befehle aus dem Menü die englische Variante mit vorangestelltem "_", z.B. "_line" eingetragen wird. Diese Befehle sind unabhängig von der Installationssprache immer möglich. Viele Befehle benötigen weitere Angaben, der Vorgabewerte steht in \<> und entspricht oft der letzten Eingabe, z.B. Kreisradius. Beachten Sie die Hervorhebung einzelner Buchstaben, früher nur als Großbuchstaben, die auf den entsprechenden Tastaturbefehl verweisen, z.B. Zoom - G(renzen). 
+
+Wir haben diverse visuelle Stile gesehen und die Bewegung im 3D-Orbit ausprobiert. Ein wichtiges Element ist dabei das Koordinatensystem und die Einheiten. Unser Koordinatensystem ist immer ein karthesisches 3D-System  (auch wenn wir 2D zeichnen), aber die Einheit, also die Bedeutung der von uns verwendeten Zahlen muss definiert werden. Der Standard für die Einheit ist Millimeter, da wir als Archäologen aber mit Metern arbeiten, sollten wir dies auch angeben. Der Modellbereich bildet unsere Realität (z.B. die Grabung) idealer weise 1:1 ab, mit Höhen und Tiefen. Im Layoutbereich werden beliebig viele Repräsentationen (Blickwinkel, Skalierung, Ausschnitt, Auswahl) auf unser Modell erstellt.
+
+## Editieren
+
+### Zeichenbefehle
+
+Es gibt viele weitere Zeichenbefehle, z.B. Kreis, Viereck, Rechteck, Linie, Spline und Konstruktionslinie (KLinie). Bedenken Sie, AutoCAD ist kein teures Malprogramm, sondern dient der dreidimensionalen Konstruktion von Objekten, die u.a. als Punkt, Vektor, Netz oder Volumenkörper definiert sein können. Probieren Sie diese mal später aus. Hervorheben möchte ich folgende:
+
+- **Punkt**: Ist stets eine 3D-Koordinate (x y z). Die Darstellung des infinit kleinen Objektes wird durch ein Symbol unter "Format -> Punktstil" eingestellt. 
+- **Polylinie (2D)**: Eine Polylinie besteht aus Punkten ohne Z-Wert, sie ist demnach immer flach in einer Ebene, kann mit Schraffur gefüllt oder leicht in eine Fläche umgewandlet werden. Unabhängig davon kann sie auf allen drei Achsen gedreht und verschoben im 3D-Raum liegen. Polylinien können leichter editiert werden als 3D-Polylinien, so ist das Verbinden von Teilstücken nur bei diesen mit Bordmitteln von AutoCAD möglich (pedit). Digitalisieren Sie sogenannte Flachware (Plan, Messbild) ist die Polylinie die angemessene Repräsentation.
+- **3D Polylinie**: Eine Polylinie aus 3D-Punkten. 3D-Polylinien bilden keine Fläche, den Sonderfall mit 3 Punkten mal ausgenommen, und können demnach nicht schraffiert werden. Dennoch bilden Sie das wichtigste Element für die Dokumentation von Linien auf einer archäologischen Ausgrabung. Das Verbinden von 3D Polylinien erfolgt im Ergebnis durch eine Neuzeichnung, suchen Sie im Internet nach "pedit3d".
+- **Kreis**: Konstruiert üblicherweise über Zentrum und Radius, 2-Punkt (Durchmesser) ist eine gute Alternative, 3P - über 3 Tangenten - ist eher selten von Interesse. Echte Kreise sind in der Archäologie selten, aber wie der Zirkel in der Geometrie ist es ein unverzichtbares Werkzeug bei der Konstruktion.
+- **Konstruktionslinien** (KLinie) ist als Ersatz für das Geodreieck für mich ein wichtiges Werkzeug bei der Konstruktion.
+- **Linien** haben eine Startpunkt (3D) und einen Endpunkt (3D) und damit andere Eigenschaften als eine 2D Polylinie (viele 2D-Punkte und eine Erhebung). Verändern sie den Z-Wert eines Punktes in seinem Eigenschaftenfenster (Kontextmenü) sieht die Linie in der Draufsicht unverändert aus, die Länge ändert sich aber.
+- **Splines** bilden schöne rundliche Strukturen, haben aber einen wesentlichen Nachteil: die Bezugspunkte (Mausklick) liegen nicht auf der Kurve. Beim Transfer der Daten in andere Programme sollten Sie nicht von einer identischen Repräsentation ausgehen. Ich warne davor, Splines für das Einmessen von Befunden zu verwenden.
+
+### Objekteigenschaften
+
+Eine CAD-Zeichnung ist eine Sammlung von Objekten mit Eigenschaften, hierbei können einzelne Objekte als Liste von Teilelemente verstanden werden, z.B. die Polylinie als Liste von Punkten. Die Eigenschaften der Zeichenobjekte könne über das Kontextmenü angezeigt und in vielen aber nicht allen Punkten auch nachträglich editiert werden. Bsp. Sie haben aus einem gescannten Plan (kein Z-Wert) die Abmessungen eines Gebäudes als 2D-Polylinie übernommen (Höhenwert: 0). Ändern Sie in den Eigenschaften die *Erhebung* von "0" auf ein angemessenes Niveau zur Ausgrabung. Dies verändert die Position des Objektes in seinem Bezugssystem, dies ist etwas anderes, als das Objekt zu verschieben (s.u.).
+
+Eine wichtige Eigenschaft von Polygonen ist *Geschlossen*. Ein Polygon mit identischem Start und Endpunkt (mit OFang) ist nicht geschlossen. Beenden Sie ein Polygon für ein geschlossenes Objekt (z.B. Befundgrenze) stets mit "s" für schließen.
+
+### Objekte auswählen
+
+Objekte können auf unterschiedlichste weise ausgewählt werden, über einen Eigenschaftenfilter (später) oder die Auswahl mit der Maus.
+
+- Objekt(e) anklicken addiert diese zu einer Auswahl, mit \<shift> + Anklicken wird abgewählt.
+- Durch einen Zaun (1. Mausklick, Rechteck ziehen, 2. Mausklick oder Maus gedrückt und Lasso ziehen) werden Objekt(e) ebenfalls gewählt.
+	- Rechteckzaun von links nach rechts ziehen wählt alle vollständig innerhalb liegende Objekte.
+	- Rechteckzaun von rechts nach links ziehen wählt alle innerhalb liegenden und berührten Objekte.
+	- Lasso (Maustaste gedrückt halten) wählt alle innerhalb liegenden und berührte Objekte aus.
+
+### Objekte ändern
+
+Auch hier nur eine kleine Auswahl, die ich oft nutze: Kopieren, Verschieben, Bruch, Dehnen, Stutzen, Ursprung, Skalieren (Varia), Drehen, Anordnung-Rechteckig (in ältere Versionen Reihe). Der schnellste Zugang erfolgt nach der Auswahl der Objekte über das Kontextmenü, ansonsten über "Ändern -> ...".
+
+- Sie können **Punkte** in Linien, Polylinien und 3D-Polylinie **anfassen und verschieben**. Wenn Sie in der 2D-Ansicht arbeiten wird nur in dieser Ebene verschoben, z.B. die x-Y-Lage des Punktes in der 3D-Polylinie aber nicht der Z-Wert (Objektfang beachten!). Einige Objekte wie Kreise können direkt im Zentrum angefasst und verschoben oder an den Quadranten (N, S, O, W) angefasst und skaliert werden.
+- **Verschieben**: Sie können Objekt(e) mit der Maus verschieben, also irgend einen Punkt anklicken und verschieben. Üblicherweise ist ein Basispunkt zu wählen und dann Werte für x, y, und z. Beispiel: Der Befund wurde mit der falschen Prismenhöhe gemessen (2.15 statt 1.30), Befund markieren, "verschieben", Basispunkt: 0,0,0, Zielpunkt: 0,0,-.85. Egal wo der Befund als 3D-Polylinie lag, er befindet sich nun exakt 0.85 Einheiten tiefer. 
+- **Kopieren**: Auch hier können Sie über das Kontextmenü und mit der Maus agieren. Aber: markieren, \<strg> + \<c> ,  \<strg> + \<v> ist schneller und fängt stets die linke untere Ecke der maximalen Objektausdehnung. Mit \<strg> + \<shift> + \<c> können Sie einen Basispunkt bestimmen (Maus oder Tastatur), präzises Arbeiten ist so einfach.
+- **Bruch**: Objekt wählen, der erste Anklickpunkt wird der erste Bruchpunkt, zweite Punkt wählen. Bei dieser Änderung spielen die Art des Objektes und die Laufrichtung eine Rolle, z.B. bei geschlossenen Polylinie. Einfach ausprobieren und ggf. mit \<strg> + \<z> zurücknehmen.
+- **Stutzen**: Grenzkante wählen, \<enter> und dann nach und nach alle Objektteile wählen die jenseits liegen und an der Kante abgeschnitten werden sollen, z.B. Höhenlinien jenseits des Darstellungsrahmens.
+- **Dehnen**: Grenzkante wählen, \<enter> und dann Objekt(e) wählen, die bis zur Kante verlängert werden sollen.
+- **Ursprung**: Zerlegt Objekte in die Einzelteile, z.B. 3D-Polylinie in viele Linien oder Absatztext zu mehreren Textzeilen.
+- **Skalieren** (Varia): Nutze ich viel für gescannte Pläne und besteht aus mehreren Schritten. 1. Objekt(e) wählen, 2. Basispunkt wählen (dieser Punkt bleibt unverändert), 3. (optional Kopie bestellen) (optional Bezug) Skalierung per Maus oder Zahl eingeben (z.B. .5 für 50%). Option Bezug: Sie haben einen Plan mit Maßstabsleiste (5 m), als *Bezugslänge angeben* klicken Sie auf Anfang und Ende der Maßstabsleiste, *neue Länge angeben* ist dann die Länge der Maßstabsleiste, z.B. 5. Anmerkung: bei Grabungsplänen mit Gitternetz wähle ich bevorzugt die Diagonale als Bezugslänge und berechne die neue Länge als Hypothenuse.
+- **Drehen (2D)**: 1. Objekt(e) wählen, 2. Basispunkt bestimmen, 3. Winkel in Grad zur x-Achse als Basis angeben. Optional Bezug: Erlaubt die Definition einer Linie, die dann auf die Gradzahl gedreht wird. Bsp: Grabungsplan mit Ursprung des Koordinatensystems und Nordpfeil, markieren Sie den Ursprung als Basispunkt, Bezugswinkel ist der Nordpfeil (von der Basis zur Spitze), der neue Winkel für diese Linie (Nordpfeil!) ist dann 90°.
+- **Anordnung-Rechteck** (Reihe): Ziel ist die Vervielfältigung von Objekt(en). Ältere Versionen boten ein visuell unmittelbar verständliches Fenster mit Angaben zu x-Abstand, y-Abstand, Zeile(n) und Spalte(n). "Früher war alles besser" (Wise Guys). Zoomen Sie raus, so dass sie nach rechts und oben ca. den 5fachen Raum des zu kopierenden Objektes sehen. Objekt(e) markieren, \<rechteckig> bestätigen, mit Basispunkt wird ein alternativer Bezugspunkt für AB(stand) von Spalten und Zeilen und mit Zeilen und Spalten die Dimension der Vervielfältigung bestimmt. Bsp.: Sie wollen eine exakte Reihe von Sondagen oder Quadratmetern oder Messpflöcken konstruieren.
+- **pedit**: Der Befehl erlaubt das editieren einer 2D-Polylinie, u.a. das Verbinden von mehreren Einzellinien.
+
+## Text
+
+Der Befehl Text findet sich im Menü beim "Zeichnen". Ich möchte ihn hier aber herausnehmen und getrennt behandeln. Text kann als *Einzeilige Text* (Text) und *Absatztext* (MText) eingefügt werden. Absatztext (MText) definiert eine Textbox mit Formatierungsleiste wie wir sie aus der Textverarbeitung kennen, das ist für umfangreiche Texte sicher sinnvoll. Einzeiliger Text erwartet den Einfügepunkt, Texthöhe (Zeicheneinheit) und Rotation (Winkel). Ein einfaches \<enter> erzeugt eine neue Zeile ein weiteres \<enter> ohne Zeichen beendet den Befehl.
+
+Beide Texte arbeiten mit Textstil bzw. Formatvorlagen die wir aus der Textverarbeitung kennen und unter "Format > Textstil" definieren können. Text ist schneller eingetragen und schlichter gestaltet als MText. Zudem ist der Einfügepunkt bei einer späteren Extraktion der Objekte der angeklickte Fußpunkt des Textes. Egal ob Befundnummer, Fundnummer, kurze Infos wie "Störung" oder "Kanal", mir ist bisher kein vernünftiger Grund für die Verwendung von MText in Plänen untergekommen, auch nicht im Layoutbereich. Leider kommt der Absatztext im Menü "Zeichnen -> Text -> ..." zuerst und wird entsprecht viel zu oft verwendet.

@@ -1,0 +1,99 @@
+---
+title: "Einführung in AutoCAD für Archäologen"
+author: Christoph Rinne
+email: crinne@ufg.uni-kiel.de
+date: "`r format(Sys.time(), '%d. %B %Y')`"
+license: "CC-BY-NC 4.0"
+header-includes:
+  \renewcommand{\contentsname}{Inhalt}
+  \renewcommand{\figurename}{Abb.}
+bibliography: AutoCAD-cours-references.bib
+csl: journal-of-archaeological-science.csl
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+    df_print: kable
+urlcolor: blue
+link-citations: yes # make citations hyperlinks
+linkcolor: blue
+number_sections: yes
+lang: de-DE
+---
+
+# Grundlegendes und erstes Zeichnen
+
+Öffnen Sie eine neue Zeichnung (\<str> + \<n>), wählen Sie in diesem Fall die Vorlage "Tutorial-mArch.dwt". Die neue Zeichnung wird im Layout mit einem Koordinatenrahmen und weiteren Layoutelementen geöffnet.
+
+## Grundlegende Konzepte und Handhabung
+
+Hier geht es überwiegend um die Interaktion mit dem Programm und grundlegende Konzepte, z.B. das Koordinatensystem. AutoCAD ist ein technisches Zeichenprogramm, versetzen Sie sich in den Geometrieuntericht Ihrer Schulzeit, nehmen Sie im Geist Geodreieck und Zirkel zur Hand, oder wenn Sie es kennen einen professionellen Zeichentisch, damit haben Sie eine für den Anfang brauchbare Einstellung zur Arbeit in AutoCAD. AutoCAD ist kein Malprogramm.
+
+### Zoomen und Bewegen
+
+Mit gedrücktem Skrollrad können Sie das dargestellte Papier im Layout oder das Modell im Modellbereich im jeweiligen Fenster verschieben. Drehen Sie das Skrollrad von sich weg zoomen Sie hinein, umgekehrt zoomen Sie heraus. Das Rad simuliert also die eigene Bewegung in das Modell hinein oder heraus. In der Kartographie eines GIS ist das oft umgekehrt, da kommt das Papier zum sitzenden Geographen oder eben der Berg zum Propheten.
+
+Beim Zoomen bestimmt die Mausposition den Zoom-Fokus, eine schnelle Bewegung auf dem Plan ist durch gezieltes raus- und reinzoomen möglich. Testen Sie das mal im aktiven Layoutbereich, raus und gezielt rein.
+
+Der Befehl ```ZOOM``` zieht weitere Optionen nach sich, die mit den jeweiligen Großbuchstaben ausgewählt werden können. Der Subbefehl ```Grenzen``` zoomed auf die Grenzen der Zeichnung und offenbart bisweilen Fehler in der Zeichnung.
+
+| Anmerkung |
+|----|
+| Beim Zoomen können Sie an eine Dimensionsgrenze stoßen, Sie kommen einfach nicht weiter heraus. Das liegt an der Dimensionierung des Zeichenbereiches, sie sind im übertragen Sinn an die Blatt- oder Tischgrenze gestoßen. Tippen Sie ```REGENerieren``` und die Dimension der Zeichnung wird neu gesetzt.|
+
+### Modell und Layoutbereich
+
+Wechseln Sie links unten mit den Reitern in das Modell. Sie sehen kein Element des Layouts, keinen Rahmen, keinen Infotext, schlicht nichts. AutoCAD trennt deutlich zwischen dem Modell, in  aller Regel ein 1:1 Abbild der Realität (egal ob unserer Ausgrabung oder des zu errichtenden Gebäudes) und der Darstellung verschiedener Sichten auf das Modell im Layout und den zugehörigen Layoutelementen.
+
+### Koordinaten und Einheit
+
+AutoCAD hat *a priori* ein dreidimensionales, karthesisches Koordinatensystem, es wird als **Weltkoordinatensystem** (WKS/WCS) bezeichnet. Die Koordinaten sind infinit klein und ebenso groß, ich vermute aber programmtechnische Grenzen durch die Dimensionierung von Variablen über die ich bisher aber nicht gestolpert bin. Neben dem WKS können **benutzerspezifische karthesische Koordinatensysteme** (BKS/UCS) definiert werden mit einer Verschiebung des Ursprungs und einer Rotation der orthogonalen Achsen. Lokale Grabungskoordinaten innerhalb eines projizierten Koordinatensystems, z.B. UTM, sind also möglich. 
+
+Die angezeigten Zahlen der Koordinaten haben alle die selbe Einheit. Diese Einheit ist für jede Zeichnung festgelegt und sollte derjenigen entsprechen in der wir die Zahlen verwenden. Auf einer Ausgrabung also Meter und bei technischen Zeichnungen für 3D-Modelle vermutlich Millimeter. ```EINHEIT```öffnet das Fenster für das Einstellen der Einheiten. Vorgabewerte sind Dezimal bei Längen, Dezimalgrad bei Winkeln (Vollkreis = 360°) und Millimeter bei der Einheit. Werden externe Elemente in eine Zeichnung importiert wird der Inhalt automatisch skaliert und angepasst. 
+
+| Anmerkung |
+| ----|
+| Viele Kollegen arbeiten mit dem Standard (mm) zeichnen aber Meter, das führt zu einer Skalierung um den Faktor 1000 und zu sehr großen Objekten in Ihrem Plan. Sehen Sie eine krumme Zahl bei der Skalierung liegen vermutlich Inches vor (engl. Installation/OS).|
+
+### *view cube*
+
+Der *view cube* oben rechts erlaubt eine einfache, intuitive Bewegung im 3D-Raum. Verwandte Befehle oder Funktionen sind ```ORBIT``` oder "Ansicht -> 3D-Ansicht". Aus logischen Gründen ist der *view cube* bei älteren Versionen von AutoCAD in der 2D-Ansicht (Standard) nicht sichtbar (s. Visuelle Stile). Einfache "3D"-Ansichten sind die planaren Ansichten auf jeweils zwei Achsen, also die 4 Seiten des Würfels. Diese sind extrem schnell, auch bei älteren Rechner, da hier nur die Achsen getauscht werden und keine echte 3D-Ansicht vorliegt. Sie erkennen dies an der Darstellung des Achsen-Symbols. 
+Die Rotation ist abhängig vom Ursprung des Modells bzw. des Koordinatensystems oder Sie markieren ein Objekt, dessen Zentrum zum Rotationspunkt wird.
+
+### Visuelle Stile
+
+Visuelle Stile werden über "Ansicht -> Visuelle Stile" ausgewählt und steuern die Darstellung des Modelles als einfache 2D-Ansicht, 3D-Gitter oder zunehmend komplexe Repräsentation. Diese Darstellung ist ein wesentliches Kriterium für die Performanz ihres Systems bei der Arbeit an großen Dateien. In Abhängigkeit vom visuellen Stil wird das Achsen-Symbol unterschiedlich dargestellt. In früheren Versionen wurde der *view cube* in der 2D-Ansicht nicht dargestellt und die Ansichten fokussierten auf die vier Seiten des Würfels, die über "Ansicht -> 3D-Ansicht" ausgewählt werden können. 
+
+## Erstes Zeichnen
+
+### 2D-Polylinie
+
+Zeichnen Sie eine Polylinie mit dem Befehl ```pl```. Sie werden am Fadenkreuz nach dem Startpunkt gefragt, tippen Sie bitte ```0,0.0```, bestätigen Sie mit \<enter>. Dabei ist das "," das Trennzeichen für x und y, "." das Dezimaltrennzeichen. Die nächsten Koordinaten sind ```100,0``` und ```100,100```, beenden Sie den Befehl dann mit \<enter> ohne vorherige Koordinateneingabe. Mit ```zoom```, ```g``` zoomen Sie auf die Grenzen der Zeichnung und sehen eine horizontale Linie mit anschließendem 45° Winkel statt des vermutlich erwarteten 90° Winkels nach oben (0,0 100,0 100,100).  Tippen Sie bitte die Funktionstaste \<F2> (auf einem Notebook vermutlich in Kombination mit \<FN>), es öffnet sich die Historie bzw. das **Protokoll der Befehle** und Sie sehen, dass die Befehle dort als "\@100,0" und "\@100,100" protokolliert sind. Dieses "\@" impliziert den Bezug der angegebenen Koordinaten auf den aktuellen Standpunkt. Also vom aktuellen Punkt aus jeweils 100 Einheiten positiv auf der x- und der y-Achse. 
+
+Dies ist, zusammen mit der Befehlseingabe am Fadenkreuz, ein Effekt des **Dynamischen Modus**. Stellen Sie den Dynamischen Modus nun mit ```dynmode```, ```-3``` aus (3 stellt den Status wieder her). Tippen Sie die Funktionstaste \<F3> um den **O(bjekt)Fang** einzuschalten, das Icon "Viereck mit Punkt" rechts unten sollte nun blau sein. Der OFang von "Endpunkten" ist standardmäßig aktiv, kontrolliere Sie dies bitte im zugehörigen *drop down* des Icons. Starten Sie mit ```pl``` eine neue Polylinie, fangen Sie den Punkt "100,0", das Fadenkreuz zeigt dann ein charakteristisches Symbol und zeichnen Sie nun als nächsten Punkt "100,100", dann "\@100<180", abschließend "0,0" und beenden Sie mit \<enter> ohne Koordinateneingabe.
+
+### Koordinateneingabe
+
+Die Koordinateneingabe kann, wie eben gezeigt, in drei Formen erfolgen:
+
+- als absolute Koordinate (ohne dynmode): "100,100"
+- als relative Koordinate zur aktiven Position: "\@100,100"
+- als relative Distanz und Winkel: "\@100<90", wobei die x-Achse die Basis des Winkels ist.
+
+### Dynmode
+
+Der Dynmode verändert nicht nur die Anzeige und positioniert die Befehlseingabe unmittelbar an der Maus, sondern er verändert eben auch das Bezugssystem der eingegebenen Koordinaten relativ zum aktiven Punkt. Das Ziel ist eine Fokussierung des Zeichners auf den kleinen Ausschnitt des Fadenkreuzes. Ich selbst denke in absoluten Koordinaten, habe meist einen kleinen Monitor und mag das "Geflimmer" am Fadenkreuz nicht. Sie können für sich nun  eine bewusste Entscheidung treffen.
+
+| Wert | Beschreibung |
+|---:|:------------------------------------------------|
+| 0 | Alle dynamischen Eingabefunktionen, einschließlich dynamische Eingabeaufforderungen, ausschalten |
+| 1 | Zeigereingabe ein |
+| 2 | Bemaßungseingabe ein |
+| 3 | Zeigereingabe und Bemaßungseingabe ein |
+
+Negative Zahlen sind gleichbedeutend mit "0" speichern aber die letzte Einstellung.
+
+### 3D-Polylinie
+
+Schreiben Sie den Befehl ```3dp```, starten Sie bei  ```0,0,0```, dann ```50,50,100``` und fangen Sie zum Abschluss die gegenüberliegende Ecke des Vierecks. Rufen Sie den letzten Befehl  mit der \<&#8593;>-Taste erneut auf und wiederholen Sie den Vorgang für die andere Diagonale, diesmal gerne unter Verwendung des OFANG. Ergänzen Sie im *drop down* des OFANG den Mittelpunkt und zeichnen Sie ebenfalls 3D-Polylinien zwischen den Mittelpunkten der Seiten über die Spitze. Spielen Sie anschließend ein wenig mit den Optionen des *view cube* und speichern Sie die Zeichnung.

@@ -1,0 +1,86 @@
+---
+title: "Einführung in AutoCAD für Archäologen"
+author: Christoph Rinne
+email: crinne@ufg.uni-kiel.de
+date: "`r format(Sys.time(), '%d. %B %Y')`"
+license: "CC-BY 4.0"
+header-includes:
+  \renewcommand{\contentsname}{Inhalt}
+  \renewcommand{\figurename}{Abb.}
+bibliography: AutoCAD-cours-references.bib
+csl: journal-of-archaeological-science.csl
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+    df_print: kable
+urlcolor: blue
+link-citations: yes # make citations hyperlinks
+linkcolor: blue
+number_sections: yes
+lang: de-DE
+---
+
+# Vorbemerkung {-}
+
+Der Kurs sollte im Sommersemester 2020 im PC-Labor des Institutes für Ur- und Frühgeschichte der Christian-Abrechts-Universität zu Kiel stattfinden. Durch die Corona-Virus-Pandemie (covid-19) musste er dann ausschließlich mittels Videokonferenz erfolgen. Da die technischen Einschränkungen, wie z.B. nur ein Monitor, schlechtere Bildqualität und eingeschränkte Kommunikation zu Nachbarn und Dozenten, eine besondere Herausforderung vor allem bei der Arbeit in einer Software wie CAD darstellen, wurden alle Unterichtseinheiten zu beginn als Video dann konsequent als umfangreiches Skript ausgeführt. Dabei liegt der Schwerpunkt auf der schriftlichen Erläuterung und nicht auf Bildern, da die Abläufe in der Übung ja durchgeführt wurden. Das Ziel war eine Handreichung, die eine Grundlage für die Vorbereitung und die Nachbereitung der jeweiligen Stunde darstellen sollte. Dies schließt eine selbständige Erarbeitung des Inhaltes nicht aus, diese mag aber wegen der fehlenden Bilder weniger intuitiv erscheinen.
+
+| Anmerkung |
+|----|
+| Statt der im PC-Labor installierten Version AutoCAD 2010 und der vereinzelt genutzten Version AutoCAD 2014 wurde bei der Übung die Version AutoCAD 2018 verwendet. Die damit einhergehenden Veränderungen im Menü aber auch von einzelnen Befehlen stellten auch für mich als Dozent eine Übung dar.| 
+| Diese Datei und die zugehörigen Daten der Übungen finden Sie in meinem Github-Verzeichnis: https://github.com/chrinne/tutorial-autocad2018 |
+
+## Lernziele
+
+Behandelt werden diverse Optionen zur klaren und einheitlichen Strukturierung der Datei, so z.B. Layer und Layerfilter, externe Referenzen, Blöcke mit Attributen, Planerstellung, Datenexport und Interoperabilität mit Fokus auf GIS. Damit wird der allegemine Einstieg in AutoCAD und die Grundlagen beider vorgenannten Interessensbereiche, Dokumentation einer Ausgrabung und Nachnutzung in der Auswertung, behandelt.
+
+## Software
+
+Zum Einsatz kommmt AutoCAD der Firma Autodesk. Im PC-Labor der Ur- und Frühgeschichte steht AutoCAD 2010 zur Verfügung. Für die Arbeit am eigenen Rechner wird eine kostenlose Studentenversion von AutoCAD 2018 genutzt. Die aktuellste Version von AutoCAD, Version  2020, stellt sehr hohe Hardwareanforderungen (u.a. mind. 8 GB besser 16 GB RAM). Informieren Sie sich bitte eigenständig vorab, ob Ihr Rechner die notwendigen [Systemanforderungen](https://knowledge.autodesk.com/de/support/autocad/troubleshooting/caas/sfdcarticles/sfdcarticles/DEU/System-requirements-for-AutoCAD.html) erfüllt. Für die Nutzung dieser kostenlosen Studentenversion muss mit einer stu(denten)-E-Mail der Uni ein Account bei Autodesk eingerichtet werden. Weitere Informationen hierzu finden Sie bei [Autodesk](https://knowledge.autodesk.com/customer-service/account-management/education-program/free-education-access). Die jüngste Authentifizierung nutzt [Shibbolet-Authentifizierung](https://de.wikipedia.org/wiki/Shibboleth_(Internet)).
+
+## Warum CAD und warum AutoCAD?
+
+Die Schnittstelle zwischen Archäologie und CAD (Computer Aided Design) ist ohne jeden Zweifel die archäologische Ausgrabung. Es ist vor allem die Einführung optischer Vermessungsgeräte auf den Ausgrabungen, die seit den 1990ern für eine rapide Zunahme genuin digitaler Grabungspläne sorgt. Investitionen in diesem Bereich sind teuer, werden nachhaltig genutzt und haben über die Jahre oft zu abgestimmten Handlungsrichtlinien  in Denkmalämtern und Grabungsfirmen geführt.
+
+Es gibt mehrere CAD Programme, die aber fast ausnahmslos eines gemeinsam haben: sie sind proprietär und damit kostenpflichtig. Eine freie Ausnahme mit echtem 3D und vielen interessanten Optionen ist sicher [freeCAD](https://www.freecadweb.org/). Dazu gehört eine aktive Entwicklergemeinschaft auf [github](https://github.com/FreeCAD), die den überwiegend in c++ und Python geschriebene Code fortwährend weiterentwickelt. Die Unterschiede zu AutoCAD sind für den Anwender aber enorm, so dass eine Umstellung  von AutoCAD zu freeCAD sehr schwer fällt. AutoCAD von Autodesk ist im Bereich CAD ein Marktführer und in der Archäologie wegen diverser ergänzender und hierauf aufsetzender Software sicher besonders verbreitet. Als Beispiele seien genannt:
+
+- [FARO](https://www.faro.com/) (ehem. kubit) mit TachCAD für die direkte Kommunikation zum Tachymeter und PhotoPlan für die Messbildentzerrung oder
+- [Arctron](https://www.arctron.de) mit der Anwendung ArchäoCAD.
+
+Es gibt also im wesentlichen zwei Gründe, sich mit AutoCAD zu befassen:
+
+- Sie wollen auf archäologischen Ausgrabungen souverän und effizient die Dokumentation bewältigen.
+- Sie wollen mit den genuinen in CAD erstellten, digitalen Plänen von Ausgrabungen in Ihrem Forschungsprojekt arbeiten. Auch in diesem Fall ist die versierte Sichtung der Daten im genuinen Kontext von Vorteil.
+
+Natürlich gewinnen Geographische Informationssystem (GIS) auch im Bereich der Grabungsdokumentation an Bedeutung, vor allem im Bereich der Messbildentzerrung stehen absolut equivalente Algorithmen zur Verfügung. Dennoch bestehen weiterhin grundlegende Unterschiede zwischen CAD einem GIS, die erst ganz allmählich durch grundsätzliche 3D-Funktionalitäten und Software für die *on-the-fly* Schnittstelle zum Tachy, z.B. [Tachy2GIS](https://www.youtube.com/watch?v=D7IQ7rvQnSo), überbrückt werden.
+
+# AutoCAD Download und Installation
+
+## Download
+
+Die Firma Autodesk bietet Studierenden und Dozenten eine kostenlose Version der Software. Die Nutzungsbedingungen haben sich in den vergangenen Jahren stets ein wenig verändert, eine Grundvoraussetzung ist aber die nicht-kommerzielle Verwendung für die Ausbildung. Weitere Informationen finden Sie bei [Autodesk](https://knowledge.autodesk.com/customer-service/account-management/education-program/free-education-access). Für den Zugang müssen Sie sich einen "[*Education Account*](https://knowledge.autodesk.com/customer-service/account-management/education-program/create-education-account/create-account-students-educators)" anlegen. Zur Authentifizierung reicht für gewöhnlich eine E-Mail der Universität, hoch aktuell wird auch auf die [Shibbolet-Authentifizierung](https://de.wikipedia.org/wiki/Shibboleth_(Internet)) zurückgegriffen (CIM an der CAU). Informieren Sie sich hierzu bitte auf den Informationsseiten Ihrer Universität. Dieser Account bei Autodesk wird vor dem *download* auf der Seite zu den [freien Softwareangeboten von Autodesk](https://www.autodesk.com/education/free-software/) erstellt. Wählen Sie auf dieser Seite "AutoCAD", richten Sie sich einen Account ein oder melden Sie sich an und wählen Sie nachfolgend:
+
+- Lizenztyp: Persönlich oder Einzelnutzung
+- Version:  AutoCAD 2018
+- Betriebssystem: Windows 32 bit oder 64 bit
+- Sprache: ...
+
+Nachfolgend werden Ihnen Ihre Lizensierungsdaten angezeigt. Unabhängig von weiteren E-Mails oder den hinterlegten Daten zu Ihrem Account empfehle ich, diese Daten direkt per *copy & paste* in eine Textdatei zu kopieren. Nach einem Hinweis auf dieser Seite ist AutoCAD ebenfalls für Mac (kompatibel mit **Mac OS X 10.13.x High Sierra**) verfügbar.
+
+
+| Anmerkung |
+|----|
+| Da Sie sich für den Download der Software einen Account angelegt haben, können Sie auf eine umfangreiche Sammlung an Lehrmitteln auf der Seite von AutoDesk zugreifen [Link]( https://knowledge.autodesk.com/de).|
+
+## Installation
+
+Die Installation ist, je nach Netztanbindung, ein langer oder sehr langer Prozess. Direkt nach der Wahl der Version und der Anzeige der Lizenzdaten startet der Download des **Webinstallers**. Nach dem Start des Webinstallers werden weitere Programmepakete heruntergeladen. Beachten Sie bitte mögliche Beschränkungen durch die Sicherheitsvorkehrungen von Windows 10 und bestätigen Sie den Download und die Installation der Software von Autodesk. Zuerst wird der **Downloadmanager** heruntergeladen und installiert. Erst diese Software zieht dann die eigentlichen Programme (ca. 5 GB). Nach Abschluss dieses Download kann dann die eigentliche Installation gestartet werden.
+
+Die Installation erfolgt mit allgemein üblichen Schritten wie der Lizenzanerkennung und kann auch individuell angepasst werden. Mit der Installation von AutoCAD sollen drei weitere Programme installiert werden:
+
+- [Autodesk Exchange App Manager](http://download.autodesk.com/us/exchange/appmanager/AppManager_HELP_ENU.html): Dieser dient dem Download und der Aktualisierung von Apps vermutlich aus dem Autodesk eigene [App-Store](https://apps.autodesk.com/en)
+- Exchange - Plugin für verfügbare Apps: Durch dieses Plugin wird eine Registerkarte der Multifunktionsleiste hinzugefügt, diese unterstützt oder enthält empfohlene Apps. 
+- Autodesk AutoCAD Performance Reporting Tool: Durch dieses Plugin können Sie Autodesk Leistungsprobleme bei der Verwendung von AutoCAD melden. 
+
+Danach startet die eigentliche Installation.

@@ -1,0 +1,90 @@
+---
+title: "Einführung in AutoCAD für Archäologen"
+author: Christoph Rinne
+email: crinne@ufg.uni-kiel.de
+date: "`r format(Sys.time(), '%d. %B %Y')`"
+license: "CC-BY-NC 4.0"
+header-includes:
+  \renewcommand{\contentsname}{Inhalt}
+  \renewcommand{\figurename}{Abb.}
+bibliography: AutoCAD-cours-references.bib
+csl: journal-of-archaeological-science.csl
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+    df_print: kable
+urlcolor: blue
+link-citations: yes # make citations hyperlinks
+linkcolor: blue
+number_sections: yes
+lang: de-DE
+---
+
+# Layer, Filter & externe Referenzen
+
+In der vorangehenden Übung haben wir mit der Arbeit am sogenannte **Heiligtum von Son Oms** (Son Vidal Nou, Palma de Mallorca) begonnen. Im Ergebnis der Gruppenarbeit in der Übung oder wenn Sie es denn alleine abgearbeitet haben sollten, liegen Dateien mit Plan und mindestens einer Wand vor. Inhalt dieser Übung:
+
+- Wir werden die bisherige Zeichnung mit Hilfe von Layerfilter und Objektfilter in ihre inhaltlichen Einheiten Plan und Wand zerlegen. Analog hierzu könnten Sie komplexe Ausgrabungspläne in inhaltliche Einheiten für einen strukturierten Datentransfer zerlegen.
+- Die Einzelteile werden als externe Referenzen (xRef) in eine Datei referenziert und nachfolgend mit binden als auch einfügen physisch in die Datei eingefügt um die Effekte auf die Layernamen zu betrachten. Verteiltes Arbeiten kommt in der Archäologie oft vor, z.B. in den einzelnen Schnitten einer Ausgrabung.  
+
+Die **Arbeit im 3D-Raum** ist eine Herausforderung für unsere Orientierung und birgt Gefahren. Beim Messen auf Ausgrabungen wird gerne mal die veränderte Prismenhöhe vergessen oder ein Punkt von Hand gesetzt, woraus ein Z-Wert von 0 resultiert.
+Um die Arbeit im 3D-Raum zu erleichtern erstellen Sie sich zwei **Ansichtsfenster**: "Ansicht -> Ansichtfenster -> 2 Ansichtfenster" und wählen Sie "vertikal". Sie erhalten zwei unabhängige Ansichten auf Ihr Modell. Wählen Sie in einem Fenster "Ansicht -> 3D-Ansicht -> Oben" und in dem anderen Fenster "Ansicht -> 3D-Ansicht -> Vorne" (Tausch y/z) oder eine alternative Ansicht mit dem View Cube. Auf Ausgrabungen ist dies extrem hilfreich für die Vermeidung von Fehlern.
+
+## Arbeit mit Layern
+
+Layer sind ein sehr wichtiges Element zur Strukturierung von CAD-Zeichnungen. Vorab ein ergänzender Tip und Hinweise zum bisher dargestellten:
+
+- Üblicherweise erhalten Objekte die wesentlichen Eigenschaften Farbe, Strichtyp und Linienstärke vom Layer. Wenn Sie beim Digitalisieren die Eigenschaft Farbe im Menü ändern, z.B. auf Magenta, dann werden alle nachfolgend erstellten Objekte in dieser Farbe dargestellt. Dies kann genutzt werden, um alle Objekte des Tages mit einer "Tagesfarbe" einzufärben. So können dann alle neuen Objekte gefiltert, extrahiert und mit einem Schlag durch die Wahl der Farbe "von Layer" wieder normiert dargestellt werden.
+
+- Die Farbe ist heute "nur" Farbe. Früher wurden Pläne mit Stiftplottern auf Papier gezeichnet(!), die Farbe entsprach da gerne den farbcodierten Strichstärken der Tuschestifte/Rapidografen im Plotter. Eventuell haben Sie ja noch Keramik mit Tuschestiften gezeichnet. Farbe ist eine gute visuelle Hilfe, um Objektgruppen zu Trennen: Befunde, Profillinien, Schnittgrenze etc. Moderne Din-A0-Plotter sind Tintenstrahldrucker und können Farbe reproduzieren. Denken Sie aber an den Kontrast auf weißem Papier und die Beständigkeit einer Farbe wie z.B. Gelb unter UV-Licht.
+
+## Objekte filtern und exportieren
+
+Die Auswahl von Objekten erfolgt am effektivsten über die Layer auf denen diese liegen oder die Eigenschaften der Objekte selbst. Der Export kann einerseits über "Kopieren mit Basispunkt" und einfügen in eine neue Datei erfolgen oder schlicht als Export in einen Welt-Block (wblock), also einen Block außerhalb der aktuellen Datei.
+
+### Layereigenschaftenfilter
+
+Öffnen Sie das Layerfenster mit ```layer``` und mit dem ersten Icon der Menüleiste oder \<alt>+\<e> das Fenster für den Eigenschaftenfilter. Vergeben Sie einen Namen, hier "A-Wand", und tragen Sie dann eine Bedingung in der folgenden Eigenschaftentabelle als Filter ein, hier bei Name "A-Wand\*".    
+
+Stringente Layernamen bieten einen schnellen Filter, charakteristische Farben oder eben eine "Tagesfarbe" für die neuen Objekte des Tages sind gleichfalls hilfreich. Filter für ganze Gruppen von Layern die eingeschalteten oder ausgeschalteten werden sollen, z.B. alles auf 'Pl_01', können die Arbeit deutlich beschleunigen.
+
+Nach dem Speichern ist der neue Filter im linken Fenster zu sehen. Wählen Sie im Kontextmenü der obersten Ebene "ALLE" "Sichtbarkeit -> Aus". Wählen Sie erst den Filter "A-Wand", sie sehen nur noch die zugehörigen Layer. Wählen Sie danach im Kontextmenü des Filters "A-Wand" "Sichtbarkeit -> Ein". Markieren Sie alle Sichtbaren Objekte, es sollten ausschließlich Bild und Steine der A-Wand sein. Tippen Sie  ```wblock``` und exportieren Sie nur die (gewählten) **Objekte**, Basispunkt bleibt 0,0,0, behalten Sie die Objekte in dieser Zeichnung, vergeben Sie einen Dateinamen "SonOms_A-Wand.dwg" und achten Sie auf die korrekte Einheit "Meter".
+
+### Eigenschaften - Schnellauswahl
+
+Die Auswahl von Objekten über ihre Eigenschaft ist extrem Hilfreich und schnell. Das nachfolgende Beispiel für die Objekte der B-Wand ist nicht wirklich gut gewählt, deshalb folgen anschließend einige allgemeinere Beispiele.
+
+Schalten Sie alle Layer ein und markieren Sie pauschal alle Objekte. Rufen Sie über das Kontextmenü das Eigenschaftenfenster auf. Natürlich können Sie auch ohne vorherige Auswahl direkt im Eigenschaftenfenster starten, der Weg ist dann aber etwas anders. Oben wird Ihnen in einem *drop-down* die Anzahl der markierten Objekte angezeigt, das drop-down selbst nennt die Anzahl je Objekttyp. Öffnen Sie mit dem Icon mit dem gelben Blitz ganz rechts die Schnellauswahl. Aus der "Aktuellen Auswahl" wollen wir "Mehrfach" (also diverse) Objekttypen auswählen mit der Eigenschaft "Layer" "=Gleich" "B-Wand_Bild" "In einen neuen Auswahlsatz einfügen" [OK]. Wählen Sie erneut die Schnellauswahl. Anwenden auf: "Ganze Zeichnung", Objekttyp: "Mehrfach", Eigenschaften "Layer" "=Gleich" "B-Wand_Steine", "In einen neuen Auswahlsatz einfügen" und (!) "An aktuelle Auswahlsatz anhängen" [OK]. Auch diese Auswahl exportieren Sie mit ```wblock``` in eine neue DWG.
+
+Effektive Beispiele wären:
+
+- Sie wollen alle Polylinien (unsere Steine) auswählen. Objekte: *drop-down* "Polylinie", Eigenschaften "Farbe", "=Gleich" "VonLayer", "In einen neuen Auswahlsatz einfügen" [OK].
+- Sie wollen die großen Steine mit > 2m² Fläche auswählen. Objekttyp: "Polylinie", Eigenschaft: "Fläche", "> Größer als", Wert: "2" [OK]. Beachte Sie hierbei, dass auch nicht geschlossene Polylinien eine Fläche haben. 
+
+Die Liste der zu filternden Eigenschaften hängt von der Objektauswahl ab.
+
+## Externe Referenzen
+
+Die eingebundenen Bilder in unserer Datei waren schon externe Referenzen. Nachfolgend wird es nur ein wenig komplexer aber deutlich effektiver für große Projekte.
+
+### Externe DWG einbinden
+Erstellen Sie eine neue leere Datei (\<strg>+\<n>), überprüfen Sie die Einheit (Meter), öffnen Sie den Referenzmanager ```xref``` und binden Sie nacheinander folgende Dateien ein: SonOms_plan und SonOms_[A ... D]-Wand. Die Parameter sind jeweils Referenztyp: Zuordnung, Skalierung: "1,1,1", Einfügepunkt: "0,0,0", Pfadtyp: "relativ", Drehung: "0". Achten Sie auf die Blockeinheit und ihre Skalierung und brechen Sie den Vorgang ggf. ab, um die Einheit zu prüfen und zu korrigieren.
+
+Im Referenzmanager sehen Sie die eingebundenen DWG und die jeweils darin referenzierten Bilder. Diese Abhängigkeit wird mit dem "|" im Namen dargestellt. Am rechten Rand sehen Sie den gespeicherten Pfad, dieser sollte für die DWG relativ sein, kann aber für die Bilder absolut angegeben sein. Bei fehlender Zuordnung von Referenzen sortieren Sie als erstes nach dem "Status", wählen Sie alle nicht geladenen und wählen über das Kontextmenü "Neuladen". 
+
+Öffnen Sie nachfolgend den Layermanager, auch hier sehen Sie einen langen Layernamen aus [Dateiname]|[Layername]. Estellen Sie zwei Layerfilter auf die Namensbestandteile "\*Steine*" und "\*Bild*". Kontrollieren Sie noch abschließend die vorhandenen BKS, es liegt nur das WKS vor, in dem alle Zeichnungen nun exakt aufeinanderliegen.
+
+Sie können ausschließlich eine Referenz auswählen, nicht ein einzelnes Element in dieser Referenz. Es ist möglich, externe Referenzen direkt durch diese Zeichnung zu bearbeiten, ich selbst empfinde dies aber als umständlich, verwirrend und irgendwie "übergriffig". Insofern führe ich es hier nicht weiter aus. Ich selbst nutze externe Referenzen als Übersichtsprojekt, z.B. die gesamte Grabung, oder um Altdaten abgeschlossener Projekte zu hinterlegen ohne sie einzufügen.
+
+### Binden und Einfügen
+
+Die Arbeit mit externen Referenzen kann nach Abschluss des Projektes, zumal für ungeübte Anwender oder beim Export in andere Format hinderlich sein. Es macht durchaus Sinn, diese Hierarchie aufzulösen alle DWG-Referenzen fest einzubinden und das Projekt als eine Datei zu speichern. Bildrefernzen können nicht eingebunden werden.
+
+Sortieren Sie Ihre externen Referenzen bei Bedarf nach Typ und markieren Sie ausschließlich DWG-Referenzen. Wählen Sie aus dem Kontextmenü **Binden**, das eröffnet zwei Möglichkeiten **Binden** und **Einfügen**. Der wesentliche Unterschied ist die Behandlung der Layer:
+
+- **Binden - Binden** erstellt Layernamen der Form \<Dateiname>$0$\<Layername>. Die Herkunft der Daten ist also über den Layernamen nachvollziehbar. Die Layerliste selbst und auch die Namen der Layer können damit sehr lang werden. Layerfilter erlauben aber dennoch eine effiziente Arbeit.
+-  **Binden - Einfügen** fasst alle Layer mit identischen Namen zusammen. Im Ergebnis haben Sie kurze Layernamen, z.B. Pl01_FundNr, unabhängig vom Schnitt oder der Fläche der Großgrabung.
+
+Eventuell gehen externe Referenzen zu Bildern durch das Binden erst verloren. Speichern Sie die Datei unter einem neuen Namen, wählen Sie dann im XRef-Manager die Option "neu laden".

@@ -1,0 +1,97 @@
+---
+title: "Einführung in AutoCAD für Archäologen"
+author: Christoph Rinne
+email: crinne@ufg.uni-kiel.de
+date: "`r format(Sys.time(), '%d. %B %Y')`"
+license: "CC-BY-NC 4.0"
+header-includes:
+  \renewcommand{\contentsname}{Inhalt}
+  \renewcommand{\figurename}{Abb.}
+bibliography: AutoCAD-cours-references.bib
+csl: journal-of-archaeological-science.csl
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+    df_print: kable
+urlcolor: blue
+link-citations: yes # make citations hyperlinks
+linkcolor: blue
+number_sections: yes
+lang: de-DE
+---
+
+# Block mit Attribut
+
+In der vorangehenden Übung haben wir mit dem Erstellen eines Plot für das  **Heiligtum von Son Oms** die erste Runde durch die Arbeit mit AutoCAD abgeschlossen. Es folgen wichtige ergänzende Aspekte: Blöcke mit Attribut, Textstil, Beschriftung und LISP.
+
+Ein Block ist als Versatzstück aus vielen Bereichen bekannt. Die Aufgabe ist klar, ein vorgefertigtes Objekt wird immer wieder eingesetzt, dabei wird in AutoCAD nicht eine Kopie sondern eine Referenz mit ergänzenden Attributen verwendet. Eine effiziente Nutzung in AutoCAD wäre z.B. eine Sechskantmutter (Schraube) mit einem Innengewinde von 1 mm (M1) und zusätzlichem Attribut zum Material (z.B. V2A). In einem Baustück wird nur auf diesen einen Block verwiesen, mal skaliert auf M6, M8, M10 (6 mm, 8 mm, 10 mm) und ergänzender Angabe zum Material. Am Ende lässt sich der Block aus der Zeichnung als Liste exportieren mit Angaben zu Lage (Koordinaten), Layer, Skalierung und ergänzendem Attribut, eine komplette Einkaufsliste.
+
+Die Übertragung auf die Archäologie, insbesondere die Ausgrabung, liegt auf der Hand: Befundnummern, Fundnummern, Niv-Werte, Messbildnägel, Profilnägel. Jeweils stehen Koordinaten, Layer, sogar Drehung und Attribute als Liste zur Verfügung. Mit ein wenig LISP (dazu später) wird alles normiert, automatisch gezählt, Messdatum ergänzt und der Layer automatisch gewechselt. 
+
+Für den Anfang bleiben wir bei einfachen Blöcken. Wir ergänzen 1. die Zahlen der Steine in der Zeichnung von Son Oms und 2. einige Niv-Punkte für die Steine mit automatisch eingetragenem Z-Wert.
+
+## Block Editor und Grundsätzliches
+
+Der Blockeditor von AutoCAD ("Extras -> Blockeditor") bietet eine angepasste Menüleiste für das erstellen von Blöcken in der Zeichnung. Sie können aber auch ohne diesen einen Block schlicht als eigene AutoCAD-Datei außerhalb der aktuellen Zeichnung erstellen und importieren. Der Vorgang ist im Grunde identisch.
+
+Wichtige Dinge:
+
+- Layer: Der Block sollte auf Layer "0" liegen, dann wird er später auf dem aktiven Zeichenlayer abgelegt und erhält dessen Eigenschaft. Verwenden Sie Layer im Block werden diese Layer 1. Bestandteil der Zeichnung und können nur nach dem Block gelöscht werden und 2. werden die einzelnen Elemente des Blockes nach dem Zerlegen (Ursprung) auf diesen Layern abgelegt.
+- Einheit: Achten Sie auf die korrekte Blockeinheit (mm, m, inch)
+- Textstil: Wie bei Layern werden im Block verwendete Textstile importiert. Für eine differenzierte Gestaltung von Beschriftung ist dies durchaus interessant.
+- WKS: Bleiben Sie im WKS, der Ursprung (0,0,0) des Blockes wird der Einfügepunkt der späteren Referenz.
+
+## Steinnummer
+
+Die Steinnummer der Plan- und Wandzeichnungen sollen ergänzt werden. Natürlich geht das bei den wenigen Steinen auch als Text (Einzeilentext) schnell und lässt sich als Textdatei exportieren ("Extras -> Datenextraktion"). Ich will aber Layout, Vereinheitlichung und die Möglichkeiten der Attribute nutzen.     
+Planung: Die kleinen Steine der Zeichnung haben etwas 10 cm Höhe, soll der Text einigermaßen hineinpassen, darf er nicht größer sein. Im Maßstab 1:100 wird der Block 1 mm groß (ca. 2.84 pt), der Text ist nicht mehr zu lesen. Soll der Text lesbar sein müssen wir entweder eine getrennte Skalierung anwenden oder den Text *a priori* größer gestalten (s.u.).  
+
+### Attributdefinition
+
+Starten Sie den Blockeditor "Extras -> Blockeditor" und nennen Sie den neuen Block "Steinnummer". Mit dem Etiketten-Symbol in der Icon-Leiste starten Sie die Attributdefinition (```attdef```). In dem neuen Fenster tragen Sie vorerst bitte Folgendes ein: Bezeichnung: "Steinnummer", Eingabeaufforderung: "Nummer des Steines", Ausrichtung: Mitte zentr[iert], Beschriftung: Haken/Ja, Texthöhe: "0.2", Einfügepunkt nicht am Bildschirmbestimmen sondern 0,0,0 und bestätigen Sie [OK].
+
+Rufen Sie die Attributdefinition erneut auf. Bezeichnung: "Wand", Eingabeaufforderung: "Buchstabe der Wand", Ausrichtung: Mitte zentr[iert], Beschriftung: Nein, Texthöhe: "0.1", Unsichtbar: Ja, Einfügepunkt nicht am Bildschirmbestimmen sondern 0,0.15,0 und bestätigen Sie [OK]. Markieren Sie dieses Attribut, wählen Sie im Kontextmenü (rechte Mausklick) Attributreihenfolge und ändern Sie diese in Wand > Steinnummer (```battreihenf```).  
+
+Öffnen Sie die Eigenschaften des Attributes Steinnummer. Klicken Sie auf 1:1 bei Beschriftungs-Maßstab, wählen Sie das Icon am rechten Rand, mit [Hinzufügen] ergänzen Sie den Maßstab 2:1, bestätigen Sie mit [OK], löschen Sie 1:1, bestätigen Sie mit [OK]. Papiertexthöhe und Modelltexthöhe verhalten sich jetzt in diesem Maßstab, wobei die Papiertexthöhe der Vorgabewert ist und der sichtbare Text im Modell nun 0.1 groß ist. Aus der Papiertexthöhe von 0.2 wird beim Plotmaßstab 1:100 2 mm Texthöhe oder ca. 5.7 pt, also eine eben noch lesbare Beschriftung. 
+
+Schließen Sie den Blockeditor und speichern Sie die Änderungen. Sollten Sie nachträglich Änderungen vornehmen wollen starten Sie den Block-Attribut-Manager ```BATTMAN``` (batman mit 2 t). Nach Änderungen sollten Sie [Anwenden] und [Synchron.] betätigen, um alle Blockreferenzen des geänderten Blocks zu aktualisieren.
+
+### Steinnummern einfügen
+
+Blenden Sie die Layer aller Wände bis auf "A-Wand" aus. Wechseln Sie in den Layer "A-Wand-Steine", in das BKS der A-Wand und in der Ansicht (View Cube) zu "Oben" (Frontalansicht). Rufen Sie mit "Einfügen -> Block" oder ```ddinsert``` den Block Steinnummer auf, behalten Sie die Vorgaben [OK] und bestimmen Sie den Einfügepunkt am Bildschirm. Tragen Sie die entsprechende Nummer im Formular ein und [OK]. 
+
+Das zugehörige Formular der Attributeingabe ist sehr groß und erfordert die Maus oder die \<tab>- und \<enter>-Taste für die Bestätigung. Sie können dieses Dialogfenster mit ```attdia``` auf 0 setzen und damit ausschalten. Danach geht das Einfügen der Blöcke mit \<enter> (wiederholt den letzten Befehl ddinsert), \<enter> (bestätigten den Block), Position bestimmen, Buchstabe eintragen \<enter>, Zahl eintragen und \<enter> viel schneller. Tragen Sie alle Nummern der Steine dieser Wand ein.  
+
+### Attribute anzeigen & bearbeiten & zerlegen
+
+Mit "Ansicht -> Anzeige -> Attributsanzeige" (```attdisp```) können Sie die Anzeige für alle Attribute der Zeichnung steuern. Normal: Vorgabe aus der Attributsdefinition, Ein: alle sichtbar, Aus: alle unsichtbar. Es wäre also durchaus sinnvoll gewesen, die Steinnummer auch auf einen eigenen Layer je Wand zu legen um selektiv handeln zu können. 
+
+Attribute können zur individuellen Bearbeitung mit einem Doppelklick ausgewählt werden. Wollen Sie ein Attribut in mehreren Blöcken auf einen identische Werte setzen ändern Sie dies über die Eigenschaften der markierten Blöcke.
+
+Mit ```ursprung``` zerlegen Sie einen Block in einzelne Objekte und zwar die Attributdefinitionen, also nicht die eingetragenen Werte und dies an ihre ursprüngliche Position (0,0,0). Mit ```burst``` werden Blockreferenzen am Einfügepunkt zerlegt und Attributwerte in Text-Objekte umgewandelt (nicht in Version 2010).  
+
+## Nivpunkt
+
+Nachfolgend wird ein Block mit Attribut für Niv-Werte entworfen. Der jeweilige Höhenwert soll aus dem Einfügepunkt abgeleitet werden. Starten Sie den Blockeditor und nennen Sie den neuen Block "NivPunkt".
+
+### Symbol & Attributdefinition
+
+Nutzen Sie den Befehl ```polygon``` um ein Vieleck zu zeichnen, Anzahl der Seiten: 3, Umkreis: 0.05. Drehen Sie das resultierende Dreieck mit der Spitze nach unten und schieben Sie die Spitz auf 0,0,0. Zeichnen Sie eine Linie von der Spitze zur Mitte der gegenüberliegenden Seite (OFang). Für eine 3D-Ansicht könnten Sie das Dreieck kopieren und um 90° um die y-Achse gedreht wieder einfügen. Eine flächige Schraffur (ausmalen) sollten sie unterlassen, das schafft keine Informationen sondern nur Datenvolumen.
+
+Definieren Sie ein neues Attribut mit folgenden Angaben: Bezeichnung: NivWert, Eingabeaufforderung: Höhe angeben, Ausrichtung: Unten zentr., Texthöhe: 0.1, Unsichtbar: Nein (also sichtbar) und Einfügepunkt: 0,0.05,0. Für die **Vorgabe** öffnen Sie mit dem Icon rechts daneben ein neues Fenster (Schriftfeld). Wählen Sie im *drop-down* links oben Objekte, darunter unter Schriftfeldname: Objekt, in der zweiten Spalte oben können Sie Objekte wählen, nutzen Sie dazu das Icon und wählen Sie die vertikale Linie im Dreieck. Unter Eigenschaften: sehen Sie nun die Eigenschaften der Linie, wählen Sie hier "Start" für den Startpunkt an der Spitze des Dreiecks. Wählen Sie nun in der dritten Spalte unter Format: Dezimal, Genauigkeit: 0.00 (also 0,00 Meter), wählen Sie ausschließlich Z und bestätigen Sie mit [OK].
+
+Schließen Sie den Blockeditor und speichern Sie die Änderungen.
+
+### Niv-Punkte setzen.
+
+Erstellen Sie einen neuen Layer "A-Wand-NivWerte" mit identischen Eigenschaften wie "A-Wand-Steine". Arbeiten Sie weiterhin im BKS der A-Wand. Rufen Sie mit ```ddinsert``` den neuen Block NivWert auf und wählen Sie als Einfügepunkt im Bildschirm eine Steinspitze im Profil. Bestätigen Sie den Vorgabewert für die Höhe mit \<enter>. Beachten Sie bitte, dass der angegebene Wert sich auf den Z-Wert des WKS bezieht. Ergänzen Sie weitere Niv-Werte.
+
+Für die sinnvolle Nachnutzung dieser Niv-Werte müsste diesen noch die Wand- und Steinbezeichnung als weitere Attribute mitgegeben werden, das ginge nur zum Teil auch über den Layernamen.
+
+## Attributextraktion
+
+Die Attributextraktion benötigt eine Vorlagendatei die die notwendigen Parameter definiert. Liegt diese vor, können Sie mit ```attext``` für gewählte Objekte schnell die Attribute extrahieren. Wählen Sie für den Anfang "Extras -> Datenextraktion", der Assistent führt Sie durch zahlreiche Fenster bis zum Export. Neue Datenextraktion erstellen [Weiter], Wählen Sie einen Speicherort und einen Namen für die Definitionsdatei, bestätigen Sie im nächsten Fenster die Wahl der aktuellen Zeichnung [Weiter]. Im folgenden Fenster wählen Sie unten "Nur Blöcke mit Attribut anzeigen" und wählen die beiden zuvor erstellten Blöcke aus [Weiter]. Im folgenden Fenster wählen Sie erst rechts nur "Attribut" und "Geometrie", dann links alles außer den Skalierungen für x, y und z [Weiter]. Im folgenden Fenster deaktivieren Sie unten die Kombinations- und Zähloption [Weiter]. Wählen Sie im folgenden Fenster "Daten in externe Datei ... " und vermeiden Sie bei der Angabe zur Ausgabedatei unbedingt Excel (Punkt-Komma-Problem) sondern wählen Sie als Format csv- (,) oder txt-Format (\<tab>).
+
+Im Ergebnis erhalten Sie eine tabellarische Liste der Attribute mit Einfügepunkt.
