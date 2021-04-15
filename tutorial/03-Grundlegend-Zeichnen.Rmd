@@ -65,8 +65,6 @@ Die Rotation ist abhängig vom Ursprung des Modells bzw. des Koordinatensystems 
 
 Visuelle Stile werden über "Ansicht -> Visuelle Stile" ausgewählt und steuern die Darstellung des Modelles als einfache 2D-Ansicht, 3D-Gitter oder zunehmend komplexe Repräsentation. Diese Darstellung ist ein wesentliches Kriterium für die Performanz ihres Systems bei der Arbeit an großen Dateien. In Abhängigkeit vom visuellen Stil wird das Achsen-Symbol unterschiedlich dargestellt. In früheren Versionen wurde der *view cube* in der 2D-Ansicht nicht dargestellt und die Ansichten fokussierten auf die vier Seiten des Würfels, die über "Ansicht -> 3D-Ansicht" ausgewählt werden können. 
 
-![AutoCAD 2018. Modellbereich mit zwei Ansichtsfenstern (2D, 3D) auf die selbe Zeichnung](./images/03_AutoCAD_editing_2views.jpg)
-
 ## Erstes Zeichnen
 
 ### 2D-Polylinie
