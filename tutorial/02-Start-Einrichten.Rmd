@@ -24,32 +24,37 @@ lang: de-DE
 
 # AutoCAD erster Start und Einrichten
 
-Wenn AutoCAD von einem Nutzer zum ersten mal gestartet wird richtet das Programm das nutzerspezifische Profil ein, hierzu gehören die Gestaltung der Menüleisten, Schraffur- und Linienbibliotheken und Etliches mehr. Zudem erfolgt die Abfrage der Seriennummer bei einer Einzelplatzinstallation oder der Adresse des Lizenzservers bei einer Netzwerkinstallation. Wird keine Lizenz eingetragen kann das Programm 30 Tage getestet werden (AutoCAD 2018, 02.04.2020). Danach startet das Programm mit einem Startfenster, in dem eine neue Zeichnung gestartet, auf vorangehende Zeichnungen oder auf Infos von Autodesk zugegriffen werden kann.
+Wenn AutoCAD von einem Nutzer zum ersten mal gestartet wird richtet das Programm das nutzerspezifische Profil ein, hierzu gehören die Gestaltung der Menüleisten, Schraffur- und Linienbibliotheken und Etliches mehr. In der Version 2020 erfolgt dies in einem übersichtlichen Fenster mit der Auswahl der bereits installierten Version und den jeweiligen Bereichen. Nach der zuweisung der Dateiendung DWG erfolgt die Angabe des Lizenztyps, wählen Sie: **Einzelplatz** und melden Sie sich mit ihrem Nutzernamen, bzw. der hinterlegten E-Mail und Ihrem Passwort des angelegten Accounts an oder mit vorliegender Seriennummer die Option Lizenz/Seriennummer. Anschließend ist AutoCAD ohne weiteren Kommentar bereit. Haben Sie keine Internetverbindung läuft die 30-Tage-Lizenz.
 
-- Menüpfade werden mit schlichten Pfeilen dargestellt: "Datei -> Speichern".
-- Tastaturkürzel, die ich persönlich gerne Nutze, in Spitzklammern je Taste: \<strg> + \<c>.
-- Schalter auf Formularen werden in [] gesetzt: [OK]
-- Zur Darstellung von Befehlen im Text nutze ich die in Markdown übliche Darstellung von Code oder eben Anweisungen an den Computer: ```anweisung```. Die eher traditionelle Schreibweise sind Goßbuchstaben: ANWEISUNG, die AutoCAD in der Kommandozeile aufgreift. Daneben sind in den Befehlsoptionen die jeweiligen Tastaturkürzel in Großbuchstaben dargestellt: Zoom -> FEnster. Ich verwende deshalb beides in Kombination: ```POLYLINIE``` oder ```PLinie```, bei der Kurzform aber ```pl``` da Kleinbuchstaben ebenfalls gültig und in der täglichen Arbeit viel schneller zu schreiben sind. 
-- Alle Befehle können mit vorangestelltem Unterstrich in der englischen Originalversion aufgerufen werden ```_POLYLINE``` 
+Bei älteren Versionen (bis mind. 2018)  erfolgt bei der Installation die Abfrage der Seriennummer bei einer Einzelplatzinstallation oder der Adresse des Lizenzservers bei einer Netzwerkinstallation. Danach startet das Programm mit einem Startfenster, in dem eine neue Zeichnung gestartet, auf vorangehende Zeichnungen oder auf Infos von Autodesk zugegriffen werden kann.
+
+| Anmerkungen zum Layout bei Anweisungen |
+|----|
+| - Menüpfade werden mit schlichten Pfeilen dargestellt: "Datei -> Speichern". |
+| - Tastaturkürzel, die ich persönlich gerne Nutze, in Spitzklammern je Taste: \<strg> + \<c>. |
+| - Schalter auf Formularen werden in [] gesetzt: [OK] |
+| - Zur Darstellung von Befehlen im Text nutze ich die in Markdown übliche Darstellung von Code bzw. Anweisungen an den Computer: ```anweisung```. Diese Befehle können einfach getippt werden und erscheinen mit automatischer Ergänzung an der Maus oder in der Kommandozeile von AutoCAD. Bei optionalen oder nachfolgenden Anweisungen werden die die Tastaturkürzel in GRossbuchstaben gesetzt und farblich hervorgehoben, z.B. **Z**oom -> **FE**nster. Ich verwende deshalb beides in Kombination: ```POLYLINIE``` oder ```PLinie```, bei der Kurzform aber ```pl``` da Kleinbuchstaben ebenfalls gültig und in der täglichen Arbeit viel schneller zu schreiben sind. |
+| - Alle Befehle können mit vorangestelltem Unterstrich in der englischen Originalversion aufgerufen werden ```_POLYLINE``` |
 
 **Für die effiziente Arbeit in AutoCAD ist eine Maus mit Skrollrad unabdingbar. **
 
-![AutoCAD 2018. Modellbereich mit zwei Ansichtsfenstern (2D, 3D) auf die selbe Zeichnung](./images/AutoCAD_editing_2views.jpg)
+![AutoCAD 2018. Modellbereich mit zwei Ansichtsfenstern (2D, 3D) auf die selbe Zeichnung](./images/03_AutoCAD_editing_2views.jpg)
 
 ## Standard Programmfensters 
 
-Auch bei der Gestaltung des Programmfensters haben sich in den letzten Jahren zahlreiche Details verändert. Zudem werden bei einem Upgrade alte Nutzereinstellungen übernommen, bedenken Sie beides bitte wenn Sie Widersprüche in Ihrer Ansicht und meinem folgenden Text erkennen. Nach dem Starten einer neuen Zeichnung gliedert sich das Programmfenster wie folgt:
+Auch bei der Gestaltung des Programmfensters haben sich in den letzten Jahren zahlreiche Details verändert. Zudem werden bei einem Upgrade alte Nutzereinstellungen übernommen, bedenken Sie beides bitte wenn Sie Widersprüche in Ihrer Ansicht und meinem folgenden Text erkennen. Nach dem **Starten einer Zeichnung** gliedert sich das Programmfenster wie folgt:
 
+- Rechts oben steht neben einer Silhouette Ihr Anmeldename, hier werden Konto- und Lizenzinformationen angezeit und kann eine Abmeldung vom Lizenzdienst erfolgen. 
 - "**A**"utoCAD. Hinter dem von MS Office-Programmen bekannten Design verbergen sich grundlegende Aufgaben, teils redundant mit bisher üblichen Zugängen über das Menü.
 - Links oben befindet sich die "Hauptmenüleiste" für zentrale Aufgaben, z.B. Neue Datei, Speichern etc. Die Leiste kann mit einem *drop down* am rechten Rand erweitert werden.
-- Das "Ribbon" nimmt den größten Bereich des oberen Fensterrandes ein. Es bietet einen komplexen Zugriff auf vielfältigste Funtionen in diversen Aufgabenbereichen.
-- Das eigentliche Zeichenfenster wird durch eine Leiste von Reitern für jede aktive Zeichnung eingeleitet, dies schließt das Startfenster ein. Das "+" ermöglicht das schnelle Ergänzen einer neuen Zeichnung (\<strg> + \<n>).
-- Rechts oben im Zeichenfenster befindet sich der **view cube**, er bietet eine leichte Navigation im 3D-Raum der Zeichnung. Umnittelbar darunter wird in einem *drop down* das aktive **Koordinatensystem** angezeigt und kann gewechselt werden.
+- Das "Ribbon" (Iconleiste) nimmt den größten Bereich des oberen Fensterrandes ein. Es bietet einen komplexen Zugriff auf vielfältigste Funtionen in diversen Aufgabenbereichen.
+- Das eigentliche Zeichenfenster wird durch eine Leiste von Reitern für jede aktive Zeichnung eingeleitet, dies schließt das Startfenster ein. Das "+" ermöglicht das schnelle Ergänzen einer neuen Zeichnung (alternativ \<strg> + \<n>).
+- Rechts oben im Zeichenfenster befindet sich der ***view cube***, er bietet eine leichte Navigation im 3D-Raum der Zeichnung. Umnittelbar darunter wird in einem *drop down* das aktive **Koordinatensystem** angezeigt und kann gewechselt werden.
 - Links unten im Zeichenfenster befindet sich ein Koordinatensymbol das von der jeweils gewälten Sicht und dem Koordinatensystem abhängt.
 - Am unteren Rand des Zeichenfensters befindet sich eine Befehlszeile, Tastatureingaben werden direkt an der Maus oder in dieser Zeile dargestellt und jeweils zu bekannten Befehlen ergänzt. 
-  - Tippen Sie einfach mal ```pl``` für Polylinie + \<enter> und zeichnen Sie mit der maus eine Polylinie mit einigen Mausklicks. 
+- Tippen Sie einfach mal ```pl``` für Polylinie + \<enter> und zeichnen Sie mit der maus eine Polylinie mit einigen Mausklicks. 
   - Rufen Sie interaktiv das Kontextmenü (rechte Mausklick) auf, schließen Sie es mit \<esc>.
-  - Zoomen  Sie während des Zeichnens mit dem Scroll-Rad der Maus hinein (Drehrichtung nach vorne / vorwärts) oder hinaus (Drehrichtung nach hinten / rückwärts).
+  - Zoomen  Sie während des Zeichnens mit dem Scroll-Rad der Maus hinein (Drehrichtung nach vorne / vorwärts) oder hinaus (Drehrichtung nach hinten / rückwärts). Die Drehbewegung simuliert Ihre Bewegung im Verhältnis zum Modell als 1:1-Abbild der realen Welt.
   - Berühren Sie bereits vorhandene Elemente und beachten Sie die Symboländerung am Mauszeiger.
   - Beenden Sie das Zeichnen mit \<esc> oder \<enter>
 - Am unteren Rand des Programmfensters befindet sich ein Reiter für das Modell, also die Zeichnung, gefolgt von zwei Reitern für Layout, die im Moment des Aktivierens mit einer einfachen Darstellung des Modells gefüllt werden. Zahlreiche Layout je Zeichnung können in diverser Komplexität und Format gestaltet werden.
