@@ -65,6 +65,8 @@ Auch bei der Gestaltung des Programmfensters haben sich in den letzten Jahren za
   - **Orthomodus**: Eine ausschließlich horizontale oder vertikale Bewegung ist möglich.
   - **Objektfang**: Fängt während des Zeichnens die aktivierten Punkte (Knoten, Mittelpunkt, Zentrum, Lot etc.). 
 
+Einige dieser Zeichenhilfen habe ich nie vermisst oder brauche diese sehr selten und blende diese für mich aus. Ich gewinne zwar keine Zeichenfläche, aber der Arbeitsbereich wird dadurch entschlackt.  
+
 Die drei letzten Funktionen können mit den Funktionstasten \<F9>, \<F8> und \<F3> auch interaktiv, also während des Zeichnens eingeschaltet oder mit der Maus im *drop down* verändert werden.
 
 ## Programmfenster einrichten
@@ -100,13 +102,17 @@ Einige "alte" Werkzeugkästen bieten tatsächlich einen schnellen Zugang zu Info
  - Ändern
  - Abfrage
  
-Diese Werkzeugkästen schiebe ich an die mir gewohnten Positonen am linken, oberen und rechten Fensterrand.
+Diese Werkzeugkästen schiebe ich an die mir gewohnten Positonen am linken (Zeichnen), rechten (Ändern, Abfrage) und oberen Fensterrand.
+
+### Befehlszeile
+
+Die Befehlszeile liegt als Fenster am unteren Rand des Zeichenbereiches und kann frei positioniert oder am unteren Rand fest  angedockt werden. Folgende Aspekte sind zu bedenken: Meine Befehle sind sehr kurz, allerdings sind die teils folgenden Option oder Rückgabewerte lang, also nicht zu schmal machen. Andererseits ist die volle Breite eines Widescreens übertrieben. Mit \<F2> können Sie das Fenster jederzeit hochklappen und die Befehlshistorie sehen, das funktioniert auch, wenn Sie die Befehlszeile ganz geschlossen haben. Um die Befehlszeige wieder anzuzeigen drücken Sie \<strg> + \<9>. 
  
 Diese **neu gestaltete Oberfläche speichern** ich unter einem neuen Namen. Dafür öffne ich das *drop down* bei dem Zahnrad-Icon rechts unten und wähle "Aktuelles speichern unter ...". 
 
 ## Weitere Programmoptionen
 
-Über "Extras -> Optionen" können sehr viele Parameter für AutoCAD konfiguriert werden. ich erläutere nachfolgend nur die für mich wichtigen. Diese Parameter gelten für jeden zukünftigen Programmaufruf und sind meist sofort aktiv. Das neue Fenster wird über Register in diverse Bereiche gegliedert.
+Über "Extras -> Optionen" können sehr viele Parameter für AutoCAD konfiguriert werden. Ich erläutere nachfolgend nur einige wenige und für mich wichtige Optionen. Diese Parameter gelten für jeden zukünftigen Programmaufruf und sind meist sofort aktiv. Das neue Fenster wird über Register in diverse Bereiche gegliedert.
 
 ### Öffnen und Speichern 
 
@@ -114,9 +120,9 @@ Ich verwende auch ältere Versionen von AutoCAD. Um keine lästigen Versionsprob
 
 ### Anzeige
 
-Aus diversen Gründen, u.a. Kontrast bei Tageslicht, bevorzuge ich im Modell einen schwarzen Hintergrund mit hellen Linien. Das Farbschema für das Menü und die Werkzeugleisten steht auf Dunkel. Etwas unterhalb mit [Farben] kann ich auch die Farben für den Hintergrund im Modell- und Papierbereich verändern. Für den "2D-Modellbereich" in dem ich überwiegend arbeite wähle ich einen "Einheitlichen Hintergrund" mit der Farbe Schwarz oder einem sehr dunklen Grau aus den Indexfarben von AutoCAD (250, 251).
+Aus diversen Gründen, u.a. Kontrast bei Tageslicht, bevorzuge ich im Modell einen schwarzen Hintergrund mit hellen Linien; jüngere Versionen von AutoCAD sind trendgemäß dunkel designed. Das Farbschema für das Menü und die Werkzeugleisten steht auf Dunkel. Etwas unterhalb mit [Farben] kann ich auch die Farben für den Hintergrund im Modell- und Papierbereich verändern. Für den "2D-Modellbereich" in dem ich überwiegend arbeite wähle ich einen "Einheitlichen Hintergrund" mit der Farbe Schwarz oder einem sehr dunklen Grau aus den Indexfarben von AutoCAD (250, 251).
 
-Das Fadenkreuz der Maus geht zwischen vielen Linien gerne unter, deshalb stelle ich die Fadenkreuzgröße auf 100 und erhalte ein Fadenkreuz über das gesamten  Fenster.
+Das Fadenkreuz der Maus geht zwischen vielen Linien gerne unter, deshalb stelle ich die **Fadenkreuzgröße** auf 100 und erhalte ein Fadenkreuz über das gesamten  Fenster.
 
 ### Dateien
 
