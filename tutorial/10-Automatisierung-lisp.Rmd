@@ -22,44 +22,33 @@ number_sections: yes
 lang: de-DE
 ---
 
-# Automatisierte Prozesse, LISP & AutoLISP
+# Automatisierte Prozesse und LISP
 
-Es gibt einige Tools und Tricks, die das Leben leichter machen, z.B. das Zeichen zahlreicher Punkte oder einer Linie anhand einer Punkteliste. Das lässt sich verfeinern, bleibt aber rudimentär. An irgend einem Punkt findet man dann ergänzende Programme oder Funktionen, die in LISP geschrieben sind. 
+Es gibt einige Tools und Tricks (sog. *[little mingnons](https://caa-minions.github.io/)*), die das Leben leichter machen, z.B. das Zeichen zahlreicher Punkte oder einer Linie anhand einer Punkteliste. Das lässt sich verfeinern, bleibt aber rudimentär. An irgend einem Punkt findet man dann ergänzende Programme oder Funktionen, die in LISP geschrieben sind. Die in diesem Kapitel verwendeten LISP-Dateien, AutoCAD-Blöcke, Beispieldateien und ergänzende Informationen finden Sie auf [ISAAK/ArchJobCAD](https://github.com/ISAAKiel/ArchJobCAD).
  
-Ziel ist eine ganz kurze Einführung in LISP bzw. AutoLISP, um die von mir aus einer Notwendigkeit heraus geschriebenen "Progrämmchen" verständlich zu machen und Ihnen die Möglichkeit auf die Nachnutzung von Code aus dem Internet oder das Verständnis der zahlreichen Forenbeiträge zu erleichtern. Es ist mehr das Aufstoßen eines Fensters als der Einstieg in ein ganz eigenes Thema der Programmierung. Von zentraler Bedeutung bei meinem Einstieg in LISP waren die Websites von Axel Strube-Zettler [@strube-zettlerAusgewahlteThemenAutoLisp; @strube-zettlerDeutschsprachigeVisualLispTutorialIma]. Auch wenn aus Kapitelüberschriften wie "Brot, Eier, Käse" der Inhalt nicht unmittelbar erkennbar ist, es liest sich amüsant, erleichtert das Lernen und machte mich seinerzeit neugierig auf weitere Inhalte.  Eine gute Ergänzung dazu bieten die Tutorials auf AfraLISP [@watsonAutoLISPAfraLISPa].  
+Ziel ist eine ganz kurze Einführung in LISP bzw. AutoLISP, um die von mir aus einer Notwendigkeit heraus geschriebenen *Helferlein* verständlich zu machen und Ihnen die Möglichkeit auf die Nachnutzung von Code aus dem Internet oder das Verständnis der zahlreichen Forenbeiträge zu erleichtern. Es ist mehr das Aufstoßen eines Fensters als der Einstieg in ein ganz eigenes Thema der Programmierung. Von zentraler Bedeutung bei meinem Einstieg in LISP waren die Websites von Axel Strube-Zettler [@strube-zettlerAusgewahlteThemenAutoLisp; @strube-zettlerDeutschsprachigeVisualLispTutorialIma]. Auch wenn aus Kapitelüberschriften wie "Brot, Eier, Käse" der Inhalt nicht unmittelbar erkennbar ist, es liest sich amüsant, erleichtert das Lernen und machte mich seinerzeit neugierig auf weitere Inhalte.  Eine gute Ergänzung dazu bieten die Tutorials auf AfraLISP [@watsonAutoLISPAfraLISPa].  
 
-LISP ist eine sehr alte Programmiersprache, nach Fortran die zweitälteste noch lebende Sprache (Wikipedia-de 31.05.2020). Wie bei anderen Sprachen gibt es zahlreiche Dialekte, u.a. AutoLISP und Visual LISP, die bei AutoCAD genutzt werden. LISP steht übrigens für "**Lis**t **P**rocessing" (Listen-Verarbeitung) und nicht - wie gerne verballhornt - für *lost in stupid parenthesis*. Beides unterstreicht für den Einstieg zwei Aspekte: Listen wie '(a b c) sind ein zentrales Element und Klammern verändern die Reihenfolge der Evaluation.
+LISP ist eine sehr alte Programmiersprache, nach Fortran die zweitälteste noch lebende Sprache (Wikipedia-de 31.05.2020). Wie bei anderen Sprachen gibt es zahlreiche Dialekte, u.a. AutoLISP und Visual LISP, die bei AutoCAD genutzt werden. LISP steht übrigens für "**Lis**t **P**rocessing" (Listen-Verarbeitung) und nicht - wie gerne verballhornt - für *lost in stupid parenthesis*. Beides unterstreicht für den Einstieg zwei Aspekte: Listen wie '(x y z) sind ein zentrales Element und Klammern bestimmen die Reihenfolge der Evaluation.
 
 ## Automatisierte Prozesse
 
 ### Mehrere Punkte
 
-Starten Sie mit einer neuen Datei. Verändern Sie als erstes unter "Format -> Punkstil" den Punktstil von einem "unsichtbaren" Punkt zu einem gut sichtbaren Symbol. Danach zeichnen wir mit "Zeichnen -> Punkt -> Mehrere Punkte" mehrere Punkt. Anstatt diese aber mit der Maus zu klicken kopieren Sie die folgenden Reihe von x,y,z-Werten als ganzes und fügend diese als Block in die Kommandozeile des aktiven Befehls ein. Die Koordinaten des letzten Punktes müssen Sie noch mit \<enter> bestätigen und den aktiven Befehl mit \<esc> beenden. Danach auf die Grenzen der Zeichnung zoomen ```zoom g``` und mit ```regen``` die Darstellung regenerieren, um die Symbolgröße der Punkte an die Darstellung anzupassen.
+Starten Sie mit einer neuen Datei. Verändern Sie als erstes unter "Format -> Punkstil" den Punktstil von einem "unsichtbaren" Punkt zu einem gut sichtbaren Symbol. Danach zeichnen wir mit "Zeichnen -> Punkt -> Mehrere Punkte" mehrere Punkt. Anstatt diese aber mit der Maus zu klicken kopieren Sie die nachfolgenden Reihe von x,y,z-Werten als ganzes und fügend diese als Block in die Kommandozeile des aktiven Befehls ein. Die Koordinaten des letzten Punktes müssen Sie noch mit \<enter> bestätigen und den aktiven Befehl mit \<esc> beenden. Danach auf die Grenzen der Zeichnung zoomen ```zoom g``` und mit ```regen``` die Darstellung regenerieren, um die Symbolgröße der Punkte an die Darstellung anzupassen. Beachten Sie, \<Leerzeichen> oder \<enter> wird gleichermaßen als Trennzeichen behandelt.
 
 ```
-4,1,6
-2,8,7
-7,0,2
-6,6,4
-9,1,6
-0,3,10
+4,1,6 2,8,7 7,0,2
+6,6,4 9,1,6 0,3,10 
 ```
 
 ### 3D-PolyLinie
-Da die Punktkoordinaten noch in der Zwischenablage von Windows liegen, machen wir mit einer 3DP weiter, Sie können das aber analog auf PL übertragen. Also ```3DP```, Zwischenablage einfügen, \<enter> für den letzten Punkt und \<enter> für das Beenden des Befehls. Das animiert doch gleich zu einem weiteren Versuch, diesmal ohne '3dp' vorab aufzurufen:
+Da die Punktkoordinaten noch in der Zwischenablage von Windows liegen, machen wir mit einer 3DP weiter, Sie können das aber analog auf PL übertragen. Also ```3DP``` \<enter>, Zwischenablage einfügen, \<enter> für den letzten Punkt und \<enter> für das Beenden des Befehls. Das animiert doch gleich zu einem weiteren Versuch, diesmal ohne '3dp' vorab aufzurufen:
 
 ```
-3dp
-4,6,1
-3,8,4
-2,3,10
-s
+3dp 4,6,1 3,8,4 2,3,10 s
  
-3dp
-4,1,8
-6,4,3
-2,6,9
-s
+3dp 4,1,8 6,4,3 2,6,9 s 
+
 ```
 
 ### Text einfügen 
@@ -75,14 +64,20 @@ Das funktioniert aber nicht, sondern bleibt nach der Winkelangabe in Erwartung e
 
 ### LISP-Einzeiler
 
-Auch ohne große LISP-Kenntnis können mit der LISP-Funktion (command) gezielt AutoCAD Befehle aufgerufen und die notwendigen Parameter übergeben. Mit Blick auf das vorangehende Beispiel sieht der Befehl dann so aus:
+Auch ohne große LISP-Kenntnis können mit der LISP-Funktion (command) gezielt AutoCAD Befehle aufgerufen und die notwendigen Parameter übergeben werden. Mit Blick auf das vorangehende Beispiel sieht der Befehl dann so aus:
 
 ```{lisp 'command insert text'}
 (command "text" "4,5,0" 0.4 0 "Erste Zeile")
 (command "_text" "4,6,0" "0.4" "0" "Zweite Zeile")
 ```
 
-Die Unterschiede sind eher marginal und lassen sich mit den gezeigten Varianten leicht erklären. Wie später erklärt wird der LISP-Befehl als ganzes in eine Klammer geschrieben, das erste Element ist die Funktion und der Rest der Liste wird entsprechend der Funktion verarbeitet. Mit der Funktion (command) kann jeder Befehl aufgerufen werden, auf den dann die für diesen Befehl notwendigen Parameter folgen müssen. Das Leerzeichen trennt die einzelnen Listenelemente. Text bzw. *string* muss in Anführungszeichen stehen, bei Zahlen ist dies nicht notwendig. Der "_" vor dem Befehl verweist auf den englischen Originalbefehl unabhängig von der Installationssprache. Bei "text" ist das weniger offensichtlich bei "einfüge" bzw. "_insert" schon. Da wir bereits mit Blöcken mit Attribut gearbeitet haben noch folgendes Beispiel.
+Die Unterschiede sind eher marginal und lassen sich mit den gezeigten Varianten leicht erklären. Wie später erklärt, wird der LISP-Befehl als ganzes in eine Klammer geschrieben, das erste Element ist die Funktion und der Rest der Liste wird entsprechend der Funktion verarbeitet. Mit der Funktion (command) kann jeder Befehl aufgerufen werden, auf den dann die für diesen Befehl notwendigen Parameter folgen müssen. Das Leerzeichen trennt die einzelnen Listenelemente. Text bzw. *string* muss in Anführungszeichen stehen, bei Zahlen ist dies nicht notwendig. Der "_" vor dem Befehl verweist auf den englischen Originalbefehl unabhängig von der Installationssprache. Bei "text" ist das weniger offensichtlich bei "einfüge" bzw. "_insert" schon. Da wir bereits mit Blöcken mit Attribut gearbeitet haben noch folgendes Beispiel. 
+
+| Achtung |
+|----|
+| - Für das folgende Beispiel muss ein Block "Quadr_Nr" mit genau einem Attributfeld vorliegen! |
+| - Der Attributadialog ```attdia``` muss ausgeschaltet (0) sein. |
+| - Wird im Einfügedialog für Blöcke nicht die Option "Einfügepunkt [x] Am Bildschirm bestimmen" gewählt erscheint der Attribits-Dialog in jedem Fall. | 
 
 ```{lisp 'command insert block'}
 (command "_insert" "Quadr_Nr" "44.1,57.4,15.9" "1" "1" "0" "2")
@@ -113,7 +108,7 @@ In der vorangenden Syntax ist folgendes zu beachten:
 
 ### Grudlegendes
 
-Die nachfolgenden Übungen orientieren sich an dem "Kochbuch AutoLISP" [@strube-zettlerKochbuchAutoLISPAutoCAD2007a], dieses beruht auf den überarbeiteten Tutorials von Axel Strube-Zettler, die frei im Netz zur Verfügung stehen [@strube-zettlerDeutschsprachigeVisualLispTutorialIma; @strube-zettlerAusgewahlteThemenAutoLisp]. Die Übungsaufgaben mit Lösungen und den Code zu diesem Buch finden Sie auf der [Website des Hansa Verlag](https://downloads.hanser.de/index.asp?isbn=978-3-446-41217-0&nav_id=763475834&nav_page=2). Alle LISP-Funktionen finden Sie in der Online-Hilfe von AutoCAD. Und nochmals, Ziel dieser wenigen Zeilen ist es, ein Fenster aufzustoßen, so dass ein Einstieg für Sie möglich wird. Funktionierenden, guten und schönen  Code zu schreiben ist 1. Dreierlei und 2. lernt es sich nicht mal eben.  
+Die nachfolgenden Übungen orientieren sich an dem "Kochbuch AutoLISP" [@strube-zettlerKochbuchAutoLISPAutoCAD2007a], dieses beruht auf den überarbeiteten Tutorials von Axel Strube-Zettler, die frei im Netz zur Verfügung stehen [@strube-zettlerDeutschsprachigeVisualLispTutorialIma; @strube-zettlerAusgewahlteThemenAutoLisp]. Die Übungsaufgaben mit Lösungen und den Code zu diesem Buch finden Sie auf der [Website des Hansa Verlag](https://downloads.hanser.de/index.asp?isbn=978-3-446-41217-0&nav_id=763475834&nav_page=2). Alle LISP-Funktionen finden Sie in der Online-Hilfe von AutoCAD. Und nochmals, Ziel dieser wenigen Zeilen ist es, ein Fenster aufzustoßen, so dass ein Einstieg für Sie möglich wird. Funktionierenden, guten und schönen Code zu schreiben ist 1. Dreierlei und 2. lernt es sich nicht mal eben. 
 
 Mit "Extras -> AutoLISP -> Visual LISP Editor" starten Sie den bei AutoCAD integrierten Editor. Schreiben Sie die nachfolgenden Anweisungen in die Konsole des Editors.
 
@@ -140,7 +135,7 @@ Die Funktion, die Variablen einen Wert zuweist ist *setq*, das steht für *set q
 (set 'var2 5)
 ```
 
-Bei der Namensgebung gibt es zu meidende Sonderzeichen mit speziellen Bedeutungen (".", ";",  "(", ")", "'", """) und Namen von vorhandenen, vor allem wichtigen Funktionen sollten ebenfalls gemieden werden. Die Namen sind nicht *case sensitive*: VAR1 ist identisch mit var1. Zudem sind gute Variablennamen verständlich, z.B. 'layer_name'. 
+Bei der Namensgebung gibt es zu meidende Sonderzeichen mit speziellen Bedeutungen (".", ";", "(", ")", "'", """) und Namen von vorhandenen, vor allem wichtigen Funktionen sollten ebenfalls gemieden werden. Die Namen sind nicht *case sensitive*: VAR1 ist identisch mit var1. Zudem sind gute Variablennamen verständlich, z.B. 'layer_name'. 
 
 ### Listen
 
@@ -153,15 +148,15 @@ Im Grunde ist alles in () eine Liste und () eine leere Liste.
 (setq linie '((1 2 3) (4 5 6)))
 ```
 
-(setq) weist einer Variablen einen Wert zu, danach folgt mit vorangestelltem *quote* die Liste in Klammern. Warum das *quote*? Wie im Beispiel ```(set (quote var3) 4)``` würde dies Liste von innen nach außen und links nach rechts evaluiert. Dann müsste "rot" eine Funktion sein wie (quote) ist es aber nicht.
+(setq) weist einer Variablen einen Wert zu, danach folgt mit vorangestelltem *quote* die Liste in Klammern. Warum das *quote*? Wie im Beispiel ```(set (quote var3) 4)``` würde die Liste von innen nach außen und links nach rechts evaluiert. Dann müsste "rot" eine Funktion sein wie (quote) ist es aber nicht.
 
 Speziell für Listen gibt es zahlreiche Funktionen, die Rückgabewerte sind erwartbar ```(length farben)``` oder auch eher nicht ```(member "grün" farben)```, letzteres gibt den Rest der Liste ab dem gefundenen Element zurück. Wenn Sie unbedingt die Position brauchen könne Sie ja ```(- (length farben) (length (member "grün" farben)) -1)``` schreiben, das -1 da "grün" in der zweiten Liste enthalten ist: 3-2=1. Statt noch eine Klammer für (+ 1) zu setzen ist (- -1) etwas eleganter.
 
-Listen können natürlich geschachtelt sein, so eine Linie (Startpunkt Endpunkt), wobei jede Koordinate für sich eine Liste ist (x y z). Damit zu "zwei" weiteren Funktionen: **(car)** und **(cdr)**. Das erste Element von linie erhalten wir mit ```(car linie)``` und mit (cdr linie) den Rest nach dem ersten Element. Das lässt sich bis zu 4 x kombinieren (caaaar, cadadr ... cddddr). Testen Sie einfach die folgenden Befehle und spielen Sie etwas mit eigene Variationen: (caar linie), (cadr linie), (cadar linie). Achten Sie auf die Unterschied zwischen (cdr linie), dem Rest der Liste und (cadr linie), dem ersten Element vom Rest der Liste. Bekommen Sie ausschließlich den z-Wert des 2. Punktes? ```(cddadr linie)``` Das ist aber noch eine Liste und da (caddadr linie) nicht mehr geht bleibt aber noch ```(car(cddadr linie))```. Zugestanden, das war verwirrend und wäre auch einfacher gegangen ```(last(last linie))```. Das ist halt LISP.
+Listen können natürlich geschachtelt sein, so eine Linie (Startpunkt Endpunkt), wobei jede Koordinate für sich eine Liste ist (x y z). Damit zu "zwei" weiteren Funktionen: **(car)** und **(cdr)**. Das erste Element von linie erhalten wir mit ```(car linie)``` und mit (cdr linie) den Rest nach dem ersten Element. Das lässt sich bis zu 4 x kombinieren (caaaar, cadadr ... cddddr). Testen Sie einfach die folgenden Befehle und spielen Sie etwas mit eigenen Variationen: (caar linie), (cadr linie), (cadar linie). Achten Sie auf die Unterschied zwischen (cdr linie), dem Rest der Liste und (cadr linie), dem ersten Element vom Rest der Liste. Bekommen Sie ausschließlich den z-Wert des 2. Punktes? ```(cddadr linie)``` Das ist aber noch eine Liste und da (caddadr linie) nicht mehr geht bleibt aber noch ```(car(cddadr linie))```. Zugestanden, das war verwirrend und wäre auch einfacher gegangen ```(last(last linie))```. 
 
 ### Visual Lisp Editor
 
-Machen wir eine Pause und betrachten mal kursorisch den Visual LISP Editor von AutoCAD. Eine etwas ausführlichere Darstellungen finden Sie in einem PDF-Dokument im Internet [@bosseVisualLISPEditorAutoCADa]. Neben der Konsole, in der wir bisher gearbeitet haben wurde die Ablaufverfolgung automatisch geöffnet, es dient der Information. Mit "Datei -> Neue Datei" öffnen Sie ein neues Fenster zum erstellen eines Code-Skriptes. Öffnen Sie mal die Datei "LayerErstellen.lsp" oder eine andere/neue LSP-Datei. Sie können "Fenster -> Untereinander" anordnen lassen und ergänzend die Größe veränden. In der Abbildung ist noch das "Überwachungsfenster" geöffnet. Markieren Sie dafür eine Variable, z.B. LayerListe, und wählen im Kontextmenü "Überwachung hinzufügen".
+Machen wir eine Pause und betrachten mal kursorisch den Visual LISP Editor von AutoCAD. Eine etwas ausführlichere Darstellungen finden Sie in einem PDF-Dokument im Internet [@bosseVisualLISPEditorAutoCADa]. Neben der Konsole, in der wir bisher gearbeitet haben wurde die Ablaufverfolgung automatisch geöffnet, es dient der Information. Mit "Datei -> Neue Datei" öffnen Sie ein neues Fenster zum erstellen eines Code-Skriptes. Öffnen Sie mal die Datei "LayerErstellen.lsp" oder eine andere/neue LSP-Datei. Sie können "Fenster -> Untereinander oder Nebeneinander" anordnen lassen und ergänzend die Größe verändern. In der Abbildung ist noch das "Überwachungsfenster" geöffnet. Markieren Sie dafür eine Variable, z.B. LayerListe, und wählen im Kontextmenü "Überwachung hinzufügen".
 
 ![AutoCAD LISP-Editor](./images/09_ACADLispEditor.png)
 
@@ -178,7 +173,7 @@ Direkt daneben sind ähnliche Icon mit einem roten Pfeil, hiermit können Sie de
 
 ### Funktion Layererstellen
 
-Das "Progrämmchen" ist mein ältester Gehversuch in LISP und müsste eigentlich überarbeitet werden. Es ist ein gutes Beispiel für unschön vermischten Code. 
+Das kleine Programm ist mein ältester Gehversuch in LISP und müsste eigentlich überarbeitet werden. Es ist ein gutes Beispiel für unschön vermischten Code. 
 Die Funktion soll ein ganzes Paket an vorab definierten Layern für Befunde, Befundnummern, Profile, Funde etc. auf einen Schlag erstellen und das für einen spezifischen Schnitt und Planum (konsistente Layernamen für Gruppenfilter).     
 Mit einem Doppelklick auf die erste Klammer "(Defun" wird der gesamte Ausdruck dieser Klammer markiert. Es ist die Funktion insgesamt, danach folgt noch die Ausgabe einer Information an die Befehlszeile. 
 
@@ -204,9 +199,10 @@ Defun definiert eine Funktion, das erste Element der Liste ist der Name der Funk
 
 Als erstes werden die zu erstellenden Layer mit ihre Eigenschaften in eine Liste geschrieben und der variable Layerliste zugewiesen. Jeder Layer der Liste ist mit einer eigenen Sub-Liste vertreten, in der Name, Farbzahl und Linientyp angegeben ist. Mit der Kommentarzeile ist eine Art Spaltenüberschrift eingeschoben und da man mit "cadddr" an das vierte Element einer Liste kommt wird auf eine optional vierte Spalte hingewiesen. 
 
-Danach folgt eine interne Funktion, die anhand der zuvor definierten Sub-Listen mit Layer-Attributen jeweils einen Layer erstellt und nach Vorgaben verändert. Innerhalb dieser Funktion wird eine Variable "Praefix" benötigt, die weiter unter erstellt wird, ich springe deshalb mal im Code nach unten. (Genau dieses Geschachtel und Gehüpfe  ist unsauber,  sollte zwar in dieser Datei aber außerhalb der Funktion c:LayerErstellen und jeweils als kleine eigene Funktion vorliegen.) Das Präfix des Layernames soll sich aus Schnittnummer (SNxx) und Planum (PLxx) zusammensetzen.
+Danach folgt eine interne Funktion, die anhand der zuvor definierten Sub-Listen mit Layer-Attributen jeweils einen Layer erstellt und nach Vorgaben verändert. Innerhalb dieser Funktion wird eine Variable "Praefix" benötigt, die weiter unter erstellt wird, ich springe deshalb im Code nach unten. (Genau dieses Geschachtel und Gehüpfe  ist unsauber, sollte zwar in dieser Datei aber außerhalb der Funktion c:LayerErstellen und jeweils als kleine eigene Funktion vorliegen.) Das Präfix des Layernames soll sich aus Schnittnummer (SNxx) und Planum (PLxx) zusammensetzen.
 
 ```{lisp, 'Praefix erstellen'}
+;Praefix für die Layernamen erstellen
  (setq Schnitt(getstring "\nSchnittnummer eingeben oder leer lassen: "))
  (if (/= Schnitt "")
    (if (= (strlen Schnitt) 1)
@@ -225,13 +221,14 @@ Danach folgt eine interne Funktion, die anhand der zuvor definierten Sub-Listen 
  )
 ```
 
-Als erstes wird die Schnittnummer in eine  Variable geschrieben (setq), für den Inhalt wird mit der Funktion (getstring) der Nutzer gefragt.  Die Anfrage an den Nutzer muss natürlich ausformuliert werden und steht als Text in \"\". Das "\\n" steht für *new line*, so dass die Anfrage in einer neuen und leeren Zeile landet. Es folgen zwei geschachtelte if-Funktionen, die erste Bedingung prüft, ob Schnitt nicht leer ist und überhaupt gehandelt werden muss. Die zweite Bedingung prüft, ob die Länge der angegebenen Schnittnummer "1" ist und definiert Schnitt dann neu mit einer vorangestellten "0" unter Verwendung der Funktion (strcat) also *string concatenate*. Das ganze ist ziemlich simpel und geht von einem wohlwollenden und einsichtigen Nutzer aus. 
+Als erstes wird die Schnittnummer in eine  Variable geschrieben (setq), für den Inhalt wird mit der Funktion (getstring) der Nutzer gefragt.  Die Anfrage an den Nutzer muss natürlich ausformuliert werden und steht als Text in \"\". Das "\\n" steht für *new line*, so dass die Anfrage in einer neuen und leeren Zeile landet. Es folgen zwei geschachtelte if-Funktionen, die erste Bedingung prüft, ob die Variable Schnitt nicht leer ist und überhaupt gehandelt werden muss. Die zweite Bedingung prüft, ob die Länge der angegebenen Schnittnummer "1" ist und definiert Schnitt dann neu mit einer vorangestellten "0" unter Verwendung der Funktion (strcat) also *string concatenate*. Das ganze ist ziemlich simpel und geht von einem wohlwollenden und einsichtigen Nutzer aus. 
 
 Es folgt die Zuweisung der Nummer des Planums, die bei der Länge 1 ebenfalls um eine "0" erweitert wird.
 
-Das dritte Element verbindet die Variablen zu Schnitt-Nr. und Planum-Nr. mit dem jeweilige Etikett ("SN", "PL") zur Variable Präfix, aber nur wenn (if) Schnitt nicht leer ist, ansonsten wird nur das Planum an Praefix übergeben. Als erkennbares Trennzeichen wird jeweils ein "_" beigefügt. Das ganze ist Schrittweise ausgeführt und leicht lesbar (einfache Sprache) also nicht zwingend elegant oder kompakt. Im Ergebnis Wir unser Praefix, z.B. "SN01PL01_" und kommen zurück zur internen Funktion LayerNeu.
+Das dritte Element verbindet die Variablen zu Schnitt-Nr. und Planum-Nr. mit dem jeweilige Etikett ("SN", "PL") zur Variable Präfix, aber nur wenn (if) Schnitt nicht leer ist, ansonsten wird nur das Planum an Praefix übergeben. Als erkennbares Trennzeichen wird jeweils ein "_" beigefügt. Das ganze ist Schrittweise ausgeführt und leicht lesbar (einfache Sprache) also nicht zwingend elegant oder kompakt. Das Ergebnis ist das Praefix, z.B. "SN01PL01_" und geht zurück zur internen Funktion LayerNeu.
 
 ```{lisp, 'Funktion LayerNeu'}
+;Funktion zum erstellen der Layer
  (Defun LayerNeu (LayerProperties)
   (command "_layer"
 	   "Neu"
@@ -252,16 +249,17 @@ Das dritte Element verbindet die Variablen zu Schnitt-Nr. und Planum-Nr. mit dem
  )
 ```
 
-Also ```Defun``` kennen Sie schon, danach folgt ohne und damit implizit vor dem "/" in Klammern  der übergebene Parameter. Der ist ansich erst leer und kann auch anders heißen, er muss aber beim Funktionsaufruf mit einer Liste gefüllt werden.    
+Also ```Defun``` kennen Sie schon, danach folgt ohne und damit implizit vor dem "/" in Klammern  der übergebene Parameter LayerProperties. Der ist erst leer und kann auch anders heißen, er muss aber beim Funktionsaufruf mit einer Liste gefüllt werden.    
 Innerhalb der Funktion bediene ich mich mit ```(command)``` direkt des AutoCAD-Befehles ```_layer```. Ist dieser Befehl aktiv kann ich die weiteren Sub-Befehle nutzen und liefer dann die dafür notwendigen Eingaben als Elemente aus der übergebenen Liste LayerProperties. Das sind:
 
 - Befehl Neu: Praefix und der Name als 1. Element der Liste (car LayerProperties)
 - Befehl FArbe: Welche Farbe? Das 2. Element der Liste (cadr). Für welchen Layer? Das 1. Element der Liste.
 - Befehl Linientyp: ...
 
-Am Ende wird mit (princ)  eine leere Zeile geschrieben. Bis jetzt ist außer der Liste mit den Eigenschaften für die Layer noch nichts Konkretes geschehen. Erst die letzte Zeile meines Programmes sorgt für Aktivität. In meiner Funktion c:LayerErstellen müsste eigentlich nur diese letzte Zeile stehen, nebst Fehlerbehandlung die immernoch fehlt.  
+Am Ende wird mit (princ)  eine leere Zeile geschrieben. Bis jetzt ist außer der Liste mit den Eigenschaften für die Layer noch nichts Konkretes geschehen. Erst die letzte Zeile meines Programmes sorgt für Aktivität. In meiner Funktion c:LayerErstellen müsste eigentlich nur diese letzte Zeile stehen, nebst einer Fehlerbehandlung die immernoch fehlt.  
 
 ```{lisp, 'mapcar'}
+;Ruft Funktion LayerNeu auf für jedes Element der Liste.
  (mapcar 'LayerNeu LayerListe)
 ```
 
