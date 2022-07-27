@@ -63,7 +63,7 @@ Effektive Beispiele wären:
 - Sie wollen alle Polylinien (unsere Steine) auswählen. Objekte: *drop-down* "Polylinie", Eigenschaften "Farbe", "=Gleich" "VonLayer", "In einen neuen Auswahlsatz einfügen" [OK].
 - Sie wollen die großen Steine mit > 2m² Fläche auswählen. Objekttyp: "Polylinie", Eigenschaft: "Fläche", "> Größer als", Wert: "2" [OK]. Beachte Sie hierbei, dass auch nicht geschlossene Polylinien eine Fläche haben. 
 
-Die Liste der zu filternden Eigenschaften hängt von der Objektauswahl ab.
+Mit dem Befehl ```qselect``` rufen Sie dieses Fenster direkt auf. Die Liste der zu filternden Eigenschaften hängt von den jeweils gewählten Objektypen ab.
 
 ## Externe Referenzen
 
