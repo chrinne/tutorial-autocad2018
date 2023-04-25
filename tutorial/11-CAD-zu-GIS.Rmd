@@ -4,88 +4,90 @@ author: Christoph Rinne
 email: crinne@ufg.uni-kiel.de
 date: "`r format(Sys.time(), '%d. %B %Y')`"
 license: "CC-BY-NC 4.0"
-header-includes:
-  \renewcommand{\contentsname}{Inhalt}
-  \renewcommand{\figurename}{Abb.}
-bibliography: AutoCAD-cours-references.bib
-csl: journal-of-archaeological-science.csl
 output:
   pdf_document:
     fig_caption: yes
     number_sections: yes
     toc: yes
     df_print: kable
+  html_document:
+    toc: yes
+    toc_float: true
+    df_print: paged
+    number_sections: yes
+header-includes:
+  \renewcommand{\contentsname}{Inhalt}
+  \renewcommand{\figurename}{Abb.}
+bibliography: AutoCAD-cours-references.bib
+csl: journal-of-archaeological-science.csl
+papersize: a4 
 urlcolor: blue
 link-citations: yes # make citations hyperlinks
 linkcolor: blue
-number_sections: yes
 lang: de-DE
 ---
 
 # CAD Grabungsplan & GIS
 
-Der in dieser Übung bearbeitete Plan stammt von einer realen Ausgrabung. Aus dem Plan wurden an mehrern Stellen Informationen, vor allem Befunde entfernt, der Plan ist somit für eine wissenschaftliche Auswertung unbrauchbar. Dennoch bitte ich darum, die für diese Übung bereitgestellten Daten nicht über diese Übung hinaus zu verwenden und nach Abschluss zu löschen.
+Dieses Thema ist inzwischen eine eigene Übung, in der sowohl die relevanten Aspekte in einem CAD, einfachen AutoCAD-Skripten, LISP und umfangreichen SQL-Anweisungen in einer Raumdatenbank (SpatiaLite) behandelt werden. Das folgende Kapitel ist deshalb auf ganz grundlegende Aspekte reduziert, wobei die dargestellte "Handarbeit", z.B. bei den Höhen, bei wenigen Fehlern durchaus eine sinnvolle Option ist. 
+
+Der in dieser Übung bearbeitete Plan stammt von einer realen Ausgrabung. Aus dem Plan wurden an mehrern Stellen Informationen, vor allem Befunde entfernt, der Plan ist somit für eine wissenschaftliche Auswertung unbrauchbar. Dennoch bitte ich darum, die für diese Übung bereitgestellten Daten nicht über diese Übung hinaus zu verwenden und nach Abschluss zu löschen. Hierzu gibt es deshalb auch keinen Download.
 
 Der Plan enthält zahlreiche technische Mängel. Es geht hier darum, aus diesen Mängeln zu lernen und diese möglichst effizient zu beheben. Es geht nicht darum, Kollegen oder deren Team zu kritisieren oder vorzuführen.
 
-Dieses Kapitel zielt auch auf die Übernahme von Daten von Dritten, z.B. einer Ausgrabung durch ein Denkmalamt, und das Bestreben, diese Daten möglichst effizient in einem GIS weiterverarbeiten zu können. Zugleich sollen hier bisher gelernte Techniken wiederholt werden. Die mir bekannten GIS (ESRI ArcGIS, Quantum GIS) und das Datenbanksystem SpatialLite können DXF-Formate importieren. Dabei werden aber sehr unterschiedliche Strategien gefahren, divergierende Strukturen erstellt und auch eine sehr unterschiedliche Granularität der Daten erzielt. ArcGIS bietet zudem den Service DWG-Dateien direkt importieren zu können.
+Dieses Kapitel zielt auch auf die Übernahme von Daten von Dritten, z.B. einer Ausgrabung aus einem Denkmalamt, und das Bestreben, diese Daten möglichst effizient in einem GIS weiterverarbeiten zu können. Zugleich sollen hier bisher gelernte Techniken wiederholt werden. Die mir bekannten GIS (ESRI ArcGIS, Quantum GIS) und das Datenbanksystem SpatialLite können DXF-Formate importieren. Dabei werden aber sehr unterschiedliche Strategien gefahren, divergierende Strukturen erstellt und auch eine sehr unterschiedliche Granularität der Daten erzielt. ArcGIS bietet zudem den Service DWG-Dateien direkt importieren zu können.
 
-Unabhängig von den Möglichkeiten des jeweligen GIS empfiehlt sich das Bereinigen und Reorganisieren der CAD-Daten in eine für den Import optimierte Struktur im originären Medium, also in AutoCAD selbst.  
+Unabhängig von den Möglichkeiten des jeweligen GIS empfiehlt sich das Bereinigen und Reorganisieren der CAD-Daten in eine für den Import optimierte Struktur im originären Medium, also in CAD selbst.  
 
-## AutoCAD Grabungsdatei sichten
+## CAD Grabungsdatei in AutoCAD sichten
 
 Öffnen Sie die Datei "Grabungsplan.dwg". Schauen Sie sich alles in Ruhe an und notieren Sie für sich erstmal die Fehler, Probleme, Merkwürdigkeiten und Fragen an die Struktur oder Daten.
 
 Eine mögliche Vorgehensweise:
 
-- Layermenü öffnen, Übersicht über Anzahl der Layer, Namen und ggf. eingerichtete Filter. Alle Layer einschalten und entfrieren (zoom grenzen!).
+- Layermenü öffnen, Übersicht über Anzahl der Layer, Namen und ggf. eingerichtete Filter. Alle Layer einschalten und entfrieren. Die Layerliste können Sie markieren (\<strg> + \<a>), kopieren (\<strg> + \<c>) und in einem Editor oder einer Office-Tabelle einfügen (\<strg>+\<v>).
 - Zoom auf die Grenzen.
-- Kontrolle der vorhandenen Blöcke mit *_insert*.
-- Kontrolle der externen Referenzen.
+- Kontrolle der vorhandenen Blöcke (```_insert```).
+- Kontrolle der externen Referenzen (```xref```).
 - Ansicht von Vorne im WKS.
 - Sind weitere BKS definiert?
-- Kontrolle der Einheiten mit *Einheit*.
-- Alles markieren, Eigenschaftenmenü, *drop-down* Menü der Objekte und ein Überblick über die verwendeten Elemente und deren Anzahl verschaffen. 
+- Kontrolle der Einheiten (```einheit```).
+- Alles markieren, Eigenschaftenmenü, *drop-down* Menü der Objekte und einen Überblick über die verwendeten Elemente und deren Anzahl verschaffen. 
 
 Was ist mir alles aufgefallen?
 
 - Die Anzahl der Layer ist überschaubar, eine Trennung nach den Grabungsflächen ist nicht erfolgt, die Namen sind leider nicht ganz stringent, vor allem die Befundnummern sind mehrfach vertreten.
-- Einige Namen verweisen auf konkrete Objekte und ensprechen damit nicht der allgemeinen Nomenklatur (9294 Graben, Parkplatz, Gebäudehalle). 
+- Einige Layernamen verweisen auf konkrete Objekte und ensprechen damit nicht der allgemeinen Nomenklatur ("9294 Graben", "Parkplatz", "Gebäudehalle"). 
 - Es liegen Konstruktionsachsen vor, Objekte liegen weit außerhalb der Grabungsflächen und einige scheinen nach Norden versetzt.
 - Es liegen zahlreiche Blöcke mit kryptischen Namen vor, vermutlich Restbestände von *copy 'n paste*. Dazu einige Blöcke mit vielversprechenden Namen (HP_...).
 - Die Ansicht von der Seite offenbart das größte Problem. Vielfach laufen Polygone von der realen Höhe auf 0 runter.  Daneben sind aber auch in der Grabung mehrere Höhenbereiche der Objekte mit einzelnen Verbindungslinien zu erkennen. Falsche Prismenhöhe beim Messen?
 - Keine weiteren BKS definiert, die Koordinaten lassen ein GKB Zone 4 vermuten (das Elipsoidmodell ergibt sich daraus aber nicht).
 - Die Einheit ist erwartbar in Millimeter statt den verwendeten Meter.
-- Es wurde MText verwendet und es liegen Kreise vor, letztere hoffentlich nicht für Befunde.
-- Zahlreiche Befundlinien sind nicht geschlossen, auf dem Befundlayer liegen auch Kreise. 
+- Es wurde MText verwendet. 
+- Es gibt zahlreiche Kreise, leider auch auf dem Layer für Befunde.
+- Zahlreiche Befundlinien sind nicht geschlossen. 
 
 ### Arbeitsschritte der Datenkorrektur
 
-Ich speicher die Datei unter einem neuen Namen, in diesem Fall mit einer fortlaufende Nummerierung nach jedem  Arbeitsschritt. Ich lösche die Konstruktionsachsen und die Objekte extrem weit außerhalb der Untersuchungsfläche nach der Kontrolle der Eigenschaften. 
+Ich setze die Einheit auf Meter. Damit sind die vorhandenen Plandarstellungen im Layout nichtmehr direkt zu nutzen, sondern müssen natürich angepasst werden. Ich verändere im Seiteneinrichtungs-Manager das Verhältnis zwischen Layout und Modell auf 1 mm = 0.001 Einheit. Ich markiere den kompletten Papierinhalt, wähle ```skalieren```, Basispunkt ist die linke untere Ecke des Druckbereiches (gestrichelte Linie), und geben den Faktor an: 0.001. Für das Ansichtsfenster wähle ich unter Sonstiges Ansicht gesperrt: Nein und Benutzerspezifischer Faktor (für den Maßstab) 0.005.
 
-Die Objekte 600 m nördlich der Grabungsfläche sind offensichtlich als Blöcke mit Attribut hinterlegte Befundnummer mit x,- y- und z-Wert. Ich vermute eine falsche Stationierung während der ersten Ausgrabung. Diese Flächen wurden  dann nachträglich richtig geschoben, leider ohne die vermutlich ausgeblendeten oder gesperrten Blöcke. Um alle Objekte notfalls wieder filtern zu können gebe ich diesen eine grelle und selten verwendete Farbe (Nr. 210). Die Farbe wird nicht widergegeben. Ich schalte den Objektfang aus, um die Höhe durch einen zufälligen Fang nicht zu verlieren und schiebe alles im Block an eine einleuchtende Position etwa in den Befundmitten. Nun stehen die Befundnummern als Block mit Attribut im Befund und als Text im Kreis daneben. Es gibt aber auch Befundnummern (Block mit Attribut) ohne umliegende Befundgrenze. Da alle Layer eingeschaltet sind dürfen wir frei spekulieren und hoffen auf klärende Angaben in einer Datenbank oder der Papierdokumentation.
+Um zu prüfen, ob Kreise nicht nur für die Befundnummern verwendet wurden gehe ich wie folgt vor. Ich wähle einen Befundnummernkreis und prüfe den Durchmesser in den Eigenschaften: 0.4446. Ich öffne das Eigenschaftenfenster, dann die Schnellauswahl (Eigenschaftenfilter) und Filter auf Kreise mit der Eigenschaft "Durchmesser \<> ungleich 0.4446". Ich setze die Objekte auf eine neue Farbe: 220. So sind diese auch nach dem Lösen der Auswahl gut sichtbar. In der Fläche 3 sind zahlreiche Befunde als Kreise auf dem Layer "Befunde" gezeichnet. Ich setze diesen Layer aktuell und blende alle anderen Layer aus.  Danach zeichne ich mit ```Umgrenzung``` in jeden Kreis eine Polylinie.  Das geht auch mit mehreren Kreisen auf einmal. Einige Kreise sind ganz offensichtlich keine Befundgrenzen, die ich für die spätere Bearbeitung auf den Layer 0 schiebe. Ich markiere alle Befunde, filter auf die Kreise mit Farbe = 220 und lösche diese dann. Alle Layer einblenden und die Datei unter einem neuen Namen speichern.
 
-Ich wähle "Datei -> Dienstprogramme -> Bereinigen", neben den Blöcken des *copy 'n paste* werden einige weitere Objekte genannt, die ich in diesem Fall kurzentschlossen ebenfalls lösche. Danach sind die nicht verwendeten Blöcke, Textstile Linientypen und Layer entfernt.
+Vergleichbar verfahre ich auch mit dem MText, den ich in normalen einzeiligen Text umwandeln möchte. Im Eigenschaften Fenster über die Schnellauswahl (Eigenschaftenfilter) filtern auf MTxt, "Farbe = Von Layer", in einen neuen Auswahlsatz. Nach einer kurzen visuellen  Kontroll handelt es sich bis auf zwei großformatige Beschriftungen um die Befundnummern in der südlichen Hälfte. Ich färbe alle ein (Farbe 230), kopiere diese  mit Basispunkt (0,0,0) und füge sie in eine neue Datei ein. In der neuen Datei sind alle Layer, bis auf den Layer 0, durch die eingefügten Objekte entstanden. Die großformatigen Texte liegen auf dem Layer "Parkplatz" (ein Layername "Bebauung" wäre neutraler), in einem Fall auf "Kabelschacht", was mitten in der Fläche formal auch ein Befund ist, also eine Nummer bekommen sollte und keine Extrabehandlung und für die übrigen Texte Varianten von Befundnummer oder fälschlich "Befund". Also offensichtlich weitere Datenfehler die später zu klären sind. In keinem Fall ist ein MText notwendig. Ich schließe diese neue Datei ohne zu speichern, kehre zum Grabungsplan zurück, filter auf MText der Farbe 230, mit ```ursprung```  zerlege ich den MText in einzeiligen Text. 
 
-Ich setze die Einheit auf Meter. Damit sind die vorhandenen Plandarstellungen im Layout nichtmehr direkt zu nutzen, sonern müssen natürich angepasst werden. Ich veränder im Seiteneinrichtungs-Manager das Verhältnis zwischen Layout und Modell auf 1 mm = 0.001 Einheit. Ich markiere den kompletten Papierinhalt, wähle ```skalieren```, Basispunkt ist die linke untere Ecke des Druckbereiches (gestrichelte Linie), und geben den Faktor an: 0.001. Für das Ansichtsfenster wähle ich unter Sonstiges Ansicht gesperrt: Nein und Benutzerspezifischer Faktor (für den Maßstab) 0.005.
-
-Um zu prüfen, ob Kreise nicht nur für die Befundnummern verwendet wurden gehe ich wie folgt vor. Ich wähle einen Befundnummernkreis und prüfe den Durchmesser in den Eigenschaften: 0.4446. Ich öffne das Eigenschaftenfenster, dann die Schnellauswahl (Eigenschaftenfilter) und Filter auf Kreise mit der Eigenschaft "Durchmesser \<> ungleich 0.4446". Ich setze die Objekte auf eine neue Farbe: 220. So sind diese auch nach lösen der Auswahl gut sichtbar. In der Fläche 3 sind zahlreiche Befunde als Kreise auf dem Layer Befunde gezeichnet. Ich setze diesen Layer aktuell und blende alle anderen Layer aus.  Danach zeichne ich mit ```Umgrenzung``` in jeden Kreis eine Polylinie.  Das geht auch mit mehreren Kreisen auf einmal. Einige Kreise sind ganz offensichtlich keine Befundgrenzen, die ich für die spätere Bearbeitung auf den Layer 0 schiebe. Ich markiere alle Befunde, filter auf die Kreise mit Farbe = 220 und lösche diese dann. Alle Layer einblenden und die Datei unter einem neuen Namen speichern.
-
-Vergleichbar verfahre ich auch mit dem MText, den ich in normalen einzeiligen Text umwandeln möchte. Im Eigenschaften Fenster über die Schnellauswahl (Eigenschaftenfilter) filtern auf MTxt, "Farbe = Von Layer", in einen neuen Auswahlsatz. Nach einer kurzen visuellen  Kontroll handelt es sich bis auf zwei großformatige Beschriftungen um die Befundnummern in der südlichen Hälfte. Ich färbe alle ein (Farbe 230), kopiere diese  mit Basispunkt (0,0,0) und füge sie in eine neue Datei ein. In der neuen Datei sind alle Layer, bis auf den Layer 0, durch die eingefügten Objekte entstanden. Die großformatigen Texte liegen auf dem Layer Parkplatz (ein Layername Bebauung wäre neutraler), in einem Fall auf Kabelschacht, was mitten in der Fläche formal auch ein Befund ist, also eine Nummer bekommen sollte und keine Extrabehandlung und für die übrigen Texte Varianten von Befundnummer oder fälschlich Befund. Also offensichtlich weitere Datenfehler die später zu klären sind. In keinem Fall ist ein MText notwendig. Ich schließe diese neue Datei ohne zu speichern, kehre zum Grabungsplan zurück, filter auf MText der Farbe 230, mit ```ursprung```  zerlege ich den MText in einzeiligen Text. 
-
-Damit ist die grobe Datenkontrolle und die Korrektur der mir aufgefallenen Fehler abgeschlossen. Es bleibt aber eine sehr lange Liste an strukturellen Problemen, z.B. die Befundnummern auf dem Layer Befund oder die Variationen der Layernamen. Dazu das wirklich große Problem der wechselnden Höhen auch innerhalb eines Befundes.
+Damit ist die grobe Datenkontrolle und die Korrektur der mir aufgefallenen Fehler abgeschlossen. Es bleibt aber eine sehr lange Liste an strukturellen Problemen, z.B. die Befundnummern auf dem Layer "Befund" oder die Variationen der Layernamen. Dazu das wirklich große Problem der wechselnden Höhen auch innerhalb eines Befundes.
 
 ## Detailkontrolle & Korrektur
 
 ### Befundnummern
 
-Für mich sind die Befundnummern mit ihrer Lage, Koordinaten und Planum das wichtigste für die Aufarbeitung, selbst die Befundgrenzen sind hier nachgeordnet. Die bisher erkannte Datenstruktur lässt mindestens zwei Grabungen und Grabungsteams vermuten. Damit besteht das Risiko doppelter Befundnummern, zumal niedrige Nummern bis in den 100er-Bereich vergeben wurden. In der nördlichen Hälfte scheinen die Befundnummern überwiegend als Text auf dem Layer Befundnummer zu liegen, in der südlichen Hälfte auf dem Layer Bef.Nr.  Eine stichprobenartige Kontrolle offenbart sofort die doppelte Vergabe der Befundnummern.
+Für mich sind die Befundnummern mit ihrer Lage, Koordinaten und Planum das wichtigste für die Aufarbeitung, selbst die Befundgrenzen sind hier nachgeordnet. Die bisher erkannte Datenstruktur lässt mindestens zwei Grabungen und Grabungsteams vermuten. Damit besteht das Risiko doppelter Befundnummern, zumal niedrige Nummern bis in den 100er-Bereich vergeben wurden. In der nördlichen Hälfte scheinen die Befundnummern überwiegend als Text auf dem Layer "Befundnummer" zu liegen während diese in der südlichen Hälfte auf dem Layer "Bef.Nr." eingetragen sind. Eine stichprobenartige Kontrolle offenbart sofort die doppelte Vergabe der Befundnummern.
 
-Ich wähle die Datenextraktion für Text um eine vollständige Liste aller Textinformationen zu erhalten. Für die neue Datenextraktion wähle ich bei den Objekten nur Text, reduziere die Kategorien auf die Bereiche Allgemein, Geometrie und Text um abschließend folgende Informationen in eine CSV-Tabelle zu exportieren: Layer, Position-x, -y, -z und Wert. Sortieren Sie diese Liste nach dem Layernamen. Die Befundnummern des Layers Bef.Nr. haben erfreulicherweise alle auch einen z-Wert, das redundante Präfix "Bef. " zeugt zugleich von einer stringente Handhabung und ermöglicht eine klare Trennung zu den Befundnummern des Layers Befundnummer. Das überflüssige Präfix kann in AutoCAD mit "Suchen - Ersetzen" gelöscht werden. Drei Befundnummern vom Typ Bef.Nr. liegen auf dem falschen Layer, bitte eigenständig möglichst effizient, also nicht individuell, korrigieren. Die Befundnummern auf dem Layer Befundnummern haben überwiegend falsche z-Werte und liegen ja auch neben den Befunden. In diesem Bereich der Grabung wurden aber auch die Befundnummern als Block mit Attribut auf dem Layer "Koordinaten-Befundmitte" in die Befundmitte gemessen (von uns dann geschoben). Auch diese Daten können extrahiert und als Liste verwaltet und nachgenutzt werden.
+Ich wähle die Datenextraktion für Text um eine vollständige Liste aller Textinformationen zu erhalten. Für die neue Datenextraktion wähle ich bei den Objekten nur Text, reduziere die Kategorien auf die Bereiche Allgemein, Geometrie und Text um abschließend folgende Informationen in eine CSV-Tabelle zu exportieren: Layer, Position-x, -y, -z und Wert. Sortieren Sie diese Liste nach dem Layernamen. Die Befundnummern des Layers "Bef.Nr." haben erfreulicherweise alle auch einen z-Wert, das redundante Präfix "Bef. " zeugt zugleich von einer stringente Handhabung und ermöglicht eine klare Trennung zu den Befundnummern des Layers "Befundnummer". Das überflüssige Präfix kann in AutoCAD mit "Suchen - Ersetzen" gelöscht werden. Drei Befundnummern vom Typ "Bef.Nr." liegen auf dem falschen Layer, bitte eigenständig möglichst effizient, also nicht individuell, korrigieren. Die Befundnummern auf dem Layer "Befundnummern" haben überwiegend falsche z-Werte und liegen ja auch neben den Befunden. In diesem Bereich der Grabung wurden aber auch die Befundnummern als Block mit Attribut auf dem Layer "Koordinaten-Befundmitte" in die Befundmitte gemessen. Auch diese Daten können extrahiert und als Liste verwaltet und nachgenutzt werden.
 
 ### Blöcke mit Attribut
 
-Vor allem auf der nördliche Grabungsfläche wurden  Blöcken mit Attribut vielfach eingesetzt. Auf der südlichen Fläche wurden Funde mit einem Block "Messpunkt" eingemessen.
+Vor allem auf der nördliche Grabungsfläche wurden  Blöcke mit Attribut vielfach eingesetzt. Auf der südlichen Fläche wurden Funde mit einem Block "Messpunkt" eingemessen.
 
 |Objekt | Blockname | Layername | Beschreibung|
 |----|----|----|----|
@@ -108,7 +110,7 @@ Zahlreiche Polygone der Befunde und Flächen bzw. Schnitte sind nicht geschlosse
 Die Höhenfehler gliedern sich nach der Intensität, teils sind es Fehler innerhalb eines Polygons oder aber ganze Gruppen von Elementen in unterschiedlichen Kategorien mit erkennbar unterschiedlichen Fehlerquellen. Zwei Fehlerquellen sich offensichtlich und sehr typisch:
 
 - Beim Tachy oder/und bei TachyCAD wurde eine andere Prismenhöhe verwendet als am Prisma eingestellt (nicht eingetragen oder nicht zurückgestellt).
-- Beim Messen der Befunde war der OFang eingeschaltet und es wurden von Hand gezeichnete Linien gefangen (z-Wert: 0). 
+- Beim Messen der Befunde war der OFang eingeschaltet und es wurden zuvor von Hand gezeichnete Linien gefangen (z-Wert: 0). 
 - Ein Punkt im Polygon wurde wegen fehlender Sicht, z.B. ein Baum, nicht gemessen sondern von Hand gesetzt (z-Wert 0). Dies trifft vor allem auf die Profillinien zu die offesichtlich nach der Messung der Nägel von Hand eingezeichnet wurden.
 
 Zur Bearbeitung der z-Wert-Probleme empfielt sich die Arbeit in zwei Ansichtsfenstern: "Ansicht -> Ansichtsfenster -> 2 Ansichtfenster". Sie können ein Objekt markieren und in die zweite Ansicht wechseln. Das gezielte Editieren des z-Wertes eines Punktes ist nicht möglich. Sie können aber mit dem Objektfang arbeiten, um die Z-Werte zu manipulieren.
@@ -123,15 +125,15 @@ Alternativ zeichnen Sie eine 2D-Linie von einem Objekt mit korrekter Höhe zu ei
 
 Dieses Problem ist besonders oft bei den Profillinien vertreten. Diese Linien wurden offensichtlich von Hand gezeichnet und im mittleren Abschnitt an den eingemessenen Profilnägeln gefangen. Die Endlinien sind demnach nur als Markierung der Ansichtsrichtung zu bewerten. Wir können Sie also ebenfalls "frei schieben". Aktivieren Sie beim Objektfang den "Mittelpunkt" von Linien. Nehmen Sie mit Mausklick das Ende einer Profillinie auf, verschieben sie diesen auf den Mittelpunkt der Profillinie im Befund. Schieben Sie diesen Punkt anschließend wieder zurück. Eine  Alternative ist das zerlegen der Polylinie mit Ursprung in einzelne Linien. Für diese Linien können Sie die Z-Werte für Start- und Endpunkt auf einmal editieren. Nachfolgend sollten Sie jedoch mit *pedit* die einzelnen Segmente wieder zu einer Polylinie verbinden.
 
-Auf dieselbe Weise könne Sie einzelne Punkte von Befundlinien korrigieren. Starten Sie mit einer 2D-Polylinie an einem Punkt mit korrektem z-Wert, Zeichnen Sie einen Punkt neben der Befundgrenze um diese Linie später leicht markieren zu können und markieren Sie nachfolgend die Punkte mit zu korrigierendem z-Wert. Wie zuvor können Sie den Punkt mit falschem z-Wert erst seitlich verschieben und dann mit aktivem OFang zurück auf die ursprünglich Lage. Abschließend löschen Sie die Hilfslinie.
+Auf dieselbe Weise könne Sie einzelne Punkte von Befundlinien korrigieren. Starten Sie mit einer 2D-Polylinie an einem Punkt mit korrektem z-Wert, Zeichnen Sie einen Punkt neben der Befundgrenze um diese Linie später leicht auswählen zu können und markieren Sie nachfolgend die Punkte mit zu korrigierendem z-Wert. Wie zuvor können Sie den Punkt mit falschem z-Wert erst seitlich verschieben und dann mit aktivem OFang zurück auf die ursprünglich Lage nur mit aktualisierten z-Wert. Abschließend löschen Sie die Hilfslinie.
 
 **Sprünge bei benachbarten Polygonzügen**
 
-Wir dürfen erwarten, dass benachbarte Polygone auf einer ähnlichen Höhe gelegen haben. Daneben sind aber auch Stufen im Planum denkbar. Diese wahrscheinliche Beziehung zu benachbarten Befunden kann über eine 3D-Polylinie genutzt werden. Zeichnen Sie eine 3D-Polylinie zwischen gegenüberliegenden Befunden, wenn die Mitte dieser 3dp im Bereich des zu verschiebenden Objektes liegt, können Sie von diesem Mittelpunkt eine 2D-Polylinie an einen spezifischen Punkt des Objektes zeichnen und dieses Objekt dann an die 2D-Linie verschieben. Sollte die Distanz zum Mittelpunkt der 3dp zugroß sein, zeichnen Sie eine Weitere 3dp zwischen Mittelpunkt und Endpunkt um einen weitern Fangpunkt auf der 1/4  Strecke zu erhalten.
+Wir dürfen erwarten, dass benachbarte Polygone auf einer ähnlichen Höhe gelegen haben. Daneben sind aber auch Stufen im Planum denkbar. Diese wahrscheinliche Beziehung zu benachbarten Befunden kann über eine 3D-Polylinie genutzt werden. Zeichnen Sie eine 3D-Polylinie zwischen gegenüberliegenden Befunden, wenn die Mitte dieser 3dp im Bereich des zu verschiebenden Objektes liegt, können Sie von diesem Mittelpunkt eine 2D-Polylinie an einen spezifischen Punkt des Objektes zeichnen und dieses Objekt dann an die 2D-Linie verschieben. Sollte die Distanz zum Mittelpunkt der 3dp zugroß sein, zeichnen Sie eine Weitere 3dp zwischen Mittelpunkt und Endpunkt um einen weiteren Fangpunkt auf der 1/4  Strecke zu erhalten.
 
 ## Grabungsplan zu GIS
 
-Das Ergebnis nach dem Import hängt im wesentlichen von zwei Faktoren ab:
+Das Importergebnis hängt im wesentlichen von zwei Faktoren ab:
 
 - Was liefern Sie für den Import.
 - Welche Software nutzen Sie für den Import.
@@ -140,9 +142,9 @@ Für beides werden nachfolgend zwei Optionen genannt, woraus sich vier Varianten
 
 ### Daten zu DXF exportieren
 
-Das X steht, wie so oft, für e**X**change. Also ein gutes Format, wählen Sie aber mal nicht das neuste DXF-Format sondern eine ältere Variante. Mit "2010" liegen Sie auch bei älteren Versionen von QGIS sicher nicht verkehrt, aber die Erde dreht sich bekanntlich. Es empfiehlt sich auch nicht pauschal alles zu exportieren, sondern bei dem vorliegenden Grabungsplan macht es Sinn folgende Layer auszuschließen: MESSPUNKTE (Messprotokoll von TachyCAD), Kopf, Legende, Maßstab und Nordpfeil (Papierbereich). Der Export der gewählten Objekte erfolgt mit dem Befehl ```wblock``` in eine einzige DXF-Datei (Variante 1).
+Das X steht, wie so oft, für e**X**change. Also ein gutes Format, wählen Sie aber mal nicht das neuste DXF-Format sondern eine ältere Variante. Es empfiehlt sich auch nicht pauschal alles zu exportieren, sondern bei dem vorliegenden Grabungsplan macht es Sinn, folgende Layer auszuschließen: MESSPUNKTE (Messprotokoll von TachyCAD), Kopf, Legende, Maßstab und Nordpfeil (Papierbereich). Der Export der gewählten Objekte erfolgt mit dem Befehl ```wblock``` in eine einzige DXF-Datei (Variante 1).
 
-Für die Variante 2 differenzieren Sie die Daten in strukturelle Einheiten und exportieren diese jeweils in eine DXF-Datei: alle Bebauungsgrenzen, alle Grabungs- und Schnittgrenzen incl. GGUK und GGOK, Befunde die nicht explizit auf einem anderen Planum liegen, Befunde nach sonstigen Plana, alles rund um Profil, alle Funde und alle Texte. Die Auswahl treffe ich über das Einschalten der entsprechenden Layer, nur für den Text gehe ich über den Eigenschaftenfilter (Schnellauswahl) und wähle Text, Rückwärts = Nein.  Der M-Text sollte zu Text aufgelöst sein. Zudem sollten die Blöcke mit Attribut getrennt in Listen exportiert sein (s.o.). Alle exportierten DXF verschiebe ich in einen Unterordner.
+Für die Variante 2 differenzieren Sie die Daten in strukturelle Einheiten und exportieren diese jeweils in eine DXF-Datei: alle Bebauungsgrenzen, alle Grabungs- und Schnittgrenzen incl. GGUK und GGOK, Befunde die nicht explizit auf einem anderen Planum liegen, Befunde nach sonstigen Plana, alles rund um Profil, alle Funde und alle Texte. Die Auswahl treffe ich über das Einschalten der entsprechenden Layer, nur für den Text gehe ich über den Eigenschaftenfilter (Schnellauswahl) und wähle Text, Rückwärts = Nein. Der M-Text sollte zu Text aufgelöst sein. Zudem sollten die Blöcke mit Attribut getrennt in Listen exportiert sein (s.o.). Alle exportierten DXF verschiebe ich in einen Unterordner.
 
 ### Import in QGIS
 
@@ -155,11 +157,7 @@ Da Sie hier weiterlesen gehe ich von grundlegenden Kenntnissen zu GIS und der Be
 
 Starten Sie QGIS, öffnen Sie eine leere Datei und weisen Sie diesem "Projekt" über die Weltkugel am rechten unteren Fensterrand für den vorangehend bearbeiteten Plan das EPSG 31468 zu. Fügen Sie über die Datenquellenverwaltung (\<strg>+\<l>) und hier die Vektoren die DXF-Datei der gesamten Grabung ein mit der Kodierung "Automatisch" oder dezidiert "UTF-8". QGIS erkennt gemischten Inhalt (Punkt, Linie, Polygon) und fordert Sie auf zu  wählen. Wählen sie alles aus und fügen Sie es ein. Als erstes erkennen Sie enttäuscht, dass nur Punkte und Linien und keine Polygone vorliegen, zudem sind Daten - typisch GIS - nach Objekttyp gruppiert und nicht nach den Layern aus AutoCAD. Das war früher anders. Die zweite Variante wäre dann der Import der einzelnen DXF-Dateien und der Export dieser in  eine jeweils neue SQLite-Tabelle.  
 
-| Anmerkung |
-|----|
-| Holen Sie sich auch mal eine Online-Karte dazu, ich persönlich nutze gerne von der Erweiterung "Quick Map Services" die OSM-Karte "Open Cycle Map". Kontrollieren Sie die Lage der Ausgrabung. Wechseln Sie mal das EPSG auf 2398, welches das offizielle System des Landes Sachsen-Anhalt ist. Erinnern Sie sich der "falschen" Vermessung der ersten Ausgrabung und die verschobenen Daten? Das "Falsche" war auch richtig und zudem Landeskonform. Falsch oder  richtig ist sehr oft im Bezugs- oder Wertesystems begründet.|
-
-Öffnen Sie für den Punktlayer über das Kontextmenü die zugehörige Attributtabelle und sehen Sie sich die Spalten an. Für die Punkte sind es: Layer, PaperSpace, SubClasses, LineType, EntityHandle und Text. Für uns verwertbar ist in diesem Fall nur der Layername und der Text. Wählen Sie aus dem Kontextmenü die Eigenschaften, die Beschriftung und hier die "Einzelne Beschriftung" mit dem Feld Text. Zoomen Sie mal in die südliche Grabungsfläche, Sie sehen, dass der Text an der Position des Textes auftaucht. Zoomen Sie in die nördliche Grabungsfläche, hier waren die Befundnummern als Block mit Attribut gesetzt worden. Sie erkennen, der "Würfel" des Blocks ist als Liniengruppe richtig eingefügt und die Befundnummer ist entsprechend der Position im Block versetzt eingefügt. Damit liegt der Text für uns falsch und getrennt vom eigentlichen Messpunkt. Das gleiche trifft auf die Profilnägel zu. Die als CSV-Liste exportierten Blöcke sind demnach deutlich besser. Öffnen Sie nun die Attributtabelle für die Polylinien. Diese zeigt die gleichen Spalten wie bei dem Punktlayer und da ein Text nicht vorliegt, ist lediglich die Spalte Layer von Interesse für die weitere Verarbeitung. Trotz der Zuweisung der Kodierung UTF-8 wird der Layername "Höhen" falsch angezeigt. Importieren Sie erneut und wählen Sie diesmal "Windows 1252" ändert sich nichts. Umlaute sind fast immer ein Problem, also besser meiden.
+Öffnen Sie für den Punktlayer über das Kontextmenü die zugehörige Attributtabelle und sehen Sie sich die Spalten an. Für die Punkte sind es: Layer, PaperSpace, SubClasses, LineType, EntityHandle und Text. Für uns verwertbar ist in diesem Fall nur der Layername und der Text. Wählen Sie aus dem Kontextmenü die Eigenschaften, die Beschriftung und hier die "Einzelne Beschriftung" mit dem Feld Text. Zoomen Sie mal in die südliche Grabungsfläche, Sie sehen, dass der Text an der Position des Textes auftaucht. Zoomen Sie in die nördliche Grabungsfläche, hier waren die Befundnummern als Block mit Attribut gesetzt worden. Sie erkennen, der "Würfel" des Blocks ist als Liniengruppe richtig eingefügt und die Befundnummer ist entsprechend der Position im Block versetzt eingefügt. Damit liegt der Text für uns falsch und getrennt vom eigentlichen Messpunkt. Das gleiche trifft auf die Profilnägel zu. Die als CSV-Liste exportierten Blöcke sind demnach deutlich besser. Öffnen Sie nun die Attributtabelle für die Polylinien. Diese zeigt die gleichen Spalten wie bei dem Punktlayer und da ein Text nicht vorliegt, ist lediglich die Spalte Layer von Interesse für die weitere Verarbeitung. 
 
 Exportieren Sie nun die Layer über das Kontextmenü in eine neue SpatiaLite Datenbank. Nennen Sie die Datenbank "ausgrabung.sqlite", den Layern "punkte" bzw. "linien", weisen Sie das KBS  "EPSG 31468" zu, schließen Sie bei der Gelegenheit die überflüssigen Attribute aus und wählen Sie für die Geometrie mit z-Dimension. Öffnen Sie nun mit "Datenbank -> DB-Verwaltung" und über das Kontextmenü zu "SpatiaLite" mittels "Verbinden" diese eben erstellte SpatiaLite-Datenbank. 
 
@@ -174,7 +172,7 @@ from punkte
 where z_wert < 50;
 ```
 
-Die vorangehende SQL-Abfrage muss, sofern Sie das rudimentäre Englisch verstehen, nicht wirklich erklärt werden. Sie wird mit *select* als Abfrage eingeleitet, es folgt der Block zu den Variablen, teils unter Verwendung einer Funktion die hier vor der Klammer steht und nachfolgendem Alias (neuer Name) für das Ergebnis, der Quelle und einer Bedingung. Die Punkte liegen tatsächlich als 3D-Objekte vor und wir können die z-Werte filtern. Führen Sie analog für die Polylinien folgende Anweisung aus.
+Die vorangehende SQL-Abfrage muss, sofern Sie das rudimentäre Englisch verstehen, nicht wirklich erklärt werden. Sie wird mit *select* als Abfrage eingeleitet, es folgt die Textspalte und zwei Funktionen werden Koordinaten der Geometrie abgefragt und erhalten mit *as* einen Namen. Die Punkte liegen tatsächlich als 3D-Objekte vor und wir können die z-Werte filtern. Führen Sie diese Abfrage analog auf für die Polylinien aus.
 
 ```{sql 'Show wkt and z-value of lines', eval=FALSE, message=FALSE, connection=t1db, include=TRUE}
 select layer, 
@@ -185,19 +183,15 @@ from linien
 where z_min < 50;
 ```
 
-Das vorgenannte Beispiel verdeutlicht, das z-Werte-Problem der Polylinie könnten wir auch hier mit Recursion und setpoint() lösen.
-
 ### Import in SpatiaLite mit der SpatiaLite GUI
 
-SpatiaLite beruht auf SQLite, eine Desktop SQL-Datenbank, und hat insgesamt eine deutlich längere Entwicklung hinter sich als die in QGIS implementierten Derivate. Zudem bietet es eine eigene GUI (graphical user interface). Laden Sie sich bitte von folgender [Website](http://www.gaia-gis.it/gaia-sins/) die Dateien für SpatiaLite herunter, diese finden Sie unten links unter "MS Windows binaries".
+SpatiaLite beruht auf SQLite und hat insgesamt eine deutlich längere Entwicklung hinter sich als die in QGIS implementierten Derivate. Zudem bietet es eine eigene GUI (graphical user interface). Laden Sie sich bitte von folgender [Website](http://www.gaia-gis.it/gaia-sins/) die Dateien für SpatiaLite herunter, diese finden Sie unten links unter "MS Windows binaries". Zu SpatiaLite gibt es zahlreiche ergänzende Infos (s. Weblinks).
 
 1. Wählen Sie hier bei "current stable version"  Ihre Windowsversion 32bit oder 64bit.
 2. Sie sehen eine lange Liste von kleinen Dateien, laden Sie einfach alle der Reihe nach herunter auch wenn Sie aktuell nicht alle brauchen.
 3. Zum Entpacken dieser Dateien empfehle ich [7-zip](https://www.7-zip.de/). Diese Software ist wirklich frei und nervt nicht mit einem "Kaufangebot" wie ein anderes weit verbreitetes Programm.
-4. Legen Sie im Programmordner "Program Files" einen Ordner "spatialite" an und kopieren Sie alles dort hinein (Adminrechte). Das Programm wird nicht installiert (eingebunden im Betriebssystem), der Ordner kann also auch überall liegen.
-5. Wenn Sie es zukünftig öfter nutzen wollen und mehr Komfort wünschen, können Sie die Datei "spatialite_gui.exe" mit dem Eintrag "An Start anheften" aus dem Kontextmenü im Startmenü der Programme eintragen.
-
-Zu SpatiaLite gibt es zahlreiche ergänzende Infos (s. Weblinks).
+4. Legen Sie im Programmordner "Program Files" einen Ordner "spatialite" an und kopieren Sie alles dort hinein (Adminrechte). Das Programm wird nicht installiert (eingebunden im Betriebssystem), der Ordner kann also woanders liegen.
+5. Wenn Sie es zukünftig öfter nutzen wollen und mehr Komfort wünschen, können Sie die Datei eine Link auf die spatialite_gui.exe im Startmenü der Programme eintragen.
 
 Starten Sie die SpatiaLite GUI. Erstellen Sie mit dem entsprechenden Icon der Menüleiste eine neue leere SpatiaLite DB. Wählen Sie mit "Files -> Advanced -> Import DXF drawings" eine der einzeln exportierten DXF-Dateien aus. In dem folgenden Fenster tragen Sie bitte diese Parameter ein: "Import any DXF drawing file from selected folder", SRID: 31468, "Append to already existing tables", Dimension: "authomatic 2D/3D", Import mode: "mixed layers (distinct by type)", Special ring handling: none. Geben Sie dem Prozess ein wenig Zeit. Sie haben vorab gesehen, es gibt mehr Optionen, auch die Möglichkeit nach den Layern in AutoCAD zu trennen.
 

@@ -15,27 +15,27 @@ output:
     number_sections: yes
     toc: yes
     df_print: kable
+  html_document:
+    toc: yes
+    toc_float: true
+    df_print: paged
+papersize: a4 
 urlcolor: blue
 link-citations: yes # make citations hyperlinks
 linkcolor: blue
-number_sections: yes
+# number_sections: yes
 lang: de-DE
 ---
 
-# Textstile
+# Text und Textstile
 
-Dieses Thema wurde bei den Blöcken mit Attribut angerissen und erschließt sich weitgehend von selbst. Es gibt aber einige wenige wichtige Aspekte, die zu beachten sind und gesondert erwähnt werden sollen.
+Dieses Thema wurde im Kapitel 4 "Editieren ..." und im vorangehenden bei "Block mit Attribut" angerissen. Die Bedeutung von Textstilen bzw. Formatvorlagen erschließt sich von selbst und muss nicht erläutert werden. Es gibt aber einige wenige wichtige Aspekte, die zu beachten sind und gesondert erwähnt werden sollen.
 
 - In AutoCAD stehen zwei Gruppen von Schrifttypen zur Verfügung: 
 	- SHX, die AutoCAD eigenen, auf Vektoren basierten Schriften und
 	- TTF (True Type Font) oder andere Schriftarten des Betriebssystems.
-- Sofern nicht die definierten Standardfonts von PDF verwendet werden, müssen TTF im darstellenden Betriebssystem (OS) vorliegen oder im PDF eingebunden sein, ansonsten können diese nicht dargestellt werden. PDF/A(rchiv) schreibt das Einbinden der Fonts vor. Eine fehlerhafte Darstellung erfolgt auch in der AutoCAD-Datei selbst, wenn der verwendetet TTF im neuen OS nicht vorliegt. PDF Standard Type 1 Fonts sind:
-	- Times (v3) in regular, italic, bold, und bold italic,
-	- Courier in regular, oblique, bold und bold oblique,
-	- Helvetica (v3) in regular, oblique, bold und bold oblique,
-	- Symbol und
-	- Zapf Dingbats.
-- Text lässt sich in AutoCAD unabhängig ob SHX oder TTF vorliegt "Suchen" und "Ersetzen". Beim Druck in eine PDF-Datei wird SHX zu Vektoren umgewandelt während TTF zu Text wird. Die Verwendung von TTF bietet für die automatisierte Recherche und die Extraktion von Inhaltsinformationen im resultierende PDF also immense Vorteile. 
+- Sofern nicht Standardfonts des Betriebssystem (OS) verwendet werden, müssen TTF im darstellenden OS vorliegen oder im PDF eingebunden sein, ansonsten werden diese automatisch durch einen anderen Font ersetzt,  fehlerhaft oder auch gar nicht dargestellt. Bis 2021 gab es die PDF Standard Type 1 Fonts (u.a. Times, Courier, Helvetica). PDF/A(rchiv) schreibt das Einbinden der Fonts vor, was allerdings durch die Anwendung zur PDF-Erstellung auch unterstützt werden muss. Eine fehlerhafte Darstellung erfolgt auch in der AutoCAD-Datei selbst, wenn der verwendetet Font im neuen OS nicht vorliegt.  
+- Text lässt sich in AutoCAD, unabhängig ob SHX oder TTF, vorliegt "Suchen" und "Ersetzen". Beim Druck in eine PDF-Datei wird SHX zu Vektoren umgewandelt während TTF *a priori* zu Text wird. Die Verwendung von TTF bietet für die automatisierte Recherche und die Extraktion von Inhaltsinformationen im resultierende PDF also immense Vorteile. 
 - Da SHX zu Vektoren umgewandelt werden bleibt der Text im PDF unabhängig vom OS menschenlesbar. In Abhängigkeit von der Menge des Textes und der Proportion zu weiteren Vektoren nimmt die Dateigröße aber unverhältnismäßig zu.
 - Veränderungen bei TTF von Breitenfaktor, Neigung oder Rotation sowie die uneinheitliche Skalierung von x und y bei einem Block mit Text können die Konvertierung des Textes im PDF verhindern oder zu fehlerhafter Darstellung führen.
-- Sie können in AutoCAD mehrere Textstile mit unterschiedlichen Fonts definieren und diese gezielt nach Bedarf und mit Blick auf interoperable und durchsuchbare PDF einsetzen. 
+- Sie können in AutoCAD mehrere Textstile definieren und diese gezielt nach Bedarf und mit Blick auf interoperable und durchsuchbare PDF einsetzen. Sie sollten nur einen und möglichst weit verbreiteten Font verwenden.

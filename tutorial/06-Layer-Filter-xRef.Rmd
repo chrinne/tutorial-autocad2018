@@ -15,10 +15,15 @@ output:
     number_sections: yes
     toc: yes
     df_print: kable
+  html_document:
+    toc: yes
+    toc_float: true
+    df_print: paged
+papersize: a4 
 urlcolor: blue
 link-citations: yes # make citations hyperlinks
 linkcolor: blue
-number_sections: yes
+# number_sections: yes
 lang: de-DE
 ---
 
@@ -36,7 +41,7 @@ Um die Arbeit im 3D-Raum zu erleichtern erstellen Sie sich zwei **Ansichtsfenste
 
 Layer sind ein sehr wichtiges Element zur Strukturierung von CAD-Zeichnungen. Vorab ein ergänzender Tip und Hinweise zum bisher dargestellten:
 
-- Üblicherweise erhalten Objekte die wesentlichen Eigenschaften Farbe, Strichtyp und Linienstärke vom Layer. Wenn Sie beim Digitalisieren die Eigenschaft Farbe im Menü ändern, z.B. auf Magenta, dann werden alle nachfolgend erstellten Objekte in dieser Farbe dargestellt. Dies kann genutzt werden, um alle Objekte des Tages mit einer "Tagesfarbe" einzufärben. So können dann alle neuen Objekte gefiltert, extrahiert und mit einem Schlag durch die Wahl der Farbe "von Layer" wieder normiert dargestellt werden.
+- Üblicherweise erhalten Objekte die wesentlichen Eigenschaften Farbe, Strichtyp und Linienstärke vom Layer. Wenn Sie beim Digitalisieren die Eigenschaft Farbe im Menü ändern, z.B. auf Magenta, werden alle nachfolgend erstellten Objekte in dieser Farbe dargestellt. Dies kann genutzt werden, um alle Objekte des Tages mit einer "Tagesfarbe" einzufärben. So können dann alle neuen Objekte gefiltert, extrahiert und mit einem Schlag durch die Wahl der Farbe "von Layer" wieder normiert dargestellt werden.
 
 - Die Farbe ist heute "nur" Farbe. Früher wurden Pläne mit Stiftplottern auf Papier gezeichnet(!), die Farbe entsprach da gerne den farbcodierten Strichstärken der Tuschestifte/Rapidografen im Plotter. Eventuell haben Sie ja noch Keramik mit Tuschestiften gezeichnet. Farbe ist eine gute visuelle Hilfe, um Objektgruppen zu Trennen: Befunde, Profillinien, Schnittgrenze etc. Moderne Din-A0-Plotter sind Tintenstrahldrucker und können Farbe reproduzieren. Denken Sie aber an den Kontrast auf weißem Papier und die Beständigkeit einer Farbe wie z.B. Gelb unter UV-Licht.
 
@@ -63,7 +68,7 @@ Effektive Beispiele wären:
 - Sie wollen alle Polylinien (unsere Steine) auswählen. Objekte: *drop-down* "Polylinie", Eigenschaften "Farbe", "=Gleich" "VonLayer", "In einen neuen Auswahlsatz einfügen" [OK].
 - Sie wollen die großen Steine mit > 2m² Fläche auswählen. Objekttyp: "Polylinie", Eigenschaft: "Fläche", "> Größer als", Wert: "2" [OK]. Beachte Sie hierbei, dass auch nicht geschlossene Polylinien eine Fläche haben. 
 
-Mit dem Befehl ```qselect``` rufen Sie dieses Fenster direkt auf. Die Liste der zu filternden Eigenschaften hängt von den jeweils gewählten Objektypen ab.
+Mit dem Befehl ```_qselect``` rufen Sie dieses Fenster direkt auf. Die Liste der zu filternden Eigenschaften hängt von den jeweils gewählten Objektypen ab.
 
 ## Externe Referenzen
 
@@ -74,7 +79,7 @@ Erstellen Sie eine neue leere Datei (\<strg>+\<n>), überprüfen Sie die Einheit
 
 Im Referenzmanager sehen Sie die eingebundenen DWG und die jeweils darin referenzierten Bilder. Diese Abhängigkeit wird mit dem "|" im Namen dargestellt. Am rechten Rand sehen Sie den gespeicherten Pfad, dieser sollte für die DWG relativ sein, kann aber für die Bilder absolut angegeben sein. Bei fehlender Zuordnung von Referenzen sortieren Sie als erstes nach dem "Status", wählen Sie alle nicht geladenen und wählen über das Kontextmenü "Neuladen". 
 
-Öffnen Sie nachfolgend den Layermanager, auch hier sehen Sie einen langen Layernamen aus [Dateiname]|[Layername]. Estellen Sie zwei Layerfilter auf die Namensbestandteile "\*Steine*" und "\*Bild*". Kontrollieren Sie noch abschließend die vorhandenen BKS, es liegt nur das WKS vor, in dem alle Zeichnungen nun exakt aufeinanderliegen.
+Öffnen Sie nachfolgend den Layermanager, auch hier sehen Sie einen langen Layernamen aus [Dateiname]|[Layername]. Estellen Sie zwei Layerfilter auf die Namensbestandteile "\*Steine*" und "\*Bild*". Kontrollieren Sie noch abschließend die vorhandenen BKS, es liegt nur das WKS vor, in dem alle Zeichnungen nun exakt zueinander liegen.
 
 Sie können ausschließlich eine Referenz auswählen, nicht ein einzelnes Element in dieser Referenz. Es ist möglich, externe Referenzen direkt durch diese Zeichnung zu bearbeiten, ich selbst empfinde dies aber als umständlich, verwirrend und irgendwie "übergriffig". Insofern führe ich es hier nicht weiter aus. Ich selbst nutze externe Referenzen als Übersichtsprojekt, z.B. die gesamte Grabung, oder um Altdaten abgeschlossener Projekte zu hinterlegen ohne sie einzufügen.
 
@@ -84,7 +89,7 @@ Die Arbeit mit externen Referenzen kann nach Abschluss des Projektes, zumal für
 
 Sortieren Sie Ihre externen Referenzen bei Bedarf nach Typ und markieren Sie ausschließlich DWG-Referenzen. Wählen Sie aus dem Kontextmenü **Binden**, das eröffnet zwei Möglichkeiten **Binden** und **Einfügen**. Der wesentliche Unterschied ist die Behandlung der Layer:
 
-- **Binden - Binden** erstellt Layernamen der Form \<Dateiname>$0$\<Layername>. Die Herkunft der Daten ist also über den Layernamen nachvollziehbar. Die Layerliste selbst und auch die Namen der Layer können damit sehr lang werden. Layerfilter erlauben aber dennoch eine effiziente Arbeit.
+- **Binden - Binden** erstellt Layernamen der Form \<Dateiname>\$0\$\<Layername>. Die Herkunft der Daten ist also über den Layernamen nachvollziehbar. Die Layerliste selbst und auch die Namen der Layer können damit sehr lang werden. Layerfilter erlauben aber dennoch eine effiziente Arbeit.
 -  **Binden - Einfügen** fasst alle Layer mit identischen Namen zusammen. Im Ergebnis haben Sie kurze Layernamen, z.B. Pl01_FundNr, unabhängig vom Schnitt oder der Fläche der Großgrabung.
 
 Eventuell gehen externe Referenzen zu Bildern durch das Binden erst verloren. Speichern Sie die Datei unter einem neuen Namen, wählen Sie dann im XRef-Manager die Option "neu laden".

@@ -15,10 +15,15 @@ output:
     number_sections: yes
     toc: yes
     df_print: kable
+  html_document:
+    toc: yes
+    toc_float: true
+    df_print: paged
+papersize: a4 
 urlcolor: blue
 link-citations: yes # make citations hyperlinks
 linkcolor: blue
-number_sections: yes
+# number_sections: yes
 lang: de-DE
 ---
 

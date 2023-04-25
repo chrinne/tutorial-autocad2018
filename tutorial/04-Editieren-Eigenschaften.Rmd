@@ -15,10 +15,15 @@ output:
     number_sections: yes
     toc: yes
     df_print: kable
+  html_document:
+    toc: yes
+    toc_float: true
+    df_print: paged
+papersize: a4 
 urlcolor: blue
 link-citations: yes # make citations hyperlinks
 linkcolor: blue
-number_sections: yes
+# number_sections: yes
 lang: de-DE
 ---
 
@@ -80,4 +85,4 @@ Auch hier nur eine kleine Auswahl, die ich oft nutze: Kopieren, Verschieben, Bru
 
 Der Befehl Text findet sich im Menü beim "Zeichnen". Ich möchte ihn hier aber herausnehmen und getrennt behandeln. Text kann als *Einzeilige Text* (Text) und *Absatztext* (MText) eingefügt werden. Absatztext (MText) definiert eine Textbox mit Formatierungsleiste wie wir sie aus der Textverarbeitung kennen, das ist für umfangreiche Texte sicher sinnvoll. Einzeiliger Text erwartet den Einfügepunkt, Texthöhe (Zeicheneinheit) und Rotation (Winkel). Ein einfaches \<enter> erzeugt eine neue Zeile ein weiteres \<enter> ohne Texteingabe beendet den Befehl.
 
-Beide Texte arbeiten mit Textstil bzw. Formatvorlagen die wir aus der Textverarbeitung kennen und unter "Format > Textstil" definieren können. Text ist schneller eingetragen und schlichter gestaltet als MText. Zudem ist der Einfügepunkt bei einer späteren Extraktion der Objekte der angeklickte Fußpunkt des Textes. Egal ob Befundnummer, Fundnummer, kurze Infos wie "Störung" oder "Kanal", mir ist bisher kein vernünftiger Grund für die Verwendung von MText in Plänen untergekommen, auch nicht im Layoutbereich. Leider kommt der Absatztext im Menü "Zeichnen -> Text -> ..." zuerst und wird entsprecht viel zu oft verwendet. Weiteres zu Text in einem späteren Kapitel.
+Beide Texte arbeiten mit Textstil bzw. Formatvorlage die wir aus der Textverarbeitung kennen und unter "Format > Textstil" definieren können. Text ist schneller eingetragen und schlichter gestaltet als MText. Zudem ist der Einfügepunkt bei einer späteren Extraktion der Objekte der angeklickte Fußpunkt des Textes. Egal ob Befundnummer, Fundnummer, kurze Infos wie "Störung" oder "Kanal", mir ist bisher kein vernünftiger Grund für die Verwendung von MText in Plänen untergekommen, auch nicht im Layoutbereich. Leider kommt der Absatztext im Menü "Zeichnen -> Text -> ..." zuerst und wird entsprecht viel zu oft verwendet. Weiteres zu Text in einem späteren Kapitel.

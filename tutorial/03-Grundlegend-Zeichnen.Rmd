@@ -1,25 +1,28 @@
 ---
 title: "Einführung in AutoCAD für Archäologen"
-author: Christoph Rinne
-email: crinne@ufg.uni-kiel.de
+author: "Christoph Rinne"
 date: "`r format(Sys.time(), '%d. %B %Y')`"
 license: "CC-BY-NC 4.0"
-header-includes:
-  \renewcommand{\contentsname}{Inhalt}
-  \renewcommand{\figurename}{Abb.}
-bibliography: AutoCAD-cours-references.bib
-csl: journal-of-archaeological-science.csl
 output:
   pdf_document:
     fig_caption: yes
     number_sections: yes
     toc: yes
     df_print: kable
+  html_document:
+    toc: yes
+    toc_float: true
+    df_print: paged
+header-includes: \renewcommand{\contentsname}{Inhalt} \renewcommand{\figurename}{Abb.}
+bibliography: "AutoCAD-cours-references.bib"
+csl: "journal-of-archaeological-science.csl"
+email: "crinne@ufg.uni-kiel.de"
+papersize: a4 
 urlcolor: blue
-link-citations: yes # make citations hyperlinks
+link-citations: yes
 linkcolor: blue
-number_sections: yes
-lang: de-DE
+# number_sections: yes
+lang: "de-DE"
 ---
 
 # Grundlegendes und erstes Zeichnen
@@ -61,11 +64,11 @@ Die Rotation ist abhängig vom Ursprung des Modells bzw. des Koordinatensystems 
 
 ### Navidationsleiste und Navigationsrad
 
-Bei AutoCAD 2020 wird unterhalb des *view cube* auch eine graue Navigationsleiste angezeit. Sie bitetet einen weiteren Zugang zu Zoomen, Schieben und mehr Rotation. Interessant ist hier die die erste Option, das Navigationsrad (```navrad```, *steeringwheel*). Es bietet mehr Funktionen als der *view cube*.  
+Bei AutoCAD 2020 wird unterhalb des *view cube* auch eine graue Navigationsleiste angezeit. Sie bietetet einen weiteren Zugang zum Zoomen, Schieben und mehr Rotation. Interessant ist hier die die erste Option, das Navigationsrad (```navrad```, *steeringwheel*). Es bietet mehr Funktionen als der *view cube*.  
 
 ### Visuelle Stile
 
-Visuelle Stile werden über "Ansicht -> Visuelle Stile" ausgewählt und steuern die Darstellung des Modelles als einfache 2D-Ansicht, 3D-Gitter oder zunehmend komplexe Repräsentation. Diese Darstellung ist ein wesentliches Kriterium für die Performanz ihres Systems bei der Arbeit an großen Dateien. In Abhängigkeit vom visuellen Stil wird das Achsen-Symbol unterschiedlich dargestellt. In früheren Versionen wurde der *view cube* in der 2D-Ansicht nicht dargestellt und die Ansichten fokussierten auf die vier Seiten des Würfels, die über "Ansicht -> 3D-Ansicht" ausgewählt werden können. 
+Visuelle Stile werden über "Ansicht -> Visuelle Stile" ausgewählt und steuern die Darstellung des Modells als einfache 2D-Ansicht, 3D-Gitter oder zunehmend komplexe Repräsentation. Diese Darstellung ist ein wesentliches Kriterium für die Performanz ihres Systems bei der Arbeit an großen Dateien. In Abhängigkeit vom visuellen Stil wird das Achsen-Symbol unterschiedlich dargestellt. In früheren Versionen wurde der *view cube* in der 2D-Ansicht nicht dargestellt und die Ansichten fokussierten auf die vier Seiten des Würfels, diese können über "Ansicht -> 3D-Ansicht" ausgewählt werden. 
 
 ## Erstes Zeichnen
 
@@ -73,7 +76,7 @@ Visuelle Stile werden über "Ansicht -> Visuelle Stile" ausgewählt und steuern 
 
 Zeichnen Sie eine Polylinie mit dem Befehl ```pl```. Sie werden am Fadenkreuz nach dem Startpunkt gefragt, tippen Sie bitte ```0,0.0```, bestätigen Sie mit \<enter>. (Anm.: Sollten die Befehle und Kooridnaten nicht am Fadenkreuz erscheinen ist der dynamische Modus ausgeschaltet, das System verhält sich dann anders, was nachfolgend erläutert wird). Dabei ist das "," das Trennzeichen für x und y, "." das Dezimaltrennzeichen. Die nächsten Koordinaten sind ```100,0``` und ```100,100```, beenden Sie den Befehl dann mit \<enter> ohne weitere Koordinateneingabe. Mit ```zoom```, ```g``` zoomen Sie auf die Grenzen der Zeichnung und sehen eine horizontale Linie mit anschließendem 45° Winkel statt des vermutlich erwarteten 90° Winkels nach oben (0,0 100,0 100,100).  Tippen Sie bitte die Funktionstaste \<F2> (auf einem Notebook vermutlich in Kombination mit \<FN>), es öffnet sich die Historie bzw. das **Protokoll der Befehle** und Sie sehen, dass die Befehle dort als "\@100,0" und "\@100,100" protokolliert sind. Dieses "\@" impliziert den Bezug der angegebenen Koordinaten auf den aktuellen Standpunkt. Also vom aktuellen Punkt aus jeweils 100 Einheiten positiv auf der x- und der y-Achse. 
 
-Dies ist, zusammen mit der Befehlseingabe am Fadenkreuz, ein Effekt des **Dynamischen Modus**. Stellen Sie den Dynamischen Modus nun mit ```dynmode```, ```-3``` aus (3 stellt den Status wieder her). Tippen Sie die Funktionstaste \<F3> um den **O(bjekt)Fang** einzuschalten, das Icon "Viereck mit Punkt" rechts unten sollte nun blau sein. Der OFang von "Endpunkten" ist standardmäßig aktiv, kontrolliere Sie dies aber bitte im zugehörigen *drop down* des Icons. Starten Sie mit ```pl``` eine neue Polylinie, fangen Sie den Punkt bei "100,0", das Fadenkreuz zeigt dann ein charakteristisches Symbol und zeichnen Sie nun als nächsten Punkt "100,100", dann "\@100<180", abschließend "0,0" und beenden Sie mit \<enter> ohne Koordinateneingabe.
+Dies ist, zusammen mit der Befehlseingabe am Fadenkreuz, ein Effekt des **Dynamischen Modus**. Stellen Sie den Dynamischen Modus nun mit ```dynmode```, ```-3``` aus (3 stellt den Status wieder her). Tippen Sie die Funktionstaste \<F3>, um den **O(bjekt)Fang** einzuschalten, das Icon "Viereck mit Punkt" rechts unten sollte nun blau sein. Der OFang von "Endpunkten" ist standardmäßig aktiv, kontrolliere Sie dies aber bitte im zugehörigen *drop down* des Icons. Starten Sie mit ```pl``` eine neue Polylinie, fangen Sie den Punkt bei "100,0", das Fadenkreuz zeigt dann ein charakteristisches Symbol und zeichnen Sie nun als nächsten Punkt "100,100", dann "\@100<180", abschließend "0,0" und beenden Sie mit \<enter> ohne Koordinateneingabe.
 
 ### Koordinateneingabe
 

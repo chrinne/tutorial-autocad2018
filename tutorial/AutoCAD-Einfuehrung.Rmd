@@ -16,10 +16,11 @@ output:
     number_sections: yes
     toc: yes
     df_print: kable
+papersize: a4 
 urlcolor: blue
 link-citations: yes # make citations hyperlinks
 linkcolor: blue
-number_sections: yes
+# number_sections: yes
 lang: de-DE
 ---
 

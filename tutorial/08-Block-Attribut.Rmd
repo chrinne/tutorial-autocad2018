@@ -15,10 +15,15 @@ output:
     number_sections: yes
     toc: yes
     df_print: kable
+  html_document:
+    toc: yes
+    toc_float: true
+    df_print: paged
+papersize: a4 
 urlcolor: blue
 link-citations: yes # make citations hyperlinks
 linkcolor: blue
-number_sections: yes
+# number_sections: yes
 lang: de-DE
 ---
 
@@ -56,7 +61,7 @@ Rufen Sie die Attributdefinition erneut auf. Bezeichnung: "Wand", Eingabeaufford
 
 Öffnen Sie die Eigenschaften des Attributes Steinnummer. Klicken Sie auf 1:1 bei Beschriftungs-Maßstab, wählen Sie das Icon am rechten Rand, mit [Hinzufügen] ergänzen Sie den Maßstab 2:1, bestätigen Sie mit [OK], löschen Sie 1:1, bestätigen Sie mit [OK]. Papiertexthöhe und Modelltexthöhe verhalten sich jetzt in diesem Maßstab, wobei die Papiertexthöhe der Vorgabewert ist und der sichtbare Text im Modell nun 0.1 groß ist. Aus der Papiertexthöhe von 0.2 wird beim Plotmaßstab 1:100 2 mm Texthöhe oder ca. 5.7 pt, also eine eben noch lesbare Beschriftung. 
 
-Schließen Sie den Blockeditor und speichern Sie die Änderungen. Sollten Sie nachträglich Änderungen vornehmen wollen starten Sie den Block-Attribut-Manager ```BATTMAN``` (batman mit 2 t). Nach Änderungen sollten Sie [Anwenden] und [Synchron.] betätigen, um alle Blockreferenzen des geänderten Blocks zu aktualisieren.
+Schließen Sie den Blockeditor und speichern Sie die Änderungen. Sollten Sie nachträglich Änderungen vornehmen wollen starten Sie den Block-Attribut-Manager ```BATTMAN```. Nach den Änderungen sollten Sie [Anwenden] und [Synchron.] betätigen, um alle Blockreferenzen des geänderten Blocks zu aktualisieren.
 
 ### Steinnummern einfügen
 

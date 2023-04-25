@@ -15,10 +15,15 @@ output:
     number_sections: yes
     toc: yes
     df_print: kable
+  html_document:
+    toc: yes
+    toc_float: true
+    df_print: paged
+papersize: a4 
 urlcolor: blue
 link-citations: yes # make citations hyperlinks
 linkcolor: blue
-number_sections: yes
+# number_sections: yes
 lang: de-DE
 ---
 
@@ -71,7 +76,7 @@ Auch ohne große LISP-Kenntnis können mit der LISP-Funktion (command) gezielt A
 (command "_text" "4,6,0" "0.4" "0" "Zweite Zeile")
 ```
 
-Die Unterschiede sind eher marginal und lassen sich mit den gezeigten Varianten leicht erklären. Wie später erklärt, wird der LISP-Befehl als ganzes in eine Klammer geschrieben, das erste Element ist die Funktion und der Rest der Liste wird entsprechend der Funktion verarbeitet. Mit der Funktion (command) kann jeder Befehl aufgerufen werden, auf den dann die für diesen Befehl notwendigen Parameter folgen müssen. Das Leerzeichen trennt die einzelnen Listenelemente. Text bzw. *string* muss in Anführungszeichen stehen, bei Zahlen ist dies nicht notwendig. Der "_" vor dem Befehl verweist auf den englischen Originalbefehl unabhängig von der Installationssprache. Bei "text" ist das weniger offensichtlich bei "einfüge" bzw. "_insert" schon. Da wir bereits mit Blöcken mit Attribut gearbeitet haben noch folgendes Beispiel. 
+Die Unterschiede sind eher marginal und lassen sich mit den gezeigten Varianten leicht erklären. Wie später erklärt wird der LISP-Befehl als ganzes in eine Klammer geschrieben, das erste Element ist die Funktion und der Rest der Liste wird entsprechend der Funktion verarbeitet. Mit der Funktion (command) kann jeder Befehl aufgerufen werden, auf den dann die für diesen Befehl notwendigen Parameter folgen müssen. Das Leerzeichen trennt die einzelnen Listenelemente. Text bzw. *string* muss in Anführungszeichen stehen, bei Zahlen ist dies nicht notwendig. Der "_" vor dem Befehl verweist auf den englischen Originalbefehl unabhängig von der Installationssprache. Bei "text" ist das weniger offensichtlich bei "einfüge" bzw. "_insert" schon. Da wir bereits mit Blöcken mit Attribut gearbeitet haben noch folgendes Beispiel. 
 
 | Achtung |
 |----|
@@ -83,7 +88,7 @@ Die Unterschiede sind eher marginal und lassen sich mit den gezeigten Varianten 
 (command "_insert" "Quadr_Nr" "44.1,57.4,15.9" "1" "1" "0" "2")
 ```
 
-Auf den Befehl zum einfügen eines Blockes folgen: Blockname, Einfügepunkt, Skalierung x, Skalierung y, Rotation und zuletzt die ggf. geforderten Attribute jeweils getrennt mit Leerzeichen. Sie erkennen unschwer, das lässt sich leicht in jeder Tabellenkalkulation erstellen (in Excel: VERKETTEN()). Lediglich die Punkt-Koma-Problematik erschwert uns in Excel ein wenig das Leben, ist aber mit einer Kombination von FINDEN() und ERSETZEN() zu lösen. Nachfolgend ein Beispiel mit einem ersten Tabellenblatt (Name "Daten") und einem weiteren Tabellenblatt mit der folgenden Syntax in einer Zelle je Zeile.
+Auf den Befehl zum einfügen eines Blockes folgen: Blockname, Einfügepunkt, Skalierung x, Skalierung y, Rotation und zuletzt die ggf. geforderten Attribute jeweils getrennt mit Leerzeichen. Sie erkennen sofort: das lässt sich leicht in jeder Tabellenkalkulation erstellen (in Excel: VERKETTEN()). Lediglich die Punkt-Koma-Problematik erschwert uns in Excel ein wenig das Leben, ist aber mit einer Kombination von FINDEN() und ERSETZEN() zu lösen. Nachfolgend ein Beispiel mit einem ersten Tabellenblatt (Name "Daten") und einem weiteren Tabellenblatt mit der folgenden Syntax in einer Zelle je Zeile.
 
 |Nummer | x-Wert | y-Wert | z-Wert | Blockname | x-Faktor | y-Faktor | Rotation |
 |:---:|---:|---:|---:|:---:|---:|---:|---:|
@@ -102,7 +107,7 @@ Auf den Befehl zum einfügen eines Blockes folgen: Blockname, Einfügepunkt, Ska
 In der vorangenden Syntax ist folgendes zu beachten:
 
 - " (Gänsefüßchen) leiten einen Text ein und beendet diesen, so dass Excel diesen Text nicht weiter evaluiert. Kommt in diesem Text ein " vor muss es mit einen " auskommentiert werden, also \"\". Steht \"\" am Ende des Textes werden es drei \"\"\". Sieht verwirrend aus und ist es auch beim Schreiben.
-- Die Funktion 'Ersetzen' ersetzt nicht ein Zeichenkette, z.B. ',', sondern eine Position und Zeichenanzahl innerhalb einer Zeichenkette. Diese Position muss mit der Funktion 'Finden' bestimmt werden. In Libre Office Calc können Sie das Punkt-Komma-Problem  durch die Formatzuweisung "1.1" nur in der Darstellung umgehen, durch die Verkettung wird auch hier ein Komma gesetzt. 
+- Die Funktion 'Ersetzen' ersetzt nicht eine Zeichenkette, z.B. ',', sondern eine Position und Zeichenanzahl innerhalb einer Zeichenkette. Diese Position muss mit der Funktion 'Finden' bestimmt werden. In Libre Office Calc können Sie das Punkt-Komma-Problem  durch die Formatzuweisung "1.1" nur in der Darstellung umgehen, durch die Verkettung wird auch hier ein Komma gesetzt. 
 
 ## LISP 
 
@@ -150,9 +155,9 @@ Im Grunde ist alles in () eine Liste und () eine leere Liste.
 
 (setq) weist einer Variablen einen Wert zu, danach folgt mit vorangestelltem *quote* die Liste in Klammern. Warum das *quote*? Wie im Beispiel ```(set (quote var3) 4)``` würde die Liste von innen nach außen und links nach rechts evaluiert. Dann müsste "rot" eine Funktion sein wie (quote) ist es aber nicht.
 
-Speziell für Listen gibt es zahlreiche Funktionen, die Rückgabewerte sind erwartbar ```(length farben)``` oder auch eher nicht ```(member "grün" farben)```, letzteres gibt den Rest der Liste ab dem gefundenen Element zurück. Wenn Sie unbedingt die Position brauchen könne Sie ja ```(- (length farben) (length (member "grün" farben)) -1)``` schreiben, das -1 da "grün" in der zweiten Liste enthalten ist: 3-2=1. Statt noch eine Klammer für (+ 1) zu setzen ist (- -1) etwas eleganter.
+Speziell für Listen gibt es zahlreiche Funktionen, die Rückgabewerte sind erwartbar ```(length farben)``` oder auch eher nicht ```(member "grün" farben)```, letzteres gibt den Rest der Liste ab dem gefundenen Element zurück. Wenn Sie unbedingt die Position brauchen könne Sie ja ```(- (length farben) (length (member "grün" farben)) -1)``` schreiben. Da "grün" in der zweiten Liste enthalten ist ergibt sich: 3-2=1. Anstatt dann noch eine Klammer für (+ 1) zu setzen ist (- -1) etwas eleganter.
 
-Listen können natürlich geschachtelt sein, so eine Linie (Startpunkt Endpunkt), wobei jede Koordinate für sich eine Liste ist (x y z). Damit zu "zwei" weiteren Funktionen: **(car)** und **(cdr)**. Das erste Element von linie erhalten wir mit ```(car linie)``` und mit (cdr linie) den Rest nach dem ersten Element. Das lässt sich bis zu 4 x kombinieren (caaaar, cadadr ... cddddr). Testen Sie einfach die folgenden Befehle und spielen Sie etwas mit eigenen Variationen: (caar linie), (cadr linie), (cadar linie). Achten Sie auf die Unterschied zwischen (cdr linie), dem Rest der Liste und (cadr linie), dem ersten Element vom Rest der Liste. Bekommen Sie ausschließlich den z-Wert des 2. Punktes? ```(cddadr linie)``` Das ist aber noch eine Liste und da (caddadr linie) nicht mehr geht bleibt aber noch ```(car(cddadr linie))```. Zugestanden, das war verwirrend und wäre auch einfacher gegangen ```(last(last linie))```. 
+Listen können natürlich geschachtelt sein, so ist eine Linie (Startpunkt Endpunkt), wobei jede Koordinate für sich eine Liste ist (x y z). Damit zu "zwei" weiteren Funktionen: **(car)** und **(cdr)**. Das erste Element von linie erhalten wir mit ```(car linie)``` und mit (cdr linie) den Rest nach dem ersten Element. Das lässt sich bis zu 4 x kombinieren (caaaar, cadadr ... cddddr). Testen Sie einfach die folgenden Befehle und spielen Sie etwas mit eigenen Variationen: (caar linie), (cadr linie), (cadar linie). Achten Sie auf die Unterschied zwischen (cdr linie), dem Rest der Liste und (cadr linie), dem ersten Element vom Rest der Liste. Bekommen Sie ausschließlich den z-Wert des 2. Punktes? ```(cddadr linie)``` Das ist aber noch eine Liste und da (caddadr linie) nicht mehr geht bleibt aber noch ```(car(cddadr linie))```. Zugestanden, das war verwirrend und wäre auch einfacher gegangen ```(last(last linie))```. 
 
 ### Visual Lisp Editor
 
@@ -169,7 +174,7 @@ Code kann im Editor auf Syntaxfehler geprüft werden "Extras -> Text im Editor p
 ; Prüfung durchgeführt.
 ```  
 
-Direkt daneben sind ähnliche Icon mit einem roten Pfeil, hiermit können Sie den gesmmten Code  oder den markierten Abschnitt laden. Die Fehlersuche wird durch schrittweises Ausführen oder durch Haltepunkte und in Kombination mit der Überwachung von Variablen deutlich erleichtert. Setzen Sie **Haltepunkte** stets vor die öffnende Klammer, gehen Sie dafür mit dem Cursor an die entsprechende Position und wählen Sie das Hand-Icon oder \<F9>. Auf die gleiche Weise entfernen Sie auch den Haltepunkt am Cursor. Um alle Haltepunkte zu löschen \<strg>+\<shift>+\<F9>. Laden Sie die Datei mit gesetzten Haltepunkten, wechseln Sie zu AutoCAD und starten Sie dort die Funktion "layererstellen". Automatisch wird zum Editor gewechselt und die Ausführung des Codes am ersten Haltepunkt  unterbrochen. Von hieraus können Sie mit den drei Icon mit "()" oder "))" 1. Schrittweise weitergehen, 2. den gesamten Schritt der Klammer nach dem Haltepunkt ausführen oder 3. bis zum Ende der gesamten Prozedur durchlaufen lassen. Parallel dazu wird für die überwachten Ausdrücke / Variablen der jeweils aktuelle Wert angezeigt.
+Direkt daneben sind ähnliche Icon mit einem roten Pfeil, hiermit können Sie den gesammten Code  oder den markierten Abschnitt laden. Die Fehlersuche wird durch schrittweises Ausführen oder durch Haltepunkte und in Kombination mit der Überwachung von Variablen deutlich erleichtert. Setzen Sie **Haltepunkte** stets vor die öffnende Klammer, gehen Sie dafür mit dem Cursor an die entsprechende Position und wählen Sie das Hand-Icon oder \<F9>. Auf die gleiche Weise entfernen Sie auch den Haltepunkt am Cursor. Um alle Haltepunkte zu löschen drücken Sie \<strg>+\<shift>+\<F9>. Laden Sie die Datei mit gesetzten Haltepunkten, wechseln Sie zu AutoCAD und starten Sie dort die Funktion "layererstellen". Automatisch wird zum Editor gewechselt und die Ausführung des Codes am ersten Haltepunkt  unterbrochen. Von hieraus können Sie mit den drei Icon mit "()" oder "))" 1. Schrittweise weitergehen, 2. den gesamten Schritt der Klammer nach dem Haltepunkt ausführen oder 3. bis zum Ende der gesamten Prozedur durchlaufen lassen. Parallel dazu wird für die überwachten Ausdrücke / Variablen der jeweils aktuelle Wert angezeigt.
 
 ### Funktion Layererstellen
 
@@ -199,7 +204,7 @@ Defun definiert eine Funktion, das erste Element der Liste ist der Name der Funk
 
 Als erstes werden die zu erstellenden Layer mit ihre Eigenschaften in eine Liste geschrieben und der variable Layerliste zugewiesen. Jeder Layer der Liste ist mit einer eigenen Sub-Liste vertreten, in der Name, Farbzahl und Linientyp angegeben ist. Mit der Kommentarzeile ist eine Art Spaltenüberschrift eingeschoben und da man mit "cadddr" an das vierte Element einer Liste kommt wird auf eine optional vierte Spalte hingewiesen. 
 
-Danach folgt eine interne Funktion, die anhand der zuvor definierten Sub-Listen mit Layer-Attributen jeweils einen Layer erstellt und nach Vorgaben verändert. Innerhalb dieser Funktion wird eine Variable "Praefix" benötigt, die weiter unter erstellt wird, ich springe deshalb im Code nach unten. (Genau dieses Geschachtel und Gehüpfe  ist unsauber, sollte zwar in dieser Datei aber außerhalb der Funktion c:LayerErstellen und jeweils als kleine eigene Funktion vorliegen.) Das Präfix des Layernames soll sich aus Schnittnummer (SNxx) und Planum (PLxx) zusammensetzen.
+Danach folgt eine interne Funktion, die anhand der zuvor definierten Sub-Listen mit Layer-Attributen jeweils einen Layer erstellt und nach Vorgaben verändert. Innerhalb dieser Funktion wird eine Variable "Praefix" benötigt, die weiter unten erstellt wird, ich springe deshalb im Code nach unten. (Genau dieses Geschachtel und Gehüpfe  ist unsauber, sollte zwar in dieser Datei aber außerhalb der Funktion c:LayerErstellen und jeweils als kleine eigene Funktion vorliegen.) Das Präfix des Layernames soll sich aus Schnittnummer (SNxx) und Planum (PLxx) zusammensetzen.
 
 ```{lisp, 'Praefix erstellen'}
 ;Praefix für die Layernamen erstellen
@@ -225,7 +230,7 @@ Als erstes wird die Schnittnummer in eine  Variable geschrieben (setq), für den
 
 Es folgt die Zuweisung der Nummer des Planums, die bei der Länge 1 ebenfalls um eine "0" erweitert wird.
 
-Das dritte Element verbindet die Variablen zu Schnitt-Nr. und Planum-Nr. mit dem jeweilige Etikett ("SN", "PL") zur Variable Präfix, aber nur wenn (if) Schnitt nicht leer ist, ansonsten wird nur das Planum an Praefix übergeben. Als erkennbares Trennzeichen wird jeweils ein "_" beigefügt. Das ganze ist Schrittweise ausgeführt und leicht lesbar (einfache Sprache) also nicht zwingend elegant oder kompakt. Das Ergebnis ist das Praefix, z.B. "SN01PL01_" und geht zurück zur internen Funktion LayerNeu.
+Das dritte Element verbindet die Variablen zu Schnitt-Nr. und Planum-Nr. mit dem jeweilige Etikett ("SN", "PL") zur Variable Präfix, aber nur wenn (if) Schnitt nicht leer ist, ansonsten wird nur das Planum an Praefix übergeben. Als erkennbares Trennzeichen wird jeweils ein "\_" beigefügt. Das ganze ist Schrittweise ausgeführt und leicht lesbar also nicht zwingend elegant oder kompakt. Das Ergebnis ist das Praefix, z.B. "SN01PL01\_" und geht zurück zur internen Funktion LayerNeu.
 
 ```{lisp, 'Funktion LayerNeu'}
 ;Funktion zum erstellen der Layer
@@ -263,30 +268,32 @@ Am Ende wird mit (princ)  eine leere Zeile geschrieben. Bis jetzt ist außer der
  (mapcar 'LayerNeu LayerListe)
 ```
 
-Die Funktion (mapcar) wendet eine Funktion auf eine Liste an, sie benötigt damit mindestens diese beiden Elemente den Ausdruck der die Funktion repräsentiert (nicht evaluiert und deshalb ein ' vorweg) und die Liste auf die sie angewendet werden soll. Hier geht es also zur Sache: Funktion LayerNeu vornehmen, erste Sub-Liste  als übergebener Parameter holen, das zuvor gebaute Präfix ergänzen und den Layer erstellen. Funktion LayerNeu aufrufen, nächste Subliste usw.
+Die Funktion (mapcar) wendet eine Funktion auf eine Liste an, sie benötigt damit mindestens diese beiden Elemente, den Ausdruck der die Funktion repräsentiert (nicht evaluiert und deshalb ein ' vorweg) und die Liste auf diese Funktion angewendet werden soll. Hier geht es also zur Sache: Funktion LayerNeu vornehmen, erste Sub-Liste  als übergebener Parameter holen, das zuvor gebaute Präfix ergänzen und den Layer erstellen. Funktion LayerNeu aufrufen, nächste Subliste usw.
 
 Ein weiteres kleines LISP-Programm für die effiziente Arbeit in AutoCAD finden Sie bei [ISAAK](https://github.com/ISAAKiel/ArchJobCAD). Die notwendigen Grundlagen, um sich den Code von ArchCAD.lsp oder auch steigung.lsp zu erarbeiten haben Sie nun.
 
-## Ergänzende Literatur
+# Ergänzende Literatur
 
-### Text & Buch
+## Text & Buch
 
 - Omura 1997: G. Omura, ABC’s of AutoLISP: Contents at Glance - Copyright © 1997 George Omura. 1997 \<http://people.fsv.cvut.cz/www/chourpav/Lisp/Contents.htm>(17.04.2012).
 - Strube-Zettler/Schönwald 2007: A. Strube-Zettler/T. Schönwald, Kochbuch AutoLISP: AutoCAD programmieren mit LISP (München 2007).
 - Bosse : J. Bosse, Visual-LISP Editor ab AutoCAD 2000, (o. J.) \<http://www.bosse-engineering.com/downloads/090501_VisualLISP-Editor.pdf>(24.03.2012).
 
 
-### Foren, Lernen, Tools
+## Foren, Lernen, Tools
 
 In alphabetischer Ordnung:
 
 - AfraLISP : AutoLISP | AfraLISP. AfraLISP() Learn AutoLISP for AutoCAD productivity \<http://www.afralisp.net/autolisp/>(08.04.2012).
 - AUGCE: Autodesk User Group Central Europe. \<http://www.augce.de/de.shtml>(15.04.2012).
 - Battin : G. Battin, AutoCAD Tips | helpful tips for everyday users. \<http://autocadtips.wordpress.com/>(13.04.2012).
-- CAD.DE : CAD.DE,CAD.de – Die CAD-CAM-CAE COMMUNITY, (o. J.) \<https://ww3.cad.de/>(31.05.2020).
+- CAD.DE : CAD.DE,CAD.de – Die CAD-CAM-CAE COMMUNITY, (o. J.) \<https://ww3.cad.de/>(31.05.2020).
 - cadstudio : cadstudio, CAD Forum - tips, tricks, utilities, discussion | AutoCAD, Inventor, Revit, Civil 3D, Autodesk. \<http://www.cadforum.cz/cadforum_en/default.asp>(15.04.2012).
 - CADTutor : CADTutor, AutoCAD Tutorials, Articles & Forums | CADTutor. \<https://www.cadtutor.net/>(31.05.2020).
 - Drese : M. Drese, CADwiesel. \<http://www.cadwiesel.de/>(12.12.2017).
 - Karlsson 2014: L. Karlsson, Glamsen: CadTools. 2014 \<https://www.glamsen.se/CadTools.htm>(06.07.2016).
-- Strube-Zettler : A. Strube-Zettler, Ausgewählte Themen zu AutoLisp. \<http://www.advanced.autolisp.info/>(09.05.2017).
-- Strube-Zettler : A. Strube-Zettler, Das deutschsprachige VisualLisp-Tutorial im Internet. \<http://www.tutorial.autolisp.info/>(31.05.2020).
+- Strube-Zettler : A. Strube-Zettler, Ausgewählte Themen zu AutoLisp. \<http://advanced.autolisp.info/>(24.04.2023).
+- Strube-Zettler : A. Strube-Zettler, Das deutschsprachige VisualLisp-Tutorial im Internet. \<http://tutorial.autolisp.info/>(24.04.2023).
+
+## Zitierte Literatur
