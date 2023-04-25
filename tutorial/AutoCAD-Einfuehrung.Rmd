@@ -9,13 +9,17 @@ header-includes:
   \renewcommand{\figurename}{Abb.}
 bibliography: AutoCAD-cours-references.bib
 csl: journal-of-archaeological-science.csl
-papersize: a4
 output:
   pdf_document:
     fig_caption: yes
     number_sections: yes
     toc: yes
     df_print: kable
+  html_document:
+    toc: yes
+    toc_float: true
+    df_print: paged
+    number_sections: yes
 papersize: a4 
 urlcolor: blue
 link-citations: yes # make citations hyperlinks
@@ -30,19 +34,18 @@ Der Kurs sollte im Sommersemester 2020 im PC-Labor des Institutes für Ur- und F
 
 | Anmerkung |
 |----|
-| Statt der im PC-Labor installierten Version AutoCAD 2010 und der vereinzelt genutzten Version AutoCAD 2014 wurde bei der Übung die Version AutoCAD 2018 verwendet. Die damit einhergehenden Veränderungen im Menü aber auch von einzelnen Befehlen stellten auch für mich als Dozent eine Übung dar.| 
-| Diese Datei und die zugehörigen Daten der Übungen finden Sie in meinem Github-Verzeichnis: https://github.com/chrinne/tutorial-autocad2018 |
-| Überarbeitete Version für die Übung im Sommersemester 2021 |
+| Statt der im PC-Labor in Kiel installierten Version AutoCAD 2010 wurde bei der Übung die Version AutoCAD 2018 verwendet. Die damit einhergehenden Veränderungen im Menü aber auch von einzelnen Befehlen stellten auch für mich als Dozent eine Übung dar.| 
+| Geringfügig überarbeitete Version für den Workshop **ArchaeWorks 2023 in Kiel** |
 
-## Lernziele
+## Lernziele {-}
 
 Behandelt werden diverse Optionen zur klaren und einheitlichen Strukturierung der Datei, so z.B. Layer und Layerfilter, externe Referenzen, Blöcke mit Attributen, Planerstellung, Datenexport und Interoperabilität mit Fokus auf GIS. Damit wird der allegemeine Einstieg in AutoCAD und die Grundlagen beider vorgenannten Interessensbereiche, Dokumentation einer Ausgrabung und Nachnutzung in der Auswertung, behandelt.
 
-## Software
+## Software {-}
 
 Zum Einsatz kommmt AutoCAD der Firma Autodesk. Im PC-Labor der Ur- und Frühgeschichte steht AutoCAD 2010 zur Verfügung. Für die Arbeit am eigenen Rechner wird eine kostenlose Studentenversion von AutoCAD 2018 genutzt. Die aktuelleren Version von AutoCAD, stellen zunehmend sehr hohe Hardwareanforderungen (u.a. mind. 8 GB besser 16 GB RAM oder 4 bis 10 GB Festplattenspeicher). Informieren Sie sich bitte eigenständig vorab, ob Ihr Rechner die notwendigen [Systemanforderungen](https://knowledge.autodesk.com/de/support/autocad/troubleshooting/caas/sfdcarticles/sfdcarticles/DEU/System-requirements-for-AutoCAD.html) erfüllt. Für die Nutzung dieser kostenlosen Studentenversion muss mit einer stu(denten)-E-Mail der Uni ein Account bei Autodesk eingerichtet werden. Weitere Informationen hierzu finden Sie bei [Autodesk](https://knowledge.autodesk.com/de/customer-service/account-management/education-program/free-education-access). Die jüngste Authentifizierung nutzt [Shibbolet-Authentifizierung](https://de.wikipedia.org/wiki/Shibboleth), informieren Sie sich hierzu ggf. bei dem Rechenzentrum Ihrer Bildungseinrichtung.
 
-## Warum CAD und warum AutoCAD?
+## Warum CAD und warum AutoCAD?  {-}
 
 Die Schnittstelle zwischen Archäologie und CAD (Computer Aided Design) ist ohne jeden Zweifel die archäologische Ausgrabung. Es ist vor allem die Einführung optischer Vermessungsgeräte auf den Ausgrabungen, die seit den 1990ern für eine rapide Zunahme genuin digitaler Grabungspläne sorgt. Investitionen in diesem Bereich sind teuer, werden nachhaltig genutzt und haben über die Jahre oft zu abgestimmten Handlungsrichtlinien  in Denkmalämtern und Grabungsfirmen geführt.
 
@@ -58,6 +61,14 @@ Es gibt also im wesentlichen zwei Gründe, sich mit AutoCAD zu befassen:
 
 Natürlich gewinnen Geographische Informationssystem (GIS) auch im Bereich der Grabungsdokumentation an Bedeutung, vor allem im Bereich der Messbildentzerrung stehen absolut equivalente Algorithmen zur Verfügung. Dennoch bestehen weiterhin grundlegende Unterschiede zwischen CAD und einem GIS, die erst ganz allmählich durch grundsätzliche 3D-Funktionalitäten und Software für die *on-the-fly* Schnittstelle zum Tachy, z.B. [Tachy2GIS](https://github.com/Archaeological-Museum-Hamburg/Tachy2GIS), überbrückt werden.
 
+| Anmerkungen zum Layout bei Anweisungen |
+|----|
+| - Menüpfade werden mit schlichten Pfeilen dargestellt: "Datei -> Speichern". |
+| - Tastaturkürzel, die ich persönlich gerne Nutze, in Spitzklammern je Taste: \<strg> + \<c>. |
+| - Schalter auf Formularen werden in [] gesetzt: [OK] |
+| - Zur Darstellung von Befehlen im Text nutze ich die in Markdown übliche Darstellung von Code bzw. Anweisungen an den Computer: ```anweisung```. Diese Befehle können einfach getippt werden und erscheinen mit automatischer Ergänzung an der Maus oder in der Kommandozeile von AutoCAD. Bei optionalen oder nachfolgenden Anweisungen werden die Tastaturkürzel in GRossbuchstaben gesetzt und farblich hervorgehoben, z.B. **Z**oom -> **FE**nster. Ich verwende deshalb beides in Kombination: ```POLYLINIE``` oder ```PLinie```, bei der Kurzform aber ```pl``` da Kleinbuchstaben ebenfalls gültig und in der täglichen Arbeit viel schneller zu schreiben sind. |
+| - Alle Befehle können mit vorangestelltem Unterstrich in der englischen Originalversion aufgerufen werden ```_POLYLINE``` |
+
 # AutoCAD Download und Installation
 
 ## Download
@@ -67,7 +78,7 @@ Die Firma Autodesk bietet Studierenden und Dozenten eine kostenlose Version der 
 | Anmerkung |
 |----|
 | **Der Vorgang des Download hat sich in den letzten Jahren beständig verändert.** |
-| Achten Sie auf die jeweilige länderspezifische Seite (DE US), es bestehen aktuell unterschiede in den hinterlegten Versionen der Software. US: 2022 - 2019, DE 2021 - 2018. |
+| Achten Sie auf die jeweilige länderspezifische Seite (DE US), es bestehen aktuell Unterschiede in den hinterlegten Versionen der Software. US: 2022 - 2019, DE 2021 - 2018. |
 | Über den Bildungs-Account werden nur bis zu drei vorangehende Versionen angeboten [knowledge.autodesk.com](https://knowledge.autodesk.com/customer-service/account-management/users-software/previous-versions/request-previous-version-license). |
 | Da Sie sich für den Download der Software einen Account angelegt haben, können Sie auf eine umfangreiche Sammlung an Lehrmitteln auf der Seite von AutoDesk zugreifen [Link]( https://knowledge.autodesk.com/de).|
 
@@ -93,14 +104,6 @@ Nach der Installation können Sie AutoCAD mit dem Programm "Dienstpramm  für Li
 Wenn AutoCAD von einem Nutzer zum ersten mal gestartet wird richtet das Programm das nutzerspezifische Profil ein, hierzu gehören die Gestaltung der Menüleisten, Schraffur- und Linienbibliotheken und Etliches mehr. In der Version 2020 erfolgt dies in einem übersichtlichen Fenster mit der Auswahl der bereits installierten Version und den jeweiligen Bereichen. Nach der zuweisung der Dateiendung DWG erfolgt die Angabe des Lizenztyps, wählen Sie: **Einzelplatz** und melden Sie sich mit ihrem Nutzernamen, bzw. der hinterlegten E-Mail und Ihrem Passwort des angelegten Accounts an oder mit vorliegender Seriennummer die Option Lizenz/Seriennummer. Anschließend ist AutoCAD ohne weiteren Kommentar bereit. Haben Sie keine Internetverbindung läuft die 30-Tage-Lizenz.
 
 Bei älteren Versionen (bis mind. 2018)  erfolgt bei der Installation die Abfrage der Seriennummer bei einer Einzelplatzinstallation oder der Adresse des Lizenzservers bei einer Netzwerkinstallation. Danach startet das Programm mit einem Startfenster, in dem eine neue Zeichnung gestartet, auf vorangehende Zeichnungen oder auf Infos von Autodesk zugegriffen werden kann.
-
-| Anmerkungen zum Layout bei Anweisungen |
-|----|
-| - Menüpfade werden mit schlichten Pfeilen dargestellt: "Datei -> Speichern". |
-| - Tastaturkürzel, die ich persönlich gerne Nutze, in Spitzklammern je Taste: \<strg> + \<c>. |
-| - Schalter auf Formularen werden in [] gesetzt: [OK] |
-| - Zur Darstellung von Befehlen im Text nutze ich die in Markdown übliche Darstellung von Code bzw. Anweisungen an den Computer: ```anweisung```. Diese Befehle können einfach getippt werden und erscheinen mit automatischer Ergänzung an der Maus oder in der Kommandozeile von AutoCAD. Bei optionalen oder nachfolgenden Anweisungen werden die die Tastaturkürzel in GRossbuchstaben gesetzt und farblich hervorgehoben, z.B. **Z**oom -> **FE**nster. Ich verwende deshalb beides in Kombination: ```POLYLINIE``` oder ```PLinie```, bei der Kurzform aber ```pl``` da Kleinbuchstaben ebenfalls gültig und in der täglichen Arbeit viel schneller zu schreiben sind. |
-| - Alle Befehle können mit vorangestelltem Unterstrich in der englischen Originalversion aufgerufen werden ```_POLYLINE``` |
 
 **Für die effiziente Arbeit in AutoCAD ist eine Maus mit Skrollrad unabdingbar. **
 
@@ -234,11 +237,11 @@ Die Rotation ist abhängig vom Ursprung des Modells bzw. des Koordinatensystems 
 
 ### Navidationsleiste und Navigationsrad
 
-Bei AutoCAD 2020 wird unterhalb des *view cube* auch eine graue Navigationsleiste angezeit. Sie bitetet einen weiteren Zugang zu Zoomen, Schieben und mehr Rotation. Interessant ist hier die die erste Option, das Navigationsrad (```navrad```, *steeringwheel*). Es bietet mehr Funktionen als der *view cube*.  
+Bei AutoCAD 2020 wird unterhalb des *view cube* auch eine graue Navigationsleiste angezeit. Sie bietetet einen weiteren Zugang zum Zoomen, Schieben und mehr Rotation. Interessant ist hier die die erste Option, das Navigationsrad (```navrad```, *steeringwheel*). Es bietet mehr Funktionen als der *view cube*.  
 
 ### Visuelle Stile
 
-Visuelle Stile werden über "Ansicht -> Visuelle Stile" ausgewählt und steuern die Darstellung des Modelles als einfache 2D-Ansicht, 3D-Gitter oder zunehmend komplexe Repräsentation. Diese Darstellung ist ein wesentliches Kriterium für die Performanz ihres Systems bei der Arbeit an großen Dateien. In Abhängigkeit vom visuellen Stil wird das Achsen-Symbol unterschiedlich dargestellt. In früheren Versionen wurde der *view cube* in der 2D-Ansicht nicht dargestellt und die Ansichten fokussierten auf die vier Seiten des Würfels, die über "Ansicht -> 3D-Ansicht" ausgewählt werden können. 
+Visuelle Stile werden über "Ansicht -> Visuelle Stile" ausgewählt und steuern die Darstellung des Modells als einfache 2D-Ansicht, 3D-Gitter oder zunehmend komplexe Repräsentation. Diese Darstellung ist ein wesentliches Kriterium für die Performanz ihres Systems bei der Arbeit an großen Dateien. In Abhängigkeit vom visuellen Stil wird das Achsen-Symbol unterschiedlich dargestellt. In früheren Versionen wurde der *view cube* in der 2D-Ansicht nicht dargestellt und die Ansichten fokussierten auf die vier Seiten des Würfels, diese können über "Ansicht -> 3D-Ansicht" ausgewählt werden. 
 
 ## Erstes Zeichnen
 
@@ -246,7 +249,7 @@ Visuelle Stile werden über "Ansicht -> Visuelle Stile" ausgewählt und steuern 
 
 Zeichnen Sie eine Polylinie mit dem Befehl ```pl```. Sie werden am Fadenkreuz nach dem Startpunkt gefragt, tippen Sie bitte ```0,0.0```, bestätigen Sie mit \<enter>. (Anm.: Sollten die Befehle und Kooridnaten nicht am Fadenkreuz erscheinen ist der dynamische Modus ausgeschaltet, das System verhält sich dann anders, was nachfolgend erläutert wird). Dabei ist das "," das Trennzeichen für x und y, "." das Dezimaltrennzeichen. Die nächsten Koordinaten sind ```100,0``` und ```100,100```, beenden Sie den Befehl dann mit \<enter> ohne weitere Koordinateneingabe. Mit ```zoom```, ```g``` zoomen Sie auf die Grenzen der Zeichnung und sehen eine horizontale Linie mit anschließendem 45° Winkel statt des vermutlich erwarteten 90° Winkels nach oben (0,0 100,0 100,100).  Tippen Sie bitte die Funktionstaste \<F2> (auf einem Notebook vermutlich in Kombination mit \<FN>), es öffnet sich die Historie bzw. das **Protokoll der Befehle** und Sie sehen, dass die Befehle dort als "\@100,0" und "\@100,100" protokolliert sind. Dieses "\@" impliziert den Bezug der angegebenen Koordinaten auf den aktuellen Standpunkt. Also vom aktuellen Punkt aus jeweils 100 Einheiten positiv auf der x- und der y-Achse. 
 
-Dies ist, zusammen mit der Befehlseingabe am Fadenkreuz, ein Effekt des **Dynamischen Modus**. Stellen Sie den Dynamischen Modus nun mit ```dynmode```, ```-3``` aus (3 stellt den Status wieder her). Tippen Sie die Funktionstaste \<F3> um den **O(bjekt)Fang** einzuschalten, das Icon "Viereck mit Punkt" rechts unten sollte nun blau sein. Der OFang von "Endpunkten" ist standardmäßig aktiv, kontrolliere Sie dies aber bitte im zugehörigen *drop down* des Icons. Starten Sie mit ```pl``` eine neue Polylinie, fangen Sie den Punkt bei "100,0", das Fadenkreuz zeigt dann ein charakteristisches Symbol und zeichnen Sie nun als nächsten Punkt "100,100", dann "\@100<180", abschließend "0,0" und beenden Sie mit \<enter> ohne Koordinateneingabe.
+Dies ist, zusammen mit der Befehlseingabe am Fadenkreuz, ein Effekt des **Dynamischen Modus**. Stellen Sie den Dynamischen Modus nun mit ```dynmode```, ```-3``` aus (3 stellt den Status wieder her). Tippen Sie die Funktionstaste \<F3>, um den **O(bjekt)Fang** einzuschalten, das Icon "Viereck mit Punkt" rechts unten sollte nun blau sein. Der OFang von "Endpunkten" ist standardmäßig aktiv, kontrolliere Sie dies aber bitte im zugehörigen *drop down* des Icons. Starten Sie mit ```pl``` eine neue Polylinie, fangen Sie den Punkt bei "100,0", das Fadenkreuz zeigt dann ein charakteristisches Symbol und zeichnen Sie nun als nächsten Punkt "100,100", dann "\@100<180", abschließend "0,0" und beenden Sie mit \<enter> ohne Koordinateneingabe.
 
 ### Koordinateneingabe
 
@@ -331,13 +334,13 @@ Auch hier nur eine kleine Auswahl, die ich oft nutze: Kopieren, Verschieben, Bru
 
 Der Befehl Text findet sich im Menü beim "Zeichnen". Ich möchte ihn hier aber herausnehmen und getrennt behandeln. Text kann als *Einzeilige Text* (Text) und *Absatztext* (MText) eingefügt werden. Absatztext (MText) definiert eine Textbox mit Formatierungsleiste wie wir sie aus der Textverarbeitung kennen, das ist für umfangreiche Texte sicher sinnvoll. Einzeiliger Text erwartet den Einfügepunkt, Texthöhe (Zeicheneinheit) und Rotation (Winkel). Ein einfaches \<enter> erzeugt eine neue Zeile ein weiteres \<enter> ohne Texteingabe beendet den Befehl.
 
-Beide Texte arbeiten mit Textstil bzw. Formatvorlagen die wir aus der Textverarbeitung kennen und unter "Format > Textstil" definieren können. Text ist schneller eingetragen und schlichter gestaltet als MText. Zudem ist der Einfügepunkt bei einer späteren Extraktion der Objekte der angeklickte Fußpunkt des Textes. Egal ob Befundnummer, Fundnummer, kurze Infos wie "Störung" oder "Kanal", mir ist bisher kein vernünftiger Grund für die Verwendung von MText in Plänen untergekommen, auch nicht im Layoutbereich. Leider kommt der Absatztext im Menü "Zeichnen -> Text -> ..." zuerst und wird entsprecht viel zu oft verwendet. Weiteres zu Text in einem späteren Kapitel.
+Beide Texte arbeiten mit Textstil bzw. Formatvorlage die wir aus der Textverarbeitung kennen und unter "Format > Textstil" definieren können. Text ist schneller eingetragen und schlichter gestaltet als MText. Zudem ist der Einfügepunkt bei einer späteren Extraktion der Objekte der angeklickte Fußpunkt des Textes. Egal ob Befundnummer, Fundnummer, kurze Infos wie "Störung" oder "Kanal", mir ist bisher kein vernünftiger Grund für die Verwendung von MText in Plänen untergekommen, auch nicht im Layoutbereich. Leider kommt der Absatztext im Menü "Zeichnen -> Text -> ..." zuerst und wird entsprecht viel zu oft verwendet. Weiteres zu Text in einem späteren Kapitel.
 
 # Digitalisieren & Konstruieren
 
 Digitalisieren und Konstruieren trifft es nicht vollständig. Hauptthemen sind die Arbeit mit Layern, Benutzerkoordinatensystemen, externe Referenzen, das Einbinden von Bildern und die Bemaßung von Objekten. Zudem wird bisher Behandeltes wiederholt, vor allem "Drehen" und "Varia".    
 
-Bearbeitet wird das sogenannte **Heiligtum von Son Oms** (Son Vidal Nou, Palma de Mallorca), ehemals  39.545122°N/2.738873°E (direkt unter der Landebahn des Flughafens) und heute transloziert auf ein Rondell im Flughafenzubringer (39.542183°N/2.710539°E). BIC Register: [RI-51-0001448](https://es.wikipedia.org/wiki/Anexo:Bienes_de_inter%C3%A9s_cultural_de_Palma_de_Mallorca). Der Steinbau ist Teil eines umfangreichen Denkmalensebmle (Heiligtum, Talaiot, Stufenhügel, Labyrinth und Gräberfeld) in dem in den 1960er Jahren zahlreiche Ausgrabungen stattfanden [@rossellobordoyTumuloEscalonadoOms1963a;@rossellobordoyExcavacionesConjuntoTalayotico1965a;  @rossellobordoySonOmsSantuario1984a;@rossellobordoyNecropolisInfantilCas1983a ]. Im Zuge der wirtschaftlichen Erschließung wurde dieses Ensemble zerstört, lediglich das Heiligtum konnte versetzt werden und wurde aus diesem Anlass eingehender analysiert und dokumentiert [@rossellobordoySonOmsSantuario1984a]. Die Nachfolgende Übung nutzt die Daten dieses online verfügbaren Büchleins in der Schriftenreihe [Trabajos del Museo de Mallorca](http://www.caib.es/sites/museudemallorca/ca/trabajos_del_museo_de_mallorca-55685/).      
+Bearbeitet wird das sogenannte **Heiligtum von Son Oms** (Son Vidal Nou, Palma de Mallorca), ehemals  39.545122°N/2.738873°E (direkt unter der Landebahn des Flughafens) und heute transloziert auf ein Rondell im Flughafenzubringer (39.542183°N/2.710539°E; [earth.google.com](https://earth.google.com/web/search/39.542183+2.710539/@39.5421594,2.71047039,5.74382723a,6458.80853235d,1y,-0h,0t,0r/data=CigiJgokCXQCFUvOwz1AEXQCFUvOwz3AGcTazbFYlUtAIZ7UTBwVakzA){target="_blank"}). . Der Steinbau ist Teil eines umfangreichen Denkmalensebmle (Heiligtum, Talaiot, Stufenhügel, Labyrinth und Gräberfeld) in dem in den 1960er Jahren zahlreiche Ausgrabungen stattfanden [@rossellobordoyTumuloEscalonadoOms1963a;@rossellobordoyExcavacionesConjuntoTalayotico1965a;  @rossellobordoySonOmsSantuario1984a;@rossellobordoyNecropolisInfantilCas1983a ]. Im Zuge der wirtschaftlichen Erschließung wurde dieses Ensemble zerstört, lediglich das Heiligtum konnte versetzt werden und wurde aus diesem Anlass eingehender analysiert und dokumentiert [@rossellobordoySonOmsSantuario1984a]. Die Nachfolgende Übung nutzt die Daten dieses online verfügbaren Büchleins in der Schriftenreihe [Trabajos del Museo de Mallorca](http://www.caib.es/sites/museudemallorca/ca/trabajos_del_museo_de_mallorca-55685/).      
 Ausgehend von dieser Publikation soll ein schlichtes dreidimensionales Modell erstellt werden. Basierend auf dem Grundriss (Abb. 2) werden für die Zeichnungen der Außen- und Innenansichten der Wände (Abb. 3, 4) Benutzerkoordinatensysteme eingerichtet, die vier äußeren Profilansichten eingehängt und die einzelnen Steine auf der jeweiligen Ebene (Wand) nachgezeichnet bzw. digitalisiert. Für ein 3D-Modell können diese Polygone nachfolgend noch in Flächen konvertiert und entsprechend der Dicke im Plan extrudiert werden. 
 Da diese Arbeit durch eine Person in den 1,5 h eines Kurses nicht zu bewältigen ist, werden nach dem Einbinden des Planes die Wände in Gruppen bearbeitet und abschließend als externe Referenzen zusammengeführt. Auch dies wird sich über mehr als eine Lerneinheit ziehen. Sofern Ihnen die genannten Abbildungen als Unterlagen nicht zur Verfügung stehen laden Sie sich das frei zugängliche PDF (s.o.) herunter, extrahieren Sie die Bilder und trennen Sie jede Ansichten in eine einzelne Datei (jpg oder tif).
 
@@ -366,7 +369,7 @@ Schalten Sie das Layerfenster auf "automatisches Ausblenden" (mittleres Icon am 
 
 Externe Referenzen sind ein wichtiges Element, um **komplexere Projekte zu gliedern**, Grundlage ist ein gemeinsames Koordinatensystem und aufeinander abgestimmte Layernamen sind von Vorteil. In der Archäologie können Sie so leicht einzelne Schnitte einer Grabung in getrennten Dateien (DWG) unabhängig bearbeiten. Eine übergeordnete Datei kann alle vorhandenen Daten dann als Referenz (Link) integrieren und gemeinsam darstellen. Neben DWG-Referenzen können auch "Fremdformate" wie Bilder referenziert werden, die AutoCAD-Zeichnung beinhaltet dann nur den Pfad zum Bild, den Einfügepunkt, die Rotation und die Skalierung. Für relative Pfadangaben muss die DWG-Zeichnung selbst schon gespeichert, also lokalisiert sein! Damit ist eine **gut organisierte Dateiablage** vorteilhaft. Messbilder, die Umzeichnung und alle abhängigen Dateien lege ich gerne in einen Ordner je Messbild oder bei komplexeren Strukturen in Unterordner.   
 
-Mit "Einfügen -> Rasterbildreferenz..." wählen Sie zuerst die Planzeichnung (SonOms_Plan.jpg) danach öffnet sich das Fenster der Bildzuordnung. Pfadtyp: relativer Pfad, Einfügepunkt: 0,0,0, Skalierung: 1, Drehung: 0, [OK]. Wenn Sie die Haken für "Am Bildschirm bestimmen" belassen, müssen Sie dieses nachfolgend angeben oder die Vorgabe bestätigen. Zoomen Sie auf die Grenzen der zeichnung (```zoom```, ```g```).  Der Plan hat kein Koordinatensystem, der Einfügepunkt liegt links unten und der Befund befindet sich vollständig im postiven Achsenabschnitt. Der Plan ist genordet, so das wir scheinbar keine Rotation vornehmen müssen. Einzig die Skalierung muss angepasst werden. Für die Genauigkeit führen wir dennoch eine **Rotation** des Rasterbildes durch. Markieren Sie den Plan und ```drehen```, Basispunkt: ```0,0,0```, Sie könnten den Plan nun frei drehen,  tippen Sie ```b``` für die Angabe einer **B**ezugslinie,  markieren Sie möglichst genau den Nordpfeil von Süden nach Norden (zoomen mit dem Skrollrad der Maus) und geben Sie abschließend den Winkel in Grad an: ```90```. **Die Skalierung** erfolgt ähnlich. Markieren Sie den Plan und tippen Sie ```varia```: Basispunkt: 0,0,0, "B" für Bezug, markieren Sie als Bezugslänge möglichst exakt den abgebildeten Maßstab und geben Sie abschließend die neue Länge: ```5```. Danach mit ```zoom```, ```g``` auf die neuen Grenzen zoomen (speichern). Der Basispunkt ist in beiden Fällen der "unverrückbare Nagel in der Wand" und Bezug erlaubt die Änderung bei Kenntnis der Zielgröße.
+Mit "Einfügen -> Rasterbildreferenz..." wählen Sie zuerst die Planzeichnung (SonOms_Plan.jpg) danach öffnet sich das Fenster der Bildzuordnung. Pfadtyp: relativer Pfad, Einfügepunkt: 0,0,0, Skalierung: 1, Drehung: 0, [OK]. Wenn Sie die Haken für "Am Bildschirm bestimmen" belassen, müssen Sie dieses nachfolgend angeben oder die Vorgabe bestätigen. Zoomen Sie auf die Grenzen der zeichnung (```zoom```, ```g```).  Der Plan hat kein Koordinatensystem, der Einfügepunkt liegt links unten und der Befund befindet sich vollständig im postiven Achsenabschnitt. Der Plan ist genordet, so dass wir scheinbar keine Rotation vornehmen müssen. Einzig die Skalierung muss angepasst werden. Für die Genauigkeit führen wir dennoch eine **Rotation** des Rasterbildes durch. Markieren Sie den Plan und ```drehen```, Basispunkt: ```0,0,0```, Sie könnten den Plan nun frei drehen,  tippen Sie ```b``` für die Angabe einer **B**ezugslinie,  markieren Sie möglichst genau den Nordpfeil von Süden nach Norden (zoomen mit dem Skrollrad der Maus) und geben Sie abschließend den Winkel in Grad an: ```90```. **Die Skalierung** erfolgt ähnlich. Markieren Sie den Plan und tippen Sie ```varia```: Basispunkt: 0,0,0, "B" für Bezug, markieren Sie als Bezugslänge möglichst exakt den abgebildeten Maßstab und geben Sie abschließend die neue Länge: ```5```. Danach mit ```zoom```, ```g``` auf die neuen Grenzen zoomen (speichern). Der Basispunkt ist in beiden Fällen der "unverrückbare Nagel in der Wand" und Bezug erlaubt die Änderung bei Kenntnis der Zielgröße.
 
 Kontrollieren Sie das Ergebnis und messen Sie dazu die Maßstabsleiste: "Extras -> Abfrage -> Abstand". Die Rückgabe, drücken Sie ggf. \<F2>, sollte etwa so aussehen:
 ```
@@ -375,7 +378,7 @@ Delta X = 5.0228,  Delta Y = -0.0418,   Delta Z = 0.0000
 ```
 Mit \<esc> verlassen Sie den aktiven Messbefehl für weitere Messungen.
 
-Markieren Sie das Bild und rufen Sie die Eigenschaften auf. Verändern Sie die Eigenschaft "Fade" über das Icon am rechten Rand im folgenden Fenster auf 50 (%). Zeichnen Sie eine geschlossene Polylinie (2D) mit ca. 8 Punkten um den Grundriss einschließlich Buchstaben aber ohne Nordpfeil, Maßstab und Text. Markieren Sie das Bild und wählen Sie aus dem Kontextmenü dann "Bild -> Zuschneiden". Neue Umgrenzung ist die Vorgabe, also \<enter>, ```v``` für **V**ieleck + \<enter>. Zeichnen Sie nun ein Vieleck (Achteck) um den Plan einschließlich der Buchstaben A-D und schließen sie es mit ```s```. Damit sind überflüssige Randbereiche ausgeblendet, nicht weggeschnitten. Markieren Sie das Bild, auf der ersten Linie sehen Sie eine blauen Pfeil, dieser wechselt zwischen den Bildteilen. Die Punkte der Schnittgrenze können verschoben werden, der Ausschnitt wird dynamisch verändert. Das Bild wird von nun an über die Schnittmaske markiert (\<strg> + \<s>).
+Markieren Sie das Bild und rufen Sie die Eigenschaften auf. Verändern Sie die Eigenschaft "Fade" über das Icon am rechten Rand im folgenden Fenster auf 50 (%). Markieren Sie das Bild und wählen Sie aus dem Kontextmenü dann "Bild -> Zuschneiden". Neue Umgrenzung ist die Vorgabe, also \<enter>, ```v``` für **V**ieleck + \<enter>. Zeichnen Sie nun ein Vieleck (Achteck) um den Plan einschließlich der Buchstaben A-D und schließen sie es mit ```s```. Damit sind überflüssige Randbereiche ausgeblendet, nicht weggeschnitten. Markieren Sie das Bild, auf der ersten Linie des Schnittpolygons sehen Sie einen blauen Pfeil, dieser wechselt zwischen den Bildteilen. Die Punkte der Schnittgrenze können verschoben werden, der Ausschnitt wird dynamisch verändert. Das Bild wird von nun an über die Schnittmaske markiert (\<strg> + \<s>peichern).
 
 ### Bemaßung
 
@@ -388,13 +391,13 @@ Bemaßungstexte haben einen eigenen Stil den wir nun anpassen, öffnen Sie hierz
 Digitalisieren der Befundgrenze und Steine 3D oder 2D? Die Antwort für unsere Zeichnung ist klar: **2D**. Dafür gibt es mehrere Argumente:
 
 - Unsere Vorlage ist 2D und zeigt idealerweise einen horizontalen Schnitt (Planum) durch den Befund. 
-- Wir haben keine Höhenunterschiede in den Steinen, die wir darstellen könnten.
+- Wir haben keine Höhenunterschiede in den Steinen die wir darstellen könnten.
 - Unsere 2D-Polylinie ist "nur" plan, sie liegt aber dennoch im 3D-Raum, nur eben auf Null.
 - Im Vorgriff auf das folgende Koordinatensystem: Verstehen Sie unser Planum als Schnittebene (Papier) mit einer definierten Lage im 3D-Raum.
 
-Legen Sie einen neuen Layer an, Name: Plan_Steine, Farbe: z.B blau (Index Nr. 5). Digitalisieren Sie die Steine mit 2D-Polylinien (pl), dabei sollten Sie den OFang ausschalten, um unbemerktes Fangen zu vermeiden. Denken Sie daran, jede Polylinie zu schließen (s). Allerdings impliziert dies leider gemeinsame Kanten von anliegenden Steinen doppelt zu zeichnen, schalten Sie hierfür den OFANG für Endpunkt wieder ein. 
+Legen Sie einen neuen Layer an, Name: Plan_Steine, Farbe: z.B blau (Index Nr. 5). Digitalisieren Sie die Steine mit 2D-Polylinien (pl), dabei sollten Sie den OFang ausschalten, um unbemerktes Fangen zu vermeiden. Denken Sie daran, jede Polylinie zu schließen (s). Allerdings impliziert dies leider gemeinsame Kanten von anliegenden Steinen doppelt zu zeichnen, schalten Sie hierfür den OFang für Endpunkt wieder ein. 
 
-Alle Objekte, Linien und Rasterbild liegen auf z=0 und es kann vorkommen, dass Linien "unter" das Rasterbild geraten. Zwei Lösungen: 1. Sie markieren das Rasterbild und wählen aus dem Kontextmenü  "Zeichnungsreihenfolge -> Ganz unten". 2. Sie verändern den Z-Wert des Rasterbildes in den Eigenschaften auf einen leicht negativen Wert, z.B. -.1.
+Alle Objekte, Linien und Rasterbild liegen auf z=0 und es kann vorkommen, dass Linien "unter" das Rasterbild geraten. Zwei Lösungen: 1. Sie markieren das Rasterbild und wählen aus dem Kontextmenü  "Zeichnungsreihenfolge -> Ganz unten". 2. Sie verändern den Z-Wert des Rasterbildes in den Eigenschaften auf einen leicht negativen Wert, z.B. -.01.
 
 Und wenn sich Steine überlagern? Der Stein ist sonst doch unvollständig, also falsch gezeichnet. Die pauschale Antwort darf als Gegenfrage formuliert werden: Wo liegt das Planum, wo liegt die Schnitt- und Dokumentationsebene? Sicher gibt es begründbare Ausnahmen, doch sollte Sie sich diese Frage stets als erstes stellen.
 
@@ -416,10 +419,9 @@ Blenden Sie die **Koordinaten in der Statusleiste** (Fußleiste) ein. Klicken Si
 
 ### Profilbild einfügen und nachzeichnen 
 
-Die weiteren Arbeitsschritte liegen nun auf der Hand. Im neue angelegten BKS das Bild einbinden, drehen, skalieren nach Maßstab und Steinlagen (Abweichung sind zu erwarten), Justieren anhand der Steingrenzen im Plan und abschließend nachzeichnen der Steine mit einer 2D-Polylinie. Erwarten Sie kein perfektes Ergebnis da: 1. die Wände eventuell leicht nach innen geneigt waren, 2. wir keine eindeutigen Bezugspunkte oder Höhenangabe haben und 3. durch die 2D Zeichnung als auch die Reproduktion für den Druck sicher Verzerrungen vorliegen.
+Die weiteren Arbeitsschritte liegen nun auf der Hand. Im neue angelegten BKS das Bild einbinden, drehen,  skalieren nach dem Maßstab als auch der Steinlagen (Abweichung sind zu erwarten), justieren anhand der Steingrenzen im Plan und abschließend nachzeichnen der Steine mit einer 2D-Polylinie. Erwarten Sie kein perfektes Ergebnis da: 1. die Wände eventuell leicht nach innen geneigt waren, 2. wir keine eindeutigen Bezugspunkte (z.B. Profilnägel) oder Höhenangabe haben und 3. durch die 2D Zeichnung als auch die Reproduktion für den Druck sicher Verzerrungen vorliegen.
 
 Legen Sie neue Layer an, benennen Sie diese analog dem BKS, z.B. A-Wand_Bild und A-Wand_Steine mit den selben Farben des Plans (251, 5). Schalten sie die anderen Steinlayer und alles, was Sie verwirrt oder mit OFang die Linien unerwünscht beeinflussen kann unsichtbar. 
-
 
 ![Son Oms, Heiligtum. 3D-Ansicht nach dem Zeichnen der Wände A und B.](./images/AutoCAD_SonOms_walls.jpg)
 
@@ -443,7 +445,7 @@ Um die Arbeit im 3D-Raum zu erleichtern erstellen Sie sich zwei **Ansichtsfenste
 
 Layer sind ein sehr wichtiges Element zur Strukturierung von CAD-Zeichnungen. Vorab ein ergänzender Tip und Hinweise zum bisher dargestellten:
 
-- Üblicherweise erhalten Objekte die wesentlichen Eigenschaften Farbe, Strichtyp und Linienstärke vom Layer. Wenn Sie beim Digitalisieren die Eigenschaft Farbe im Menü ändern, z.B. auf Magenta, dann werden alle nachfolgend erstellten Objekte in dieser Farbe dargestellt. Dies kann genutzt werden, um alle Objekte des Tages mit einer "Tagesfarbe" einzufärben. So können dann alle neuen Objekte gefiltert, extrahiert und mit einem Schlag durch die Wahl der Farbe "von Layer" wieder normiert dargestellt werden.
+- Üblicherweise erhalten Objekte die wesentlichen Eigenschaften Farbe, Strichtyp und Linienstärke vom Layer. Wenn Sie beim Digitalisieren die Eigenschaft Farbe im Menü ändern, z.B. auf Magenta, werden alle nachfolgend erstellten Objekte in dieser Farbe dargestellt. Dies kann genutzt werden, um alle Objekte des Tages mit einer "Tagesfarbe" einzufärben. So können dann alle neuen Objekte gefiltert, extrahiert und mit einem Schlag durch die Wahl der Farbe "von Layer" wieder normiert dargestellt werden.
 
 - Die Farbe ist heute "nur" Farbe. Früher wurden Pläne mit Stiftplottern auf Papier gezeichnet(!), die Farbe entsprach da gerne den farbcodierten Strichstärken der Tuschestifte/Rapidografen im Plotter. Eventuell haben Sie ja noch Keramik mit Tuschestiften gezeichnet. Farbe ist eine gute visuelle Hilfe, um Objektgruppen zu Trennen: Befunde, Profillinien, Schnittgrenze etc. Moderne Din-A0-Plotter sind Tintenstrahldrucker und können Farbe reproduzieren. Denken Sie aber an den Kontrast auf weißem Papier und die Beständigkeit einer Farbe wie z.B. Gelb unter UV-Licht.
 
@@ -470,7 +472,7 @@ Effektive Beispiele wären:
 - Sie wollen alle Polylinien (unsere Steine) auswählen. Objekte: *drop-down* "Polylinie", Eigenschaften "Farbe", "=Gleich" "VonLayer", "In einen neuen Auswahlsatz einfügen" [OK].
 - Sie wollen die großen Steine mit > 2m² Fläche auswählen. Objekttyp: "Polylinie", Eigenschaft: "Fläche", "> Größer als", Wert: "2" [OK]. Beachte Sie hierbei, dass auch nicht geschlossene Polylinien eine Fläche haben. 
 
-Mit dem Befehl ```qselect``` rufen Sie dieses Fenster direkt auf. Die Liste der zu filternden Eigenschaften hängt von den jeweils gewählten Objektypen ab.
+Mit dem Befehl ```_qselect``` rufen Sie dieses Fenster direkt auf. Die Liste der zu filternden Eigenschaften hängt von den jeweils gewählten Objektypen ab.
 
 ## Externe Referenzen
 
@@ -481,7 +483,7 @@ Erstellen Sie eine neue leere Datei (\<strg>+\<n>), überprüfen Sie die Einheit
 
 Im Referenzmanager sehen Sie die eingebundenen DWG und die jeweils darin referenzierten Bilder. Diese Abhängigkeit wird mit dem "|" im Namen dargestellt. Am rechten Rand sehen Sie den gespeicherten Pfad, dieser sollte für die DWG relativ sein, kann aber für die Bilder absolut angegeben sein. Bei fehlender Zuordnung von Referenzen sortieren Sie als erstes nach dem "Status", wählen Sie alle nicht geladenen und wählen über das Kontextmenü "Neuladen". 
 
-Öffnen Sie nachfolgend den Layermanager, auch hier sehen Sie einen langen Layernamen aus [Dateiname]|[Layername]. Estellen Sie zwei Layerfilter auf die Namensbestandteile "\*Steine*" und "\*Bild*". Kontrollieren Sie noch abschließend die vorhandenen BKS, es liegt nur das WKS vor, in dem alle Zeichnungen nun exakt aufeinanderliegen.
+Öffnen Sie nachfolgend den Layermanager, auch hier sehen Sie einen langen Layernamen aus [Dateiname]|[Layername]. Estellen Sie zwei Layerfilter auf die Namensbestandteile "\*Steine*" und "\*Bild*". Kontrollieren Sie noch abschließend die vorhandenen BKS, es liegt nur das WKS vor, in dem alle Zeichnungen nun exakt zueinander liegen.
 
 Sie können ausschließlich eine Referenz auswählen, nicht ein einzelnes Element in dieser Referenz. Es ist möglich, externe Referenzen direkt durch diese Zeichnung zu bearbeiten, ich selbst empfinde dies aber als umständlich, verwirrend und irgendwie "übergriffig". Insofern führe ich es hier nicht weiter aus. Ich selbst nutze externe Referenzen als Übersichtsprojekt, z.B. die gesamte Grabung, oder um Altdaten abgeschlossener Projekte zu hinterlegen ohne sie einzufügen.
 
@@ -491,7 +493,7 @@ Die Arbeit mit externen Referenzen kann nach Abschluss des Projektes, zumal für
 
 Sortieren Sie Ihre externen Referenzen bei Bedarf nach Typ und markieren Sie ausschließlich DWG-Referenzen. Wählen Sie aus dem Kontextmenü **Binden**, das eröffnet zwei Möglichkeiten **Binden** und **Einfügen**. Der wesentliche Unterschied ist die Behandlung der Layer:
 
-- **Binden - Binden** erstellt Layernamen der Form \<Dateiname>$0$\<Layername>. Die Herkunft der Daten ist also über den Layernamen nachvollziehbar. Die Layerliste selbst und auch die Namen der Layer können damit sehr lang werden. Layerfilter erlauben aber dennoch eine effiziente Arbeit.
+- **Binden - Binden** erstellt Layernamen der Form \<Dateiname>\$0\$\<Layername>. Die Herkunft der Daten ist also über den Layernamen nachvollziehbar. Die Layerliste selbst und auch die Namen der Layer können damit sehr lang werden. Layerfilter erlauben aber dennoch eine effiziente Arbeit.
 -  **Binden - Einfügen** fasst alle Layer mit identischen Namen zusammen. Im Ergebnis haben Sie kurze Layernamen, z.B. Pl01_FundNr, unabhängig vom Schnitt oder der Fläche der Großgrabung.
 
 Eventuell gehen externe Referenzen zu Bildern durch das Binden erst verloren. Speichern Sie die Datei unter einem neuen Namen, wählen Sie dann im XRef-Manager die Option "neu laden".
@@ -509,20 +511,20 @@ Für jedes Modell können Sie mit [+] weitere, zahlreiche Layout erstellen, dabe
 - Legen Sie für die Objekte im Papierbereich eigene Layer an, Sie vermeiden nervenraubende Fehler durch ausgeblendete und gesperrte Layer.
 - Layout-Objekte liegen nur im Papierbereich (Maßstab, Beschriftungen, Rahmen etc.).
 - Der Papierbereich kennt nur Millimeter oder Zoll und das Verhältnis zwischen der Zeicheneinheit im Modell und der Papiereinheit (Plottmaßstab). Da Archäologie, entgegen der Standardvorgabe, fast ausnahmslos in Meter misst, beträgt der Plottmaßstab 1 mm = 0.001 Einheit.
-- AutoCAD hat einen sehr guten eigenen PDF-Drucker (DWG To PDF), er reproduziert die Layer der Zeichnung als Layer in der PDF-Datei, so dass Aus- und Einblenden auch dort möglich ist.
+- AutoCAD hat einen sehr guten eigenen PDF-Drucker (DWG To PDF), er reproduziert die Layer der Zeichnung als Ebenen in der PDF-Datei, so dass Aus- und Einblenden auch dort möglich ist.
 - Mit ```mbereich``` und ```pbereich```, "MODELL/PAPIER" in der Fußzeile oder Doppelklick innerhalb und außerhalb des Ansichtsfensters "springen Sie durch das Fenster in das Modell".
 
 ### Layout - Seite einrichten
 
 Falls noch nicht geschehen, erstellen Sie einen neuen Layer "Papier-Layout", Farbe: weiß (schwarz im Papier) und schalten Sie diesen aktiv. Es existiert immer mindestens ein Layout (Layout1), aktivieren Sie dieses. Rufen Sie den **Seiteneinrichtungs-Manager** auf: ```_pagesetup```, ```seinteneinr```, "Datei -> Seiteneinrichtungs-Manager" oder Kontextmenü des Layoutregisters. Wählen Sie das Layout (Layout1) und [ändern]. Drucker/Plotter: DGW To PDF.pc3, Papier: DinA4 (210 x 297) / ISO full bleed A4..., Plottmaßstab: 1 mm = 0.001 Einheit (s.o.). 
 
-Der *Plotbereich* kann gewählt werden, üblich ist aber das jeweils gestaltete Layout. *Plotstiltabelle (Stiftzuordnung)*: "Keine", Diese Einstellung hat im Laufe der Zeit einen Funktionswandel erlebt. Früher wurde über die Farbe die Strichstärke bei Stiftplottern gesteuert, heute bietet es eher die Option "Grau" oder "Monochrom" für den Plan zu wählen. Unser Plan wird ein Querformat. Die weiteren Angaben sind selbsterklärend oder vorerst uninteressant und bleiben unverändert. Da ich fast ausnahmslos in PDF Plotte ist die [Vorschau] für mich weniger relevant. Beim direkten Plot von Großformaten auf einen Papierplotter sollten Sie hiermit aber das Ergebnis vorab kontrollieren.  Bestätigen Sie die Änderungen [OK] und schließen Sie den Manager. 
+Der *Plotbereich* kann gewählt werden, üblich ist aber das jeweils gestaltete Layout. *Plotstiltabelle (Stiftzuordnung)*: "Keine", Diese Einstellung hat im Laufe der Zeit einen Funktionswandel erlebt. Früher wurde über die Farbe die Strichstärke bei Stiftplottern gesteuert, heute bietet es eher die Option "Grau" oder "Monochrom" für den Plan zu wählen. Unser Plan wird ein Querformat. Die weiteren Angaben sind selbsterklärend oder vorerst uninteressant und bleiben unverändert. Da ich fast ausnahmslos in PDF Plotte ist die [Vorschau] für mich weniger relevant. Beim direkten Plot von Großformaten auf einem Papierplotter sollten Sie hiermit aber das Ergebnis vorab kontrollieren.  Bestätigen Sie die Änderungen mit [OK] und schließen Sie den Manager. 
 
 ### Ansichtsfenster - Darstellung einfügen
 
 Durch den veränderten Plottmaßstab (s.o.) ist Ihr bisheriges Ansichtsfenster 1000fach vergrößert ```(zoom g[renzen])```. Da wir es neu gestalten löschen sie es einfach. Zeichnen Sie als "Satzspiegel" ein Rechteck mit den Ecken ".02,.02" und ".277,.19" (Blattkoordinaten in Meter). Die weitere Aufteilung sehen sie in der nächsten Abbildung.
 
-Zeichnen Sie danach mit "Ansicht -> Ansichtsfenster -> 1 Ansichtsfenster" ein neues Ansichtsfenster von der rechten oberen Ecke des Satzspiegels horizontal etwa über 1/3 der Breite und vertikal etwa über 3/4 des Satzspiegels. Rufen Sie die Eigenschaften auf: Höhe: 0.11, Breite 0.11, Benutzerspezifischer Faktor 0.005. Das entspricht der Skalierung 1:200 (200 x 0.005 = 1) und wenn nicht, stellen Sie bei Ansichtsfenstermaßstab 1:100 ein (0.01) und halbieren Sie diesen Wert. Schieben Sie das Ansichtsfenster in die rechte obere Ecke (OFang). Wechseln Sie mit Doppelklick in dieses Ansichtsfenster, stellen spätestens jetzt auf WKS (Planansicht) um und Schieben Sie den Plan im Fenster in die Mitte. Wechseln Sie wieder in den Papierbereich (Doppelklick außerhalb oder ```pbereich```). 
+Zeichnen Sie danach mit "Ansicht -> Ansichtsfenster -> 1 Ansichtsfenster" ein neues Ansichtsfenster von der rechten oberen Ecke des Satzspiegels horizontal etwa über 1/3 der Breite und vertikal etwa über 3/4 des Satzspiegels. Rufen Sie die Eigenschaften auf: Höhe: 0.11, Breite 0.11, Benutzerspezifischer Faktor 0.005. Das entspricht der Skalierung 1:200 (200 x 0.005 = 1) und wenn nicht, stellen Sie bei Ansichtsfenstermaßstab 1:100 ein (0.01) und halbieren Sie diesen Wert. Schieben Sie das Ansichtsfenster in die rechte obere Ecke (OFang). Wechseln Sie mit einem Doppelklick in dieses Ansichtsfenster, stellen spätestens jetzt auf WKS (Planansicht) um und Schieben Sie den Plan im Fenster in die Mitte. Wechseln Sie wieder in den Papierbereich (Doppelklick außerhalb oder ```pbereich```). 
 
 Zeichnen Sie nun "2 Ansichtfenster", Anordnung horizontal (h), von links oben des Satzspiegels zur linken unteren Ecke des 1. Ansichtsfensters. Ändern Sie für beide Ansichtsfenster die Eigenschaften: Höhe 0.0425, Maßstab/Faktor: 0.01 und schieben Sie diese exakt untereinander ab der linken oberen Ecke des Satzspiegels. Kopieren Sie diese beiden Ansichtsfenster (\<strg>+\<c>) und fügen Sie die neuen unterhalb der vorangehenden an (\<strg>+\<v>). Im Ergebnis sollten Sie eine Abfolge von vier Ansichtsfenstern in der linken Hälfte des Satzspiegels haben.
 
@@ -563,6 +565,31 @@ Das wichtigste vorweg: nein, es gibt keinen "Knopf" für diese Aufgabe. Ich möc
 Ich vertraue der vorangehenden Überlegung, ergänze an den Enden der letzten Linie zwei kurze vertikale Linien ```@0.001<90``` und baue unter Ausschluss der linken Vertikalen eine Reihe mit 5 Spalten, 1 Zeile und dem ABstand von 0.005. Wiederholen Sie dies für die Profilansichten (Maßstabfaktor: 0.01). Vertikale Linie 0.001 und 2 Spalten bei der Reihe für eine 2 m lange Maßstabsleiste. Ergänzen Sie bitte eine Beschriftung für beide Leisten und positionieren Sie diese eigenständig. Ergänzen Sie zudem bitte noch eine Beschriftung für die einzelnen AF (A für Wand A etc).
 
 Drucken Sie das Layout in ein PDF (DWG To PDF).
+
+### PDF mit vielen Layern
+
+Die Layer bzw. die Ebenen in einem PDF können ein- und ausgeblendet werden. Sie können damit in einem PDF z.B. viele Plana oder diverse Fundkategorien hinterlegen und der Nutzer hat die Wahl zur Darstellung der gewünschten Information. Die Vorgabe für die Ebenen (An/Aus) und auch die Sichtbarkeit des Ebenen-Fensters können in der Software **Adobe Acrobat Professional** eingestellt werden. Unter den Eigenschaften des Dokumentes finden sie vermutlich die Angaben zur Ansicht beim Öffnen (Ebenen-Fenster). Und im Kontextmenü zu jeder Ebene können Sie die Eigenschaften und hier den Standardstatus (initState) von Aktiviert auf Deaktiviert setzen.
+
+Bei vielen Ebenen oder vielen Dateien kann das aber mühsam sein, es empfiehlt sich also ein automatisierter Prozess. Nachfolgend hierfür ein Javascript. Sie können dieses im Javascript-Debugger ausführen (Erweitert > Dokumentenverarbeitung > Java-Script Debugger oder \<strg> + \<j>). 
+
+```{js}
+// In PDFs den Layerstatus (Sichtbarkeit) setzen
+// Erweitert > Dokumentenverarbeitung > Java-Script Debugger
+
+var ocgsArr = this.getOCGs();
+for (var i in ocgsArr) {
+ if (ocgsArr[i].name.substr(0,8) == "SN01PL01"
+ || ocgsArr[i].name == "ALKIS") {
+  ocgsArr[i].initState = true;
+  ocgsArr[i].state = true;
+ } else {
+  ocgsArr[i].initState = false; 
+  ocgsArr[i].state = false;
+ }
+}
+```
+
+Dieser Code liest alle Ebenen in das Array ogcsArr und verarbeitet nachfolgend mit *for* jeden Eintrag. In *if ( bedingung1 || bedingung2)* werden die Namen der Ebenen geprüft, teils vollständig (ocgsArr[i].name == "ALKIS") oder nur der Anfang (ocgsArr[i].name.substr(0,8) == "SN01PL01"). In der ersten \{} vor dem *else* wird der aktuelle Status als auch der initiale Status der Ebene auf Sichtbar gesetzt und für alle anderen nach dem *else* auf unsichtbar. Beachten: *initState* mit großem S.
 
 ### Was fehlt, was geht, was geht nicht
 
@@ -614,7 +641,7 @@ Rufen Sie die Attributdefinition erneut auf. Bezeichnung: "Wand", Eingabeaufford
 
 Öffnen Sie die Eigenschaften des Attributes Steinnummer. Klicken Sie auf 1:1 bei Beschriftungs-Maßstab, wählen Sie das Icon am rechten Rand, mit [Hinzufügen] ergänzen Sie den Maßstab 2:1, bestätigen Sie mit [OK], löschen Sie 1:1, bestätigen Sie mit [OK]. Papiertexthöhe und Modelltexthöhe verhalten sich jetzt in diesem Maßstab, wobei die Papiertexthöhe der Vorgabewert ist und der sichtbare Text im Modell nun 0.1 groß ist. Aus der Papiertexthöhe von 0.2 wird beim Plotmaßstab 1:100 2 mm Texthöhe oder ca. 5.7 pt, also eine eben noch lesbare Beschriftung. 
 
-Schließen Sie den Blockeditor und speichern Sie die Änderungen. Sollten Sie nachträglich Änderungen vornehmen wollen starten Sie den Block-Attribut-Manager ```BATTMAN``` (batman mit 2 t). Nach Änderungen sollten Sie [Anwenden] und [Synchron.] betätigen, um alle Blockreferenzen des geänderten Blocks zu aktualisieren.
+Schließen Sie den Blockeditor und speichern Sie die Änderungen. Sollten Sie nachträglich Änderungen vornehmen wollen starten Sie den Block-Attribut-Manager ```BATTMAN```. Nach den Änderungen sollten Sie [Anwenden] und [Synchron.] betätigen, um alle Blockreferenzen des geänderten Blocks zu aktualisieren.
 
 ### Steinnummern einfügen
 
@@ -656,23 +683,18 @@ Die Attributextraktion benötigt eine Vorlagendatei die die notwendigen Paramete
 
 Im Ergebnis erhalten Sie eine tabellarische Liste der Attribute mit Einfügepunkt. Schauen Sie sich auch bei Gelegenheit die weiteren optionalen Attribute an, Sie finden hier sehr viel Nützliches, vom Dateinamen bis zum Layer.
 
-# Textstile
+# Text und Textstile
 
-Dieses Thema wurde bei den Blöcken mit Attribut angerissen und erschließt sich weitgehend von selbst. Es gibt aber einige wenige wichtige Aspekte, die zu beachten sind und gesondert erwähnt werden sollen.
+Dieses Thema wurde im Kapitel 4 "Editieren ..." und im vorangehenden bei "Block mit Attribut" angerissen. Die Bedeutung von Textstilen bzw. Formatvorlagen erschließt sich von selbst und muss nicht erläutert werden. Es gibt aber einige wenige wichtige Aspekte, die zu beachten sind und gesondert erwähnt werden sollen.
 
 - In AutoCAD stehen zwei Gruppen von Schrifttypen zur Verfügung: 
 	- SHX, die AutoCAD eigenen, auf Vektoren basierten Schriften und
 	- TTF (True Type Font) oder andere Schriftarten des Betriebssystems.
-- Sofern nicht die definierten Standardfonts von PDF verwendet werden, müssen TTF im darstellenden Betriebssystem (OS) vorliegen oder im PDF eingebunden sein, ansonsten können diese nicht dargestellt werden. PDF/A(rchiv) schreibt das Einbinden der Fonts vor. Eine fehlerhafte Darstellung erfolgt auch in der AutoCAD-Datei selbst, wenn der verwendetet TTF im neuen OS nicht vorliegt. PDF Standard Type 1 Fonts sind:
-	- Times (v3) in regular, italic, bold, und bold italic,
-	- Courier in regular, oblique, bold und bold oblique,
-	- Helvetica (v3) in regular, oblique, bold und bold oblique,
-	- Symbol und
-	- Zapf Dingbats.
-- Text lässt sich in AutoCAD unabhängig ob SHX oder TTF vorliegt "Suchen" und "Ersetzen". Beim Druck in eine PDF-Datei wird SHX zu Vektoren umgewandelt während TTF zu Text wird. Die Verwendung von TTF bietet für die automatisierte Recherche und die Extraktion von Inhaltsinformationen im resultierende PDF also immense Vorteile. 
+- Sofern nicht Standardfonts des Betriebssystem (OS) verwendet werden, müssen TTF im darstellenden OS vorliegen oder im PDF eingebunden sein, ansonsten werden diese automatisch durch einen anderen Font ersetzt,  fehlerhaft oder auch gar nicht dargestellt. Bis 2021 gab es die PDF Standard Type 1 Fonts (u.a. Times, Courier, Helvetica). PDF/A(rchiv) schreibt das Einbinden der Fonts vor, was allerdings durch die Anwendung zur PDF-Erstellung auch unterstützt werden muss. Eine fehlerhafte Darstellung erfolgt auch in der AutoCAD-Datei selbst, wenn der verwendetet Font im neuen OS nicht vorliegt.  
+- Text lässt sich in AutoCAD, unabhängig ob SHX oder TTF, vorliegt "Suchen" und "Ersetzen". Beim Druck in eine PDF-Datei wird SHX zu Vektoren umgewandelt während TTF *a priori* zu Text wird. Die Verwendung von TTF bietet für die automatisierte Recherche und die Extraktion von Inhaltsinformationen im resultierende PDF also immense Vorteile. 
 - Da SHX zu Vektoren umgewandelt werden bleibt der Text im PDF unabhängig vom OS menschenlesbar. In Abhängigkeit von der Menge des Textes und der Proportion zu weiteren Vektoren nimmt die Dateigröße aber unverhältnismäßig zu.
 - Veränderungen bei TTF von Breitenfaktor, Neigung oder Rotation sowie die uneinheitliche Skalierung von x und y bei einem Block mit Text können die Konvertierung des Textes im PDF verhindern oder zu fehlerhafter Darstellung führen.
-- Sie können in AutoCAD mehrere Textstile mit unterschiedlichen Fonts definieren und diese gezielt nach Bedarf und mit Blick auf interoperable und durchsuchbare PDF einsetzen. 
+- Sie können in AutoCAD mehrere Textstile definieren und diese gezielt nach Bedarf und mit Blick auf interoperable und durchsuchbare PDF einsetzen. Sie sollten nur einen und möglichst weit verbreiteten Font verwenden.
 
 # Automatisierte Prozesse und LISP
 
@@ -698,7 +720,9 @@ Da die Punktkoordinaten noch in der Zwischenablage von Windows liegen, machen wi
 
 ```
 3dp 4,6,1 3,8,4 2,3,10 s
+ 
 3dp 4,1,8 6,4,3 2,6,9 s 
+
 ```
 
 ### Text einfügen 
@@ -721,7 +745,7 @@ Auch ohne große LISP-Kenntnis können mit der LISP-Funktion (command) gezielt A
 (command "_text" "4,6,0" "0.4" "0" "Zweite Zeile")
 ```
 
-Die Unterschiede sind eher marginal und lassen sich mit den gezeigten Varianten leicht erklären. Wie später erklärt, wird der LISP-Befehl als ganzes in eine Klammer geschrieben, das erste Element ist die Funktion und der Rest der Liste wird entsprechend der Funktion verarbeitet. Mit der Funktion (command) kann jeder Befehl aufgerufen werden, auf den dann die für diesen Befehl notwendigen Parameter folgen müssen. Das Leerzeichen trennt die einzelnen Listenelemente. Text bzw. *string* muss in Anführungszeichen stehen, bei Zahlen ist dies nicht notwendig. Der "_" vor dem Befehl verweist auf den englischen Originalbefehl unabhängig von der Installationssprache. Bei "text" ist das weniger offensichtlich bei "einfüge" bzw. "_insert" schon. Da wir bereits mit Blöcken mit Attribut gearbeitet haben noch folgendes Beispiel. 
+Die Unterschiede sind eher marginal und lassen sich mit den gezeigten Varianten leicht erklären. Wie später erklärt wird der LISP-Befehl als ganzes in eine Klammer geschrieben, das erste Element ist die Funktion und der Rest der Liste wird entsprechend der Funktion verarbeitet. Mit der Funktion (command) kann jeder Befehl aufgerufen werden, auf den dann die für diesen Befehl notwendigen Parameter folgen müssen. Das Leerzeichen trennt die einzelnen Listenelemente. Text bzw. *string* muss in Anführungszeichen stehen, bei Zahlen ist dies nicht notwendig. Der "_" vor dem Befehl verweist auf den englischen Originalbefehl unabhängig von der Installationssprache. Bei "text" ist das weniger offensichtlich bei "einfüge" bzw. "_insert" schon. Da wir bereits mit Blöcken mit Attribut gearbeitet haben noch folgendes Beispiel. 
 
 | Achtung |
 |----|
@@ -733,7 +757,7 @@ Die Unterschiede sind eher marginal und lassen sich mit den gezeigten Varianten 
 (command "_insert" "Quadr_Nr" "44.1,57.4,15.9" "1" "1" "0" "2")
 ```
 
-Auf den Befehl zum einfügen eines Blockes folgen: Blockname, Einfügepunkt, Skalierung x, Skalierung y, Rotation und zuletzt die ggf. geforderten Attribute jeweils getrennt mit Leerzeichen. Sie erkennen unschwer, das lässt sich leicht in jeder Tabellenkalkulation erstellen (in Excel: VERKETTEN()). Lediglich die Punkt-Koma-Problematik erschwert uns in Excel ein wenig das Leben, ist aber mit einer Kombination von FINDEN() und ERSETZEN() zu lösen. Nachfolgend ein Beispiel mit einem ersten Tabellenblatt (Name "Daten") und einem weiteren Tabellenblatt mit der folgenden Syntax in einer Zelle je Zeile.
+Auf den Befehl zum einfügen eines Blockes folgen: Blockname, Einfügepunkt, Skalierung x, Skalierung y, Rotation und zuletzt die ggf. geforderten Attribute jeweils getrennt mit Leerzeichen. Sie erkennen sofort: das lässt sich leicht in jeder Tabellenkalkulation erstellen (in Excel: VERKETTEN()). Lediglich die Punkt-Koma-Problematik erschwert uns in Excel ein wenig das Leben, ist aber mit einer Kombination von FINDEN() und ERSETZEN() zu lösen. Nachfolgend ein Beispiel mit einem ersten Tabellenblatt (Name "Daten") und einem weiteren Tabellenblatt mit der folgenden Syntax in einer Zelle je Zeile.
 
 |Nummer | x-Wert | y-Wert | z-Wert | Blockname | x-Faktor | y-Faktor | Rotation |
 |:---:|---:|---:|---:|:---:|---:|---:|---:|
@@ -752,7 +776,7 @@ Auf den Befehl zum einfügen eines Blockes folgen: Blockname, Einfügepunkt, Ska
 In der vorangenden Syntax ist folgendes zu beachten:
 
 - " (Gänsefüßchen) leiten einen Text ein und beendet diesen, so dass Excel diesen Text nicht weiter evaluiert. Kommt in diesem Text ein " vor muss es mit einen " auskommentiert werden, also \"\". Steht \"\" am Ende des Textes werden es drei \"\"\". Sieht verwirrend aus und ist es auch beim Schreiben.
-- Die Funktion 'Ersetzen' ersetzt nicht ein Zeichenkette, z.B. ',', sondern eine Position und Zeichenanzahl innerhalb einer Zeichenkette. Diese Position muss mit der Funktion 'Finden' bestimmt werden. In Libre Office Calc können Sie das Punkt-Komma-Problem  durch die Formatzuweisung "1.1" nur in der Darstellung umgehen, durch die Verkettung wird auch hier ein Komma gesetzt. 
+- Die Funktion 'Ersetzen' ersetzt nicht eine Zeichenkette, z.B. ',', sondern eine Position und Zeichenanzahl innerhalb einer Zeichenkette. Diese Position muss mit der Funktion 'Finden' bestimmt werden. In Libre Office Calc können Sie das Punkt-Komma-Problem  durch die Formatzuweisung "1.1" nur in der Darstellung umgehen, durch die Verkettung wird auch hier ein Komma gesetzt. 
 
 ## LISP 
 
@@ -800,9 +824,9 @@ Im Grunde ist alles in () eine Liste und () eine leere Liste.
 
 (setq) weist einer Variablen einen Wert zu, danach folgt mit vorangestelltem *quote* die Liste in Klammern. Warum das *quote*? Wie im Beispiel ```(set (quote var3) 4)``` würde die Liste von innen nach außen und links nach rechts evaluiert. Dann müsste "rot" eine Funktion sein wie (quote) ist es aber nicht.
 
-Speziell für Listen gibt es zahlreiche Funktionen, die Rückgabewerte sind erwartbar ```(length farben)``` oder auch eher nicht ```(member "grün" farben)```, letzteres gibt den Rest der Liste ab dem gefundenen Element zurück. Wenn Sie unbedingt die Position brauchen könne Sie ja ```(- (length farben) (length (member "grün" farben)) -1)``` schreiben, das -1 da "grün" in der zweiten Liste enthalten ist: 3-2=1. Statt noch eine Klammer für (+ 1) zu setzen ist (- -1) etwas eleganter.
+Speziell für Listen gibt es zahlreiche Funktionen, die Rückgabewerte sind erwartbar ```(length farben)``` oder auch eher nicht ```(member "grün" farben)```, letzteres gibt den Rest der Liste ab dem gefundenen Element zurück. Wenn Sie unbedingt die Position brauchen könne Sie ja ```(- (length farben) (length (member "grün" farben)) -1)``` schreiben. Da "grün" in der zweiten Liste enthalten ist ergibt sich: 3-2=1. Anstatt dann noch eine Klammer für (+ 1) zu setzen ist (- -1) etwas eleganter.
 
-Listen können natürlich geschachtelt sein, so eine Linie (Startpunkt Endpunkt), wobei jede Koordinate für sich eine Liste ist (x y z). Damit zu "zwei" weiteren Funktionen: **(car)** und **(cdr)**. Das erste Element von linie erhalten wir mit ```(car linie)``` und mit (cdr linie) den Rest nach dem ersten Element. Das lässt sich bis zu 4 x kombinieren (caaaar, cadadr ... cddddr). Testen Sie einfach die folgenden Befehle und spielen Sie etwas mit eigenen Variationen: (caar linie), (cadr linie), (cadar linie). Achten Sie auf die Unterschied zwischen (cdr linie), dem Rest der Liste und (cadr linie), dem ersten Element vom Rest der Liste. Bekommen Sie ausschließlich den z-Wert des 2. Punktes? ```(cddadr linie)``` Das ist aber noch eine Liste und da (caddadr linie) nicht mehr geht bleibt aber noch ```(car(cddadr linie))```. Zugestanden, das war verwirrend und wäre auch einfacher gegangen ```(last(last linie))```. 
+Listen können natürlich geschachtelt sein, so ist eine Linie (Startpunkt Endpunkt), wobei jede Koordinate für sich eine Liste ist (x y z). Damit zu "zwei" weiteren Funktionen: **(car)** und **(cdr)**. Das erste Element von linie erhalten wir mit ```(car linie)``` und mit (cdr linie) den Rest nach dem ersten Element. Das lässt sich bis zu 4 x kombinieren (caaaar, cadadr ... cddddr). Testen Sie einfach die folgenden Befehle und spielen Sie etwas mit eigenen Variationen: (caar linie), (cadr linie), (cadar linie). Achten Sie auf die Unterschied zwischen (cdr linie), dem Rest der Liste und (cadr linie), dem ersten Element vom Rest der Liste. Bekommen Sie ausschließlich den z-Wert des 2. Punktes? ```(cddadr linie)``` Das ist aber noch eine Liste und da (caddadr linie) nicht mehr geht bleibt aber noch ```(car(cddadr linie))```. Zugestanden, das war verwirrend und wäre auch einfacher gegangen ```(last(last linie))```. 
 
 ### Visual Lisp Editor
 
@@ -819,7 +843,7 @@ Code kann im Editor auf Syntaxfehler geprüft werden "Extras -> Text im Editor p
 ; Prüfung durchgeführt.
 ```  
 
-Direkt daneben sind ähnliche Icon mit einem roten Pfeil, hiermit können Sie den gesmmten Code  oder den markierten Abschnitt laden. Die Fehlersuche wird durch schrittweises Ausführen oder durch Haltepunkte und in Kombination mit der Überwachung von Variablen deutlich erleichtert. Setzen Sie **Haltepunkte** stets vor die öffnende Klammer, gehen Sie dafür mit dem Cursor an die entsprechende Position und wählen Sie das Hand-Icon oder \<F9>. Auf die gleiche Weise entfernen Sie auch den Haltepunkt am Cursor. Um alle Haltepunkte zu löschen \<strg>+\<shift>+\<F9>. Laden Sie die Datei mit gesetzten Haltepunkten, wechseln Sie zu AutoCAD und starten Sie dort die Funktion "layererstellen". Automatisch wird zum Editor gewechselt und die Ausführung des Codes am ersten Haltepunkt  unterbrochen. Von hieraus können Sie mit den drei Icon mit "()" oder "))" 1. Schrittweise weitergehen, 2. den gesamten Schritt der Klammer nach dem Haltepunkt ausführen oder 3. bis zum Ende der gesamten Prozedur durchlaufen lassen. Parallel dazu wird für die überwachten Ausdrücke / Variablen der jeweils aktuelle Wert angezeigt.
+Direkt daneben sind ähnliche Icon mit einem roten Pfeil, hiermit können Sie den gesammten Code  oder den markierten Abschnitt laden. Die Fehlersuche wird durch schrittweises Ausführen oder durch Haltepunkte und in Kombination mit der Überwachung von Variablen deutlich erleichtert. Setzen Sie **Haltepunkte** stets vor die öffnende Klammer, gehen Sie dafür mit dem Cursor an die entsprechende Position und wählen Sie das Hand-Icon oder \<F9>. Auf die gleiche Weise entfernen Sie auch den Haltepunkt am Cursor. Um alle Haltepunkte zu löschen drücken Sie \<strg>+\<shift>+\<F9>. Laden Sie die Datei mit gesetzten Haltepunkten, wechseln Sie zu AutoCAD und starten Sie dort die Funktion "layererstellen". Automatisch wird zum Editor gewechselt und die Ausführung des Codes am ersten Haltepunkt  unterbrochen. Von hieraus können Sie mit den drei Icon mit "()" oder "))" 1. Schrittweise weitergehen, 2. den gesamten Schritt der Klammer nach dem Haltepunkt ausführen oder 3. bis zum Ende der gesamten Prozedur durchlaufen lassen. Parallel dazu wird für die überwachten Ausdrücke / Variablen der jeweils aktuelle Wert angezeigt.
 
 ### Funktion Layererstellen
 
@@ -849,7 +873,7 @@ Defun definiert eine Funktion, das erste Element der Liste ist der Name der Funk
 
 Als erstes werden die zu erstellenden Layer mit ihre Eigenschaften in eine Liste geschrieben und der variable Layerliste zugewiesen. Jeder Layer der Liste ist mit einer eigenen Sub-Liste vertreten, in der Name, Farbzahl und Linientyp angegeben ist. Mit der Kommentarzeile ist eine Art Spaltenüberschrift eingeschoben und da man mit "cadddr" an das vierte Element einer Liste kommt wird auf eine optional vierte Spalte hingewiesen. 
 
-Danach folgt eine interne Funktion, die anhand der zuvor definierten Sub-Listen mit Layer-Attributen jeweils einen Layer erstellt und nach Vorgaben verändert. Innerhalb dieser Funktion wird eine Variable "Praefix" benötigt, die weiter unter erstellt wird, ich springe deshalb im Code nach unten. (Genau dieses Geschachtel und Gehüpfe  ist unsauber, sollte zwar in dieser Datei aber außerhalb der Funktion c:LayerErstellen und jeweils als kleine eigene Funktion vorliegen.) Das Präfix des Layernames soll sich aus Schnittnummer (SNxx) und Planum (PLxx) zusammensetzen.
+Danach folgt eine interne Funktion, die anhand der zuvor definierten Sub-Listen mit Layer-Attributen jeweils einen Layer erstellt und nach Vorgaben verändert. Innerhalb dieser Funktion wird eine Variable "Praefix" benötigt, die weiter unten erstellt wird, ich springe deshalb im Code nach unten. (Genau dieses Geschachtel und Gehüpfe  ist unsauber, sollte zwar in dieser Datei aber außerhalb der Funktion c:LayerErstellen und jeweils als kleine eigene Funktion vorliegen.) Das Präfix des Layernames soll sich aus Schnittnummer (SNxx) und Planum (PLxx) zusammensetzen.
 
 ```{lisp, 'Praefix erstellen'}
 ;Praefix für die Layernamen erstellen
@@ -875,7 +899,7 @@ Als erstes wird die Schnittnummer in eine  Variable geschrieben (setq), für den
 
 Es folgt die Zuweisung der Nummer des Planums, die bei der Länge 1 ebenfalls um eine "0" erweitert wird.
 
-Das dritte Element verbindet die Variablen zu Schnitt-Nr. und Planum-Nr. mit dem jeweilige Etikett ("SN", "PL") zur Variable Präfix, aber nur wenn (if) Schnitt nicht leer ist, ansonsten wird nur das Planum an Praefix übergeben. Als erkennbares Trennzeichen wird jeweils ein "_" beigefügt. Das ganze ist Schrittweise ausgeführt und leicht lesbar (einfache Sprache) also nicht zwingend elegant oder kompakt. Das Ergebnis ist das Praefix, z.B. "SN01PL01_" und geht zurück zur internen Funktion LayerNeu.
+Das dritte Element verbindet die Variablen zu Schnitt-Nr. und Planum-Nr. mit dem jeweilige Etikett ("SN", "PL") zur Variable Präfix, aber nur wenn (if) Schnitt nicht leer ist, ansonsten wird nur das Planum an Praefix übergeben. Als erkennbares Trennzeichen wird jeweils ein "\_" beigefügt. Das ganze ist Schrittweise ausgeführt und leicht lesbar also nicht zwingend elegant oder kompakt. Das Ergebnis ist das Praefix, z.B. "SN01PL01\_" und geht zurück zur internen Funktion LayerNeu.
 
 ```{lisp, 'Funktion LayerNeu'}
 ;Funktion zum erstellen der Layer
@@ -913,98 +937,95 @@ Am Ende wird mit (princ)  eine leere Zeile geschrieben. Bis jetzt ist außer der
  (mapcar 'LayerNeu LayerListe)
 ```
 
-Die Funktion (mapcar) wendet eine Funktion auf eine Liste an, sie benötigt damit mindestens diese beiden Elemente den Ausdruck der die Funktion repräsentiert (nicht evaluiert und deshalb ein ' vorweg) und die Liste auf die sie angewendet werden soll. Hier geht es also zur Sache: Funktion LayerNeu vornehmen, erste Sub-Liste  als übergebener Parameter holen, das zuvor gebaute Präfix ergänzen und den Layer erstellen. Funktion LayerNeu aufrufen, nächste Subliste usw.
+Die Funktion (mapcar) wendet eine Funktion auf eine Liste an, sie benötigt damit mindestens diese beiden Elemente, den Ausdruck der die Funktion repräsentiert (nicht evaluiert und deshalb ein ' vorweg) und die Liste auf diese Funktion angewendet werden soll. Hier geht es also zur Sache: Funktion LayerNeu vornehmen, erste Sub-Liste  als übergebener Parameter holen, das zuvor gebaute Präfix ergänzen und den Layer erstellen. Funktion LayerNeu aufrufen, nächste Subliste usw.
 
 Ein weiteres kleines LISP-Programm für die effiziente Arbeit in AutoCAD finden Sie bei [ISAAK](https://github.com/ISAAKiel/ArchJobCAD). Die notwendigen Grundlagen, um sich den Code von ArchCAD.lsp oder auch steigung.lsp zu erarbeiten haben Sie nun.
 
-## Ergänzende Literatur
+# Ergänzende Literatur
 
-### Text & Buch
+## Text & Buch
 
 - Omura 1997: G. Omura, ABC’s of AutoLISP: Contents at Glance - Copyright © 1997 George Omura. 1997 \<http://people.fsv.cvut.cz/www/chourpav/Lisp/Contents.htm>(17.04.2012).
 - Strube-Zettler/Schönwald 2007: A. Strube-Zettler/T. Schönwald, Kochbuch AutoLISP: AutoCAD programmieren mit LISP (München 2007).
 - Bosse : J. Bosse, Visual-LISP Editor ab AutoCAD 2000, (o. J.) \<http://www.bosse-engineering.com/downloads/090501_VisualLISP-Editor.pdf>(24.03.2012).
 
 
-### Foren, Lernen, Tools
+## Foren, Lernen, Tools
 
 In alphabetischer Ordnung:
 
 - AfraLISP : AutoLISP | AfraLISP. AfraLISP() Learn AutoLISP for AutoCAD productivity \<http://www.afralisp.net/autolisp/>(08.04.2012).
 - AUGCE: Autodesk User Group Central Europe. \<http://www.augce.de/de.shtml>(15.04.2012).
 - Battin : G. Battin, AutoCAD Tips | helpful tips for everyday users. \<http://autocadtips.wordpress.com/>(13.04.2012).
-- CAD.DE : CAD.DE,CAD.de – Die CAD-CAM-CAE COMMUNITY, (o. J.) \<https://ww3.cad.de/>(31.05.2020).
+- CAD.DE : CAD.DE,CAD.de – Die CAD-CAM-CAE COMMUNITY, (o. J.) \<https://ww3.cad.de/>(31.05.2020).
 - cadstudio : cadstudio, CAD Forum - tips, tricks, utilities, discussion | AutoCAD, Inventor, Revit, Civil 3D, Autodesk. \<http://www.cadforum.cz/cadforum_en/default.asp>(15.04.2012).
 - CADTutor : CADTutor, AutoCAD Tutorials, Articles & Forums | CADTutor. \<https://www.cadtutor.net/>(31.05.2020).
 - Drese : M. Drese, CADwiesel. \<http://www.cadwiesel.de/>(12.12.2017).
 - Karlsson 2014: L. Karlsson, Glamsen: CadTools. 2014 \<https://www.glamsen.se/CadTools.htm>(06.07.2016).
-- Strube-Zettler : A. Strube-Zettler, Ausgewählte Themen zu AutoLisp. \<http://www.advanced.autolisp.info/>(09.05.2017).
-- Strube-Zettler : A. Strube-Zettler, Das deutschsprachige VisualLisp-Tutorial im Internet. \<http://www.tutorial.autolisp.info/>(31.05.2020).
+- Strube-Zettler : A. Strube-Zettler, Ausgewählte Themen zu AutoLisp. \<http://advanced.autolisp.info/>(24.04.2023).
+- Strube-Zettler : A. Strube-Zettler, Das deutschsprachige VisualLisp-Tutorial im Internet. \<http://tutorial.autolisp.info/>(24.04.2023).
 
 # CAD Grabungsplan & GIS
 
-Der in dieser Übung bearbeitete Plan stammt von einer realen Ausgrabung. Aus dem Plan wurden an mehrern Stellen Informationen, vor allem Befunde entfernt, der Plan ist somit für eine wissenschaftliche Auswertung unbrauchbar. Dennoch bitte ich darum, die für diese Übung bereitgestellten Daten nicht über diese Übung hinaus zu verwenden und nach Abschluss zu löschen.
+Dieses Thema ist inzwischen eine eigene Übung, in der sowohl die relevanten Aspekte in einem CAD, einfachen AutoCAD-Skripten, LISP und umfangreichen SQL-Anweisungen in einer Raumdatenbank (SpatiaLite) behandelt werden. Das folgende Kapitel ist deshalb auf ganz grundlegende Aspekte reduziert, wobei die dargestellte "Handarbeit", z.B. bei den Höhen, bei wenigen Fehlern durchaus eine sinnvolle Option ist. 
+
+Der in dieser Übung bearbeitete Plan stammt von einer realen Ausgrabung. Aus dem Plan wurden an mehrern Stellen Informationen, vor allem Befunde entfernt, der Plan ist somit für eine wissenschaftliche Auswertung unbrauchbar. Dennoch bitte ich darum, die für diese Übung bereitgestellten Daten nicht über diese Übung hinaus zu verwenden und nach Abschluss zu löschen. Hierzu gibt es deshalb auch keinen Download.
 
 Der Plan enthält zahlreiche technische Mängel. Es geht hier darum, aus diesen Mängeln zu lernen und diese möglichst effizient zu beheben. Es geht nicht darum, Kollegen oder deren Team zu kritisieren oder vorzuführen.
 
-Dieses Kapitel zielt auch auf die Übernahme von Daten von Dritten, z.B. einer Ausgrabung durch ein Denkmalamt, und das Bestreben, diese Daten möglichst effizient in einem GIS weiterverarbeiten zu können. Zugleich sollen hier bisher gelernte Techniken wiederholt werden. Die mir bekannten GIS (ESRI ArcGIS, Quantum GIS) und das Datenbanksystem SpatialLite können DXF-Formate importieren. Dabei werden aber sehr unterschiedliche Strategien gefahren, divergierende Strukturen erstellt und auch eine sehr unterschiedliche Granularität der Daten erzielt. ArcGIS bietet zudem den Service DWG-Dateien direkt importieren zu können.
+Dieses Kapitel zielt auch auf die Übernahme von Daten von Dritten, z.B. einer Ausgrabung aus einem Denkmalamt, und das Bestreben, diese Daten möglichst effizient in einem GIS weiterverarbeiten zu können. Zugleich sollen hier bisher gelernte Techniken wiederholt werden. Die mir bekannten GIS (ESRI ArcGIS, Quantum GIS) und das Datenbanksystem SpatialLite können DXF-Formate importieren. Dabei werden aber sehr unterschiedliche Strategien gefahren, divergierende Strukturen erstellt und auch eine sehr unterschiedliche Granularität der Daten erzielt. ArcGIS bietet zudem den Service DWG-Dateien direkt importieren zu können.
 
-Unabhängig von den Möglichkeiten des jeweligen GIS empfiehlt sich das Bereinigen und Reorganisieren der CAD-Daten in eine für den Import optimierte Struktur im originären Medium, also in AutoCAD selbst.  
+Unabhängig von den Möglichkeiten des jeweligen GIS empfiehlt sich das Bereinigen und Reorganisieren der CAD-Daten in eine für den Import optimierte Struktur im originären Medium, also in CAD selbst.  
 
-## AutoCAD Grabungsdatei sichten
+## CAD Grabungsdatei in AutoCAD sichten
 
 Öffnen Sie die Datei "Grabungsplan.dwg". Schauen Sie sich alles in Ruhe an und notieren Sie für sich erstmal die Fehler, Probleme, Merkwürdigkeiten und Fragen an die Struktur oder Daten.
 
 Eine mögliche Vorgehensweise:
 
-- Layermenü öffnen, Übersicht über Anzahl der Layer, Namen und ggf. eingerichtete Filter. Alle Layer einschalten und entfrieren (zoom grenzen!).
+- Layermenü öffnen, Übersicht über Anzahl der Layer, Namen und ggf. eingerichtete Filter. Alle Layer einschalten und entfrieren. Die Layerliste können Sie markieren (\<strg> + \<a>), kopieren (\<strg> + \<c>) und in einem Editor oder einer Office-Tabelle einfügen (\<strg>+\<v>).
 - Zoom auf die Grenzen.
-- Kontrolle der vorhandenen Blöcke mit *_insert*.
-- Kontrolle der externen Referenzen.
+- Kontrolle der vorhandenen Blöcke (```_insert```).
+- Kontrolle der externen Referenzen (```xref```).
 - Ansicht von Vorne im WKS.
 - Sind weitere BKS definiert?
-- Kontrolle der Einheiten mit *Einheit*.
-- Alles markieren, Eigenschaftenmenü, *drop-down* Menü der Objekte und ein Überblick über die verwendeten Elemente und deren Anzahl verschaffen. 
+- Kontrolle der Einheiten (```einheit```).
+- Alles markieren, Eigenschaftenmenü, *drop-down* Menü der Objekte und einen Überblick über die verwendeten Elemente und deren Anzahl verschaffen. 
 
 Was ist mir alles aufgefallen?
 
 - Die Anzahl der Layer ist überschaubar, eine Trennung nach den Grabungsflächen ist nicht erfolgt, die Namen sind leider nicht ganz stringent, vor allem die Befundnummern sind mehrfach vertreten.
-- Einige Namen verweisen auf konkrete Objekte und ensprechen damit nicht der allgemeinen Nomenklatur (9294 Graben, Parkplatz, Gebäudehalle). 
+- Einige Layernamen verweisen auf konkrete Objekte und ensprechen damit nicht der allgemeinen Nomenklatur ("9294 Graben", "Parkplatz", "Gebäudehalle"). 
 - Es liegen Konstruktionsachsen vor, Objekte liegen weit außerhalb der Grabungsflächen und einige scheinen nach Norden versetzt.
 - Es liegen zahlreiche Blöcke mit kryptischen Namen vor, vermutlich Restbestände von *copy 'n paste*. Dazu einige Blöcke mit vielversprechenden Namen (HP_...).
 - Die Ansicht von der Seite offenbart das größte Problem. Vielfach laufen Polygone von der realen Höhe auf 0 runter.  Daneben sind aber auch in der Grabung mehrere Höhenbereiche der Objekte mit einzelnen Verbindungslinien zu erkennen. Falsche Prismenhöhe beim Messen?
 - Keine weiteren BKS definiert, die Koordinaten lassen ein GKB Zone 4 vermuten (das Elipsoidmodell ergibt sich daraus aber nicht).
 - Die Einheit ist erwartbar in Millimeter statt den verwendeten Meter.
-- Es wurde MText verwendet und es liegen Kreise vor, letztere hoffentlich nicht für Befunde.
-- Zahlreiche Befundlinien sind nicht geschlossen, auf dem Befundlayer liegen auch Kreise. 
+- Es wurde MText verwendet. 
+- Es gibt zahlreiche Kreise, leider auch auf dem Layer für Befunde.
+- Zahlreiche Befundlinien sind nicht geschlossen. 
 
 ### Arbeitsschritte der Datenkorrektur
 
-Ich speicher die Datei unter einem neuen Namen, in diesem Fall mit einer fortlaufende Nummerierung nach jedem  Arbeitsschritt. Ich lösche die Konstruktionsachsen und die Objekte extrem weit außerhalb der Untersuchungsfläche nach der Kontrolle der Eigenschaften. 
+Ich setze die Einheit auf Meter. Damit sind die vorhandenen Plandarstellungen im Layout nichtmehr direkt zu nutzen, sondern müssen natürich angepasst werden. Ich verändere im Seiteneinrichtungs-Manager das Verhältnis zwischen Layout und Modell auf 1 mm = 0.001 Einheit. Ich markiere den kompletten Papierinhalt, wähle ```skalieren```, Basispunkt ist die linke untere Ecke des Druckbereiches (gestrichelte Linie), und geben den Faktor an: 0.001. Für das Ansichtsfenster wähle ich unter Sonstiges Ansicht gesperrt: Nein und Benutzerspezifischer Faktor (für den Maßstab) 0.005.
 
-Die Objekte 600 m nördlich der Grabungsfläche sind offensichtlich als Blöcke mit Attribut hinterlegte Befundnummer mit x,- y- und z-Wert. Ich vermute eine falsche Stationierung während der ersten Ausgrabung. Diese Flächen wurden  dann nachträglich richtig geschoben, leider ohne die vermutlich ausgeblendeten oder gesperrten Blöcke. Um alle Objekte notfalls wieder filtern zu können gebe ich diesen eine grelle und selten verwendete Farbe (Nr. 210). Die Farbe wird nicht widergegeben. Ich schalte den Objektfang aus, um die Höhe durch einen zufälligen Fang nicht zu verlieren und schiebe alles im Block an eine einleuchtende Position etwa in den Befundmitten. Nun stehen die Befundnummern als Block mit Attribut im Befund und als Text im Kreis daneben. Es gibt aber auch Befundnummern (Block mit Attribut) ohne umliegende Befundgrenze. Da alle Layer eingeschaltet sind dürfen wir frei spekulieren und hoffen auf klärende Angaben in einer Datenbank oder der Papierdokumentation.
+Um zu prüfen, ob Kreise nicht nur für die Befundnummern verwendet wurden gehe ich wie folgt vor. Ich wähle einen Befundnummernkreis und prüfe den Durchmesser in den Eigenschaften: 0.4446. Ich öffne das Eigenschaftenfenster, dann die Schnellauswahl (Eigenschaftenfilter) und Filter auf Kreise mit der Eigenschaft "Durchmesser \<> ungleich 0.4446". Ich setze die Objekte auf eine neue Farbe: 220. So sind diese auch nach dem Lösen der Auswahl gut sichtbar. In der Fläche 3 sind zahlreiche Befunde als Kreise auf dem Layer "Befunde" gezeichnet. Ich setze diesen Layer aktuell und blende alle anderen Layer aus.  Danach zeichne ich mit ```Umgrenzung``` in jeden Kreis eine Polylinie.  Das geht auch mit mehreren Kreisen auf einmal. Einige Kreise sind ganz offensichtlich keine Befundgrenzen, die ich für die spätere Bearbeitung auf den Layer 0 schiebe. Ich markiere alle Befunde, filter auf die Kreise mit Farbe = 220 und lösche diese dann. Alle Layer einblenden und die Datei unter einem neuen Namen speichern.
 
-Ich wähle "Datei -> Dienstprogramme -> Bereinigen", neben den Blöcken des *copy 'n paste* werden einige weitere Objekte genannt, die ich in diesem Fall kurzentschlossen ebenfalls lösche. Danach sind die nicht verwendeten Blöcke, Textstile Linientypen und Layer entfernt.
+Vergleichbar verfahre ich auch mit dem MText, den ich in normalen einzeiligen Text umwandeln möchte. Im Eigenschaften Fenster über die Schnellauswahl (Eigenschaftenfilter) filtern auf MTxt, "Farbe = Von Layer", in einen neuen Auswahlsatz. Nach einer kurzen visuellen  Kontroll handelt es sich bis auf zwei großformatige Beschriftungen um die Befundnummern in der südlichen Hälfte. Ich färbe alle ein (Farbe 230), kopiere diese  mit Basispunkt (0,0,0) und füge sie in eine neue Datei ein. In der neuen Datei sind alle Layer, bis auf den Layer 0, durch die eingefügten Objekte entstanden. Die großformatigen Texte liegen auf dem Layer "Parkplatz" (ein Layername "Bebauung" wäre neutraler), in einem Fall auf "Kabelschacht", was mitten in der Fläche formal auch ein Befund ist, also eine Nummer bekommen sollte und keine Extrabehandlung und für die übrigen Texte Varianten von Befundnummer oder fälschlich "Befund". Also offensichtlich weitere Datenfehler die später zu klären sind. In keinem Fall ist ein MText notwendig. Ich schließe diese neue Datei ohne zu speichern, kehre zum Grabungsplan zurück, filter auf MText der Farbe 230, mit ```ursprung```  zerlege ich den MText in einzeiligen Text. 
 
-Ich setze die Einheit auf Meter. Damit sind die vorhandenen Plandarstellungen im Layout nichtmehr direkt zu nutzen, sonern müssen natürich angepasst werden. Ich veränder im Seiteneinrichtungs-Manager das Verhältnis zwischen Layout und Modell auf 1 mm = 0.001 Einheit. Ich markiere den kompletten Papierinhalt, wähle ```skalieren```, Basispunkt ist die linke untere Ecke des Druckbereiches (gestrichelte Linie), und geben den Faktor an: 0.001. Für das Ansichtsfenster wähle ich unter Sonstiges Ansicht gesperrt: Nein und Benutzerspezifischer Faktor (für den Maßstab) 0.005.
-
-Um zu prüfen, ob Kreise nicht nur für die Befundnummern verwendet wurden gehe ich wie folgt vor. Ich wähle einen Befundnummernkreis und prüfe den Durchmesser in den Eigenschaften: 0.4446. Ich öffne das Eigenschaftenfenster, dann die Schnellauswahl (Eigenschaftenfilter) und Filter auf Kreise mit der Eigenschaft "Durchmesser \<> ungleich 0.4446". Ich setze die Objekte auf eine neue Farbe: 220. So sind diese auch nach lösen der Auswahl gut sichtbar. In der Fläche 3 sind zahlreiche Befunde als Kreise auf dem Layer Befunde gezeichnet. Ich setze diesen Layer aktuell und blende alle anderen Layer aus.  Danach zeichne ich mit ```Umgrenzung``` in jeden Kreis eine Polylinie.  Das geht auch mit mehreren Kreisen auf einmal. Einige Kreise sind ganz offensichtlich keine Befundgrenzen, die ich für die spätere Bearbeitung auf den Layer 0 schiebe. Ich markiere alle Befunde, filter auf die Kreise mit Farbe = 220 und lösche diese dann. Alle Layer einblenden und die Datei unter einem neuen Namen speichern.
-
-Vergleichbar verfahre ich auch mit dem MText, den ich in normalen einzeiligen Text umwandeln möchte. Im Eigenschaften Fenster über die Schnellauswahl (Eigenschaftenfilter) filtern auf MTxt, "Farbe = Von Layer", in einen neuen Auswahlsatz. Nach einer kurzen visuellen  Kontroll handelt es sich bis auf zwei großformatige Beschriftungen um die Befundnummern in der südlichen Hälfte. Ich färbe alle ein (Farbe 230), kopiere diese  mit Basispunkt (0,0,0) und füge sie in eine neue Datei ein. In der neuen Datei sind alle Layer, bis auf den Layer 0, durch die eingefügten Objekte entstanden. Die großformatigen Texte liegen auf dem Layer Parkplatz (ein Layername Bebauung wäre neutraler), in einem Fall auf Kabelschacht, was mitten in der Fläche formal auch ein Befund ist, also eine Nummer bekommen sollte und keine Extrabehandlung und für die übrigen Texte Varianten von Befundnummer oder fälschlich Befund. Also offensichtlich weitere Datenfehler die später zu klären sind. In keinem Fall ist ein MText notwendig. Ich schließe diese neue Datei ohne zu speichern, kehre zum Grabungsplan zurück, filter auf MText der Farbe 230, mit ```ursprung```  zerlege ich den MText in einzeiligen Text. 
-
-Damit ist die grobe Datenkontrolle und die Korrektur der mir aufgefallenen Fehler abgeschlossen. Es bleibt aber eine sehr lange Liste an strukturellen Problemen, z.B. die Befundnummern auf dem Layer Befund oder die Variationen der Layernamen. Dazu das wirklich große Problem der wechselnden Höhen auch innerhalb eines Befundes.
+Damit ist die grobe Datenkontrolle und die Korrektur der mir aufgefallenen Fehler abgeschlossen. Es bleibt aber eine sehr lange Liste an strukturellen Problemen, z.B. die Befundnummern auf dem Layer "Befund" oder die Variationen der Layernamen. Dazu das wirklich große Problem der wechselnden Höhen auch innerhalb eines Befundes.
 
 ## Detailkontrolle & Korrektur
 
 ### Befundnummern
 
-Für mich sind die Befundnummern mit ihrer Lage, Koordinaten und Planum das wichtigste für die Aufarbeitung, selbst die Befundgrenzen sind hier nachgeordnet. Die bisher erkannte Datenstruktur lässt mindestens zwei Grabungen und Grabungsteams vermuten. Damit besteht das Risiko doppelter Befundnummern, zumal niedrige Nummern bis in den 100er-Bereich vergeben wurden. In der nördlichen Hälfte scheinen die Befundnummern überwiegend als Text auf dem Layer Befundnummer zu liegen, in der südlichen Hälfte auf dem Layer Bef.Nr.  Eine stichprobenartige Kontrolle offenbart sofort die doppelte Vergabe der Befundnummern.
+Für mich sind die Befundnummern mit ihrer Lage, Koordinaten und Planum das wichtigste für die Aufarbeitung, selbst die Befundgrenzen sind hier nachgeordnet. Die bisher erkannte Datenstruktur lässt mindestens zwei Grabungen und Grabungsteams vermuten. Damit besteht das Risiko doppelter Befundnummern, zumal niedrige Nummern bis in den 100er-Bereich vergeben wurden. In der nördlichen Hälfte scheinen die Befundnummern überwiegend als Text auf dem Layer "Befundnummer" zu liegen während diese in der südlichen Hälfte auf dem Layer "Bef.Nr." eingetragen sind. Eine stichprobenartige Kontrolle offenbart sofort die doppelte Vergabe der Befundnummern.
 
-Ich wähle die Datenextraktion für Text um eine vollständige Liste aller Textinformationen zu erhalten. Für die neue Datenextraktion wähle ich bei den Objekten nur Text, reduziere die Kategorien auf die Bereiche Allgemein, Geometrie und Text um abschließend folgende Informationen in eine CSV-Tabelle zu exportieren: Layer, Position-x, -y, -z und Wert. Sortieren Sie diese Liste nach dem Layernamen. Die Befundnummern des Layers Bef.Nr. haben erfreulicherweise alle auch einen z-Wert, das redundante Präfix "Bef. " zeugt zugleich von einer stringente Handhabung und ermöglicht eine klare Trennung zu den Befundnummern des Layers Befundnummer. Das überflüssige Präfix kann in AutoCAD mit "Suchen - Ersetzen" gelöscht werden. Drei Befundnummern vom Typ Bef.Nr. liegen auf dem falschen Layer, bitte eigenständig möglichst effizient, also nicht individuell, korrigieren. Die Befundnummern auf dem Layer Befundnummern haben überwiegend falsche z-Werte und liegen ja auch neben den Befunden. In diesem Bereich der Grabung wurden aber auch die Befundnummern als Block mit Attribut auf dem Layer "Koordinaten-Befundmitte" in die Befundmitte gemessen (von uns dann geschoben). Auch diese Daten können extrahiert und als Liste verwaltet und nachgenutzt werden.
+Ich wähle die Datenextraktion für Text um eine vollständige Liste aller Textinformationen zu erhalten. Für die neue Datenextraktion wähle ich bei den Objekten nur Text, reduziere die Kategorien auf die Bereiche Allgemein, Geometrie und Text um abschließend folgende Informationen in eine CSV-Tabelle zu exportieren: Layer, Position-x, -y, -z und Wert. Sortieren Sie diese Liste nach dem Layernamen. Die Befundnummern des Layers "Bef.Nr." haben erfreulicherweise alle auch einen z-Wert, das redundante Präfix "Bef. " zeugt zugleich von einer stringente Handhabung und ermöglicht eine klare Trennung zu den Befundnummern des Layers "Befundnummer". Das überflüssige Präfix kann in AutoCAD mit "Suchen - Ersetzen" gelöscht werden. Drei Befundnummern vom Typ "Bef.Nr." liegen auf dem falschen Layer, bitte eigenständig möglichst effizient, also nicht individuell, korrigieren. Die Befundnummern auf dem Layer "Befundnummern" haben überwiegend falsche z-Werte und liegen ja auch neben den Befunden. In diesem Bereich der Grabung wurden aber auch die Befundnummern als Block mit Attribut auf dem Layer "Koordinaten-Befundmitte" in die Befundmitte gemessen. Auch diese Daten können extrahiert und als Liste verwaltet und nachgenutzt werden.
 
 ### Blöcke mit Attribut
 
-Vor allem auf der nördliche Grabungsfläche wurden  Blöcken mit Attribut vielfach eingesetzt. Auf der südlichen Fläche wurden Funde mit einem Block "Messpunkt" eingemessen.
+Vor allem auf der nördliche Grabungsfläche wurden  Blöcke mit Attribut vielfach eingesetzt. Auf der südlichen Fläche wurden Funde mit einem Block "Messpunkt" eingemessen.
 
 |Objekt | Blockname | Layername | Beschreibung|
 |----|----|----|----|
@@ -1027,7 +1048,7 @@ Zahlreiche Polygone der Befunde und Flächen bzw. Schnitte sind nicht geschlosse
 Die Höhenfehler gliedern sich nach der Intensität, teils sind es Fehler innerhalb eines Polygons oder aber ganze Gruppen von Elementen in unterschiedlichen Kategorien mit erkennbar unterschiedlichen Fehlerquellen. Zwei Fehlerquellen sich offensichtlich und sehr typisch:
 
 - Beim Tachy oder/und bei TachyCAD wurde eine andere Prismenhöhe verwendet als am Prisma eingestellt (nicht eingetragen oder nicht zurückgestellt).
-- Beim Messen der Befunde war der OFang eingeschaltet und es wurden von Hand gezeichnete Linien gefangen (z-Wert: 0). 
+- Beim Messen der Befunde war der OFang eingeschaltet und es wurden zuvor von Hand gezeichnete Linien gefangen (z-Wert: 0). 
 - Ein Punkt im Polygon wurde wegen fehlender Sicht, z.B. ein Baum, nicht gemessen sondern von Hand gesetzt (z-Wert 0). Dies trifft vor allem auf die Profillinien zu die offesichtlich nach der Messung der Nägel von Hand eingezeichnet wurden.
 
 Zur Bearbeitung der z-Wert-Probleme empfielt sich die Arbeit in zwei Ansichtsfenstern: "Ansicht -> Ansichtsfenster -> 2 Ansichtfenster". Sie können ein Objekt markieren und in die zweite Ansicht wechseln. Das gezielte Editieren des z-Wertes eines Punktes ist nicht möglich. Sie können aber mit dem Objektfang arbeiten, um die Z-Werte zu manipulieren.
@@ -1042,15 +1063,15 @@ Alternativ zeichnen Sie eine 2D-Linie von einem Objekt mit korrekter Höhe zu ei
 
 Dieses Problem ist besonders oft bei den Profillinien vertreten. Diese Linien wurden offensichtlich von Hand gezeichnet und im mittleren Abschnitt an den eingemessenen Profilnägeln gefangen. Die Endlinien sind demnach nur als Markierung der Ansichtsrichtung zu bewerten. Wir können Sie also ebenfalls "frei schieben". Aktivieren Sie beim Objektfang den "Mittelpunkt" von Linien. Nehmen Sie mit Mausklick das Ende einer Profillinie auf, verschieben sie diesen auf den Mittelpunkt der Profillinie im Befund. Schieben Sie diesen Punkt anschließend wieder zurück. Eine  Alternative ist das zerlegen der Polylinie mit Ursprung in einzelne Linien. Für diese Linien können Sie die Z-Werte für Start- und Endpunkt auf einmal editieren. Nachfolgend sollten Sie jedoch mit *pedit* die einzelnen Segmente wieder zu einer Polylinie verbinden.
 
-Auf dieselbe Weise könne Sie einzelne Punkte von Befundlinien korrigieren. Starten Sie mit einer 2D-Polylinie an einem Punkt mit korrektem z-Wert, Zeichnen Sie einen Punkt neben der Befundgrenze um diese Linie später leicht markieren zu können und markieren Sie nachfolgend die Punkte mit zu korrigierendem z-Wert. Wie zuvor können Sie den Punkt mit falschem z-Wert erst seitlich verschieben und dann mit aktivem OFang zurück auf die ursprünglich Lage. Abschließend löschen Sie die Hilfslinie.
+Auf dieselbe Weise könne Sie einzelne Punkte von Befundlinien korrigieren. Starten Sie mit einer 2D-Polylinie an einem Punkt mit korrektem z-Wert, Zeichnen Sie einen Punkt neben der Befundgrenze um diese Linie später leicht auswählen zu können und markieren Sie nachfolgend die Punkte mit zu korrigierendem z-Wert. Wie zuvor können Sie den Punkt mit falschem z-Wert erst seitlich verschieben und dann mit aktivem OFang zurück auf die ursprünglich Lage nur mit aktualisierten z-Wert. Abschließend löschen Sie die Hilfslinie.
 
 **Sprünge bei benachbarten Polygonzügen**
 
-Wir dürfen erwarten, dass benachbarte Polygone auf einer ähnlichen Höhe gelegen haben. Daneben sind aber auch Stufen im Planum denkbar. Diese wahrscheinliche Beziehung zu benachbarten Befunden kann über eine 3D-Polylinie genutzt werden. Zeichnen Sie eine 3D-Polylinie zwischen gegenüberliegenden Befunden, wenn die Mitte dieser 3dp im Bereich des zu verschiebenden Objektes liegt, können Sie von diesem Mittelpunkt eine 2D-Polylinie an einen spezifischen Punkt des Objektes zeichnen und dieses Objekt dann an die 2D-Linie verschieben. Sollte die Distanz zum Mittelpunkt der 3dp zugroß sein, zeichnen Sie eine Weitere 3dp zwischen Mittelpunkt und Endpunkt um einen weitern Fangpunkt auf der 1/4  Strecke zu erhalten.
+Wir dürfen erwarten, dass benachbarte Polygone auf einer ähnlichen Höhe gelegen haben. Daneben sind aber auch Stufen im Planum denkbar. Diese wahrscheinliche Beziehung zu benachbarten Befunden kann über eine 3D-Polylinie genutzt werden. Zeichnen Sie eine 3D-Polylinie zwischen gegenüberliegenden Befunden, wenn die Mitte dieser 3dp im Bereich des zu verschiebenden Objektes liegt, können Sie von diesem Mittelpunkt eine 2D-Polylinie an einen spezifischen Punkt des Objektes zeichnen und dieses Objekt dann an die 2D-Linie verschieben. Sollte die Distanz zum Mittelpunkt der 3dp zugroß sein, zeichnen Sie eine Weitere 3dp zwischen Mittelpunkt und Endpunkt um einen weiteren Fangpunkt auf der 1/4  Strecke zu erhalten.
 
 ## Grabungsplan zu GIS
 
-Das Ergebnis nach dem Import hängt im wesentlichen von zwei Faktoren ab:
+Das Importergebnis hängt im wesentlichen von zwei Faktoren ab:
 
 - Was liefern Sie für den Import.
 - Welche Software nutzen Sie für den Import.
@@ -1059,9 +1080,9 @@ Für beides werden nachfolgend zwei Optionen genannt, woraus sich vier Varianten
 
 ### Daten zu DXF exportieren
 
-Das X steht, wie so oft, für e**X**change. Also ein gutes Format, wählen Sie aber mal nicht das neuste DXF-Format sondern eine ältere Variante. Mit "2010" liegen Sie auch bei älteren Versionen von QGIS sicher nicht verkehrt, aber die Erde dreht sich bekanntlich. Es empfiehlt sich auch nicht pauschal alles zu exportieren, sondern bei dem vorliegenden Grabungsplan macht es Sinn folgende Layer auszuschließen: MESSPUNKTE (Messprotokoll von TachyCAD), Kopf, Legende, Maßstab und Nordpfeil (Papierbereich). Der Export der gewählten Objekte erfolgt mit dem Befehl ```wblock``` in eine einzige DXF-Datei (Variante 1).
+Das X steht, wie so oft, für e**X**change. Also ein gutes Format, wählen Sie aber mal nicht das neuste DXF-Format sondern eine ältere Variante. Es empfiehlt sich auch nicht pauschal alles zu exportieren, sondern bei dem vorliegenden Grabungsplan macht es Sinn, folgende Layer auszuschließen: MESSPUNKTE (Messprotokoll von TachyCAD), Kopf, Legende, Maßstab und Nordpfeil (Papierbereich). Der Export der gewählten Objekte erfolgt mit dem Befehl ```wblock``` in eine einzige DXF-Datei (Variante 1).
 
-Für die Variante 2 differenzieren Sie die Daten in strukturelle Einheiten und exportieren diese jeweils in eine DXF-Datei: alle Bebauungsgrenzen, alle Grabungs- und Schnittgrenzen incl. GGUK und GGOK, Befunde die nicht explizit auf einem anderen Planum liegen, Befunde nach sonstigen Plana, alles rund um Profil, alle Funde und alle Texte. Die Auswahl treffe ich über das Einschalten der entsprechenden Layer, nur für den Text gehe ich über den Eigenschaftenfilter (Schnellauswahl) und wähle Text, Rückwärts = Nein.  Der M-Text sollte zu Text aufgelöst sein. Zudem sollten die Blöcke mit Attribut getrennt in Listen exportiert sein (s.o.). Alle exportierten DXF verschiebe ich in einen Unterordner.
+Für die Variante 2 differenzieren Sie die Daten in strukturelle Einheiten und exportieren diese jeweils in eine DXF-Datei: alle Bebauungsgrenzen, alle Grabungs- und Schnittgrenzen incl. GGUK und GGOK, Befunde die nicht explizit auf einem anderen Planum liegen, Befunde nach sonstigen Plana, alles rund um Profil, alle Funde und alle Texte. Die Auswahl treffe ich über das Einschalten der entsprechenden Layer, nur für den Text gehe ich über den Eigenschaftenfilter (Schnellauswahl) und wähle Text, Rückwärts = Nein. Der M-Text sollte zu Text aufgelöst sein. Zudem sollten die Blöcke mit Attribut getrennt in Listen exportiert sein (s.o.). Alle exportierten DXF verschiebe ich in einen Unterordner.
 
 ### Import in QGIS
 
@@ -1074,11 +1095,7 @@ Da Sie hier weiterlesen gehe ich von grundlegenden Kenntnissen zu GIS und der Be
 
 Starten Sie QGIS, öffnen Sie eine leere Datei und weisen Sie diesem "Projekt" über die Weltkugel am rechten unteren Fensterrand für den vorangehend bearbeiteten Plan das EPSG 31468 zu. Fügen Sie über die Datenquellenverwaltung (\<strg>+\<l>) und hier die Vektoren die DXF-Datei der gesamten Grabung ein mit der Kodierung "Automatisch" oder dezidiert "UTF-8". QGIS erkennt gemischten Inhalt (Punkt, Linie, Polygon) und fordert Sie auf zu  wählen. Wählen sie alles aus und fügen Sie es ein. Als erstes erkennen Sie enttäuscht, dass nur Punkte und Linien und keine Polygone vorliegen, zudem sind Daten - typisch GIS - nach Objekttyp gruppiert und nicht nach den Layern aus AutoCAD. Das war früher anders. Die zweite Variante wäre dann der Import der einzelnen DXF-Dateien und der Export dieser in  eine jeweils neue SQLite-Tabelle.  
 
-| Anmerkung |
-|----|
-| Holen Sie sich auch mal eine Online-Karte dazu, ich persönlich nutze gerne von der Erweiterung "Quick Map Services" die OSM-Karte "Open Cycle Map". Kontrollieren Sie die Lage der Ausgrabung. Wechseln Sie mal das EPSG auf 2398, welches das offizielle System des Landes Sachsen-Anhalt ist. Erinnern Sie sich der "falschen" Vermessung der ersten Ausgrabung und die verschobenen Daten? Das "Falsche" war auch richtig und zudem Landeskonform. Falsch oder  richtig ist sehr oft im Bezugs- oder Wertesystems begründet.|
-
-Öffnen Sie für den Punktlayer über das Kontextmenü die zugehörige Attributtabelle und sehen Sie sich die Spalten an. Für die Punkte sind es: Layer, PaperSpace, SubClasses, LineType, EntityHandle und Text. Für uns verwertbar ist in diesem Fall nur der Layername und der Text. Wählen Sie aus dem Kontextmenü die Eigenschaften, die Beschriftung und hier die "Einzelne Beschriftung" mit dem Feld Text. Zoomen Sie mal in die südliche Grabungsfläche, Sie sehen, dass der Text an der Position des Textes auftaucht. Zoomen Sie in die nördliche Grabungsfläche, hier waren die Befundnummern als Block mit Attribut gesetzt worden. Sie erkennen, der "Würfel" des Blocks ist als Liniengruppe richtig eingefügt und die Befundnummer ist entsprechend der Position im Block versetzt eingefügt. Damit liegt der Text für uns falsch und getrennt vom eigentlichen Messpunkt. Das gleiche trifft auf die Profilnägel zu. Die als CSV-Liste exportierten Blöcke sind demnach deutlich besser. Öffnen Sie nun die Attributtabelle für die Polylinien. Diese zeigt die gleichen Spalten wie bei dem Punktlayer und da ein Text nicht vorliegt, ist lediglich die Spalte Layer von Interesse für die weitere Verarbeitung. Trotz der Zuweisung der Kodierung UTF-8 wird der Layername "Höhen" falsch angezeigt. Importieren Sie erneut und wählen Sie diesmal "Windows 1252" ändert sich nichts. Umlaute sind fast immer ein Problem, also besser meiden.
+Öffnen Sie für den Punktlayer über das Kontextmenü die zugehörige Attributtabelle und sehen Sie sich die Spalten an. Für die Punkte sind es: Layer, PaperSpace, SubClasses, LineType, EntityHandle und Text. Für uns verwertbar ist in diesem Fall nur der Layername und der Text. Wählen Sie aus dem Kontextmenü die Eigenschaften, die Beschriftung und hier die "Einzelne Beschriftung" mit dem Feld Text. Zoomen Sie mal in die südliche Grabungsfläche, Sie sehen, dass der Text an der Position des Textes auftaucht. Zoomen Sie in die nördliche Grabungsfläche, hier waren die Befundnummern als Block mit Attribut gesetzt worden. Sie erkennen, der "Würfel" des Blocks ist als Liniengruppe richtig eingefügt und die Befundnummer ist entsprechend der Position im Block versetzt eingefügt. Damit liegt der Text für uns falsch und getrennt vom eigentlichen Messpunkt. Das gleiche trifft auf die Profilnägel zu. Die als CSV-Liste exportierten Blöcke sind demnach deutlich besser. Öffnen Sie nun die Attributtabelle für die Polylinien. Diese zeigt die gleichen Spalten wie bei dem Punktlayer und da ein Text nicht vorliegt, ist lediglich die Spalte Layer von Interesse für die weitere Verarbeitung. 
 
 Exportieren Sie nun die Layer über das Kontextmenü in eine neue SpatiaLite Datenbank. Nennen Sie die Datenbank "ausgrabung.sqlite", den Layern "punkte" bzw. "linien", weisen Sie das KBS  "EPSG 31468" zu, schließen Sie bei der Gelegenheit die überflüssigen Attribute aus und wählen Sie für die Geometrie mit z-Dimension. Öffnen Sie nun mit "Datenbank -> DB-Verwaltung" und über das Kontextmenü zu "SpatiaLite" mittels "Verbinden" diese eben erstellte SpatiaLite-Datenbank. 
 
@@ -1093,7 +1110,7 @@ from punkte
 where z_wert < 50;
 ```
 
-Die vorangehende SQL-Abfrage muss, sofern Sie das rudimentäre Englisch verstehen, nicht wirklich erklärt werden. Sie wird mit *select* als Abfrage eingeleitet, es folgt der Block zu den Variablen, teils unter Verwendung einer Funktion die hier vor der Klammer steht und nachfolgendem Alias (neuer Name) für das Ergebnis, der Quelle und einer Bedingung. Die Punkte liegen tatsächlich als 3D-Objekte vor und wir können die z-Werte filtern. Führen Sie analog für die Polylinien folgende Anweisung aus.
+Die vorangehende SQL-Abfrage muss, sofern Sie das rudimentäre Englisch verstehen, nicht wirklich erklärt werden. Sie wird mit *select* als Abfrage eingeleitet, es folgt die Textspalte und zwei Funktionen werden Koordinaten der Geometrie abgefragt und erhalten mit *as* einen Namen. Die Punkte liegen tatsächlich als 3D-Objekte vor und wir können die z-Werte filtern. Führen Sie diese Abfrage analog auf für die Polylinien aus.
 
 ```{sql 'Show wkt and z-value of lines', eval=FALSE, message=FALSE, connection=t1db, include=TRUE}
 select layer, 
@@ -1104,19 +1121,15 @@ from linien
 where z_min < 50;
 ```
 
-Das vorgenannte Beispiel verdeutlicht, das z-Werte-Problem der Polylinie könnten wir auch hier mit Recursion und setpoint() lösen.
-
 ### Import in SpatiaLite mit der SpatiaLite GUI
 
-SpatiaLite beruht auf SQLite, eine Desktop SQL-Datenbank, und hat insgesamt eine deutlich längere Entwicklung hinter sich als die in QGIS implementierten Derivate. Zudem bietet es eine eigene GUI (graphical user interface). Laden Sie sich bitte von folgender [Website](http://www.gaia-gis.it/gaia-sins/) die Dateien für SpatiaLite herunter, diese finden Sie unten links unter "MS Windows binaries".
+SpatiaLite beruht auf SQLite und hat insgesamt eine deutlich längere Entwicklung hinter sich als die in QGIS implementierten Derivate. Zudem bietet es eine eigene GUI (graphical user interface). Laden Sie sich bitte von folgender [Website](http://www.gaia-gis.it/gaia-sins/) die Dateien für SpatiaLite herunter, diese finden Sie unten links unter "MS Windows binaries". Zu SpatiaLite gibt es zahlreiche ergänzende Infos (s. Weblinks).
 
 1. Wählen Sie hier bei "current stable version"  Ihre Windowsversion 32bit oder 64bit.
 2. Sie sehen eine lange Liste von kleinen Dateien, laden Sie einfach alle der Reihe nach herunter auch wenn Sie aktuell nicht alle brauchen.
 3. Zum Entpacken dieser Dateien empfehle ich [7-zip](https://www.7-zip.de/). Diese Software ist wirklich frei und nervt nicht mit einem "Kaufangebot" wie ein anderes weit verbreitetes Programm.
-4. Legen Sie im Programmordner "Program Files" einen Ordner "spatialite" an und kopieren Sie alles dort hinein (Adminrechte). Das Programm wird nicht installiert (eingebunden im Betriebssystem), der Ordner kann also auch überall liegen.
-5. Wenn Sie es zukünftig öfter nutzen wollen und mehr Komfort wünschen, können Sie die Datei "spatialite_gui.exe" mit dem Eintrag "An Start anheften" aus dem Kontextmenü im Startmenü der Programme eintragen.
-
-Zu SpatiaLite gibt es zahlreiche ergänzende Infos (s. Weblinks).
+4. Legen Sie im Programmordner "Program Files" einen Ordner "spatialite" an und kopieren Sie alles dort hinein (Adminrechte). Das Programm wird nicht installiert (eingebunden im Betriebssystem), der Ordner kann also woanders liegen.
+5. Wenn Sie es zukünftig öfter nutzen wollen und mehr Komfort wünschen, können Sie die Datei eine Link auf die spatialite_gui.exe im Startmenü der Programme eintragen.
 
 Starten Sie die SpatiaLite GUI. Erstellen Sie mit dem entsprechenden Icon der Menüleiste eine neue leere SpatiaLite DB. Wählen Sie mit "Files -> Advanced -> Import DXF drawings" eine der einzeln exportierten DXF-Dateien aus. In dem folgenden Fenster tragen Sie bitte diese Parameter ein: "Import any DXF drawing file from selected folder", SRID: 31468, "Append to already existing tables", Dimension: "authomatic 2D/3D", Import mode: "mixed layers (distinct by type)", Special ring handling: none. Geben Sie dem Prozess ein wenig Zeit. Sie haben vorab gesehen, es gibt mehr Optionen, auch die Möglichkeit nach den Layern in AutoCAD zu trennen.
 
@@ -1171,5 +1184,4 @@ Auch wenn bei dem vorangehen Schritt jetzt nicht alles unmittelbar zum Ziel füh
 - SpatiaLite Wiki: https://www.gaia-gis.it/gaia-sins/spatialite_topics.html
 - SpatiaLite Cookbook: http://www.gaia-gis.it/gaia-sins/spatialite-cookbook-5/index.html
 
-\newpage
 # Literatur

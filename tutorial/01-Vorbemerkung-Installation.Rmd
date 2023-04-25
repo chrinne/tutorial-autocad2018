@@ -70,7 +70,7 @@ Die Firma Autodesk bietet Studierenden und Dozenten eine kostenlose Version der 
 | Anmerkung |
 |----|
 | **Der Vorgang des Download hat sich in den letzten Jahren beständig verändert.** |
-| Achten Sie auf die jeweilige länderspezifische Seite (DE US), es bestehen aktuell unterschiede in den hinterlegten Versionen der Software. US: 2022 - 2019, DE 2021 - 2018. |
+| Achten Sie auf die jeweilige länderspezifische Seite (DE US), es bestehen aktuell Unterschiede in den hinterlegten Versionen der Software. US: 2022 - 2019, DE 2021 - 2018. |
 | Über den Bildungs-Account werden nur bis zu drei vorangehende Versionen angeboten [knowledge.autodesk.com](https://knowledge.autodesk.com/customer-service/account-management/users-software/previous-versions/request-previous-version-license). |
 | Da Sie sich für den Download der Software einen Account angelegt haben, können Sie auf eine umfangreiche Sammlung an Lehrmitteln auf der Seite von AutoDesk zugreifen [Link]( https://knowledge.autodesk.com/de).|
 
