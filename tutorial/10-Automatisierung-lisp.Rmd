@@ -115,7 +115,7 @@ In der vorangenden Syntax ist folgendes zu beachten:
 
 Die nachfolgenden Übungen orientieren sich an dem "Kochbuch AutoLISP" [@strube-zettlerKochbuchAutoLISPAutoCAD2007a], dieses beruht auf den überarbeiteten Tutorials von Axel Strube-Zettler, die frei im Netz zur Verfügung stehen [@strube-zettlerDeutschsprachigeVisualLispTutorialIma; @strube-zettlerAusgewahlteThemenAutoLisp]. Die Übungsaufgaben mit Lösungen und den Code zu diesem Buch finden Sie auf der [Website des Hansa Verlag](https://downloads.hanser.de/index.asp?isbn=978-3-446-41217-0&nav_id=763475834&nav_page=2). Alle LISP-Funktionen finden Sie in der Online-Hilfe von AutoCAD. Und nochmals, Ziel dieser wenigen Zeilen ist es, ein Fenster aufzustoßen, so dass ein Einstieg für Sie möglich wird. Funktionierenden, guten und schönen Code zu schreiben ist 1. Dreierlei und 2. lernt es sich nicht mal eben. 
 
-Mit "Extras -> AutoLISP -> Visual LISP Editor" starten Sie den bei AutoCAD integrierten Editor. Schreiben Sie die nachfolgenden Anweisungen in die Konsole des Editors.
+Mit "Extras -> AutoLISP -> Visual LISP Editor" oder ```_vlide``` starten Sie den bei AutoCAD integrierten Editor. Schreiben Sie die nachfolgenden Anweisungen in die Konsole des Editors.
 
 ### Klammern und Präfixnotation
 
