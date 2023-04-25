@@ -5452,6 +5452,17 @@ einfügen (&lt;strg&gt;+&lt;v&gt;).</li>
 Objekte und einen Überblick über die verwendeten Elemente und deren
 Anzahl verschaffen.</li>
 </ul>
+<p>Sollte sich die Layerliste nicht kopieren lassen liefert die folgende
+LISP-Anweisung einen langen Text mit “Layername, Farbzahl,
+Linientyp;”.</p>
+<pre class="lisp"><code>;A string with layer name, colour(nr), line type
+(setq lyrlst &quot;&quot;)
+(while (setq lyr (tblnext &quot;layer&quot; (not lyr)))
+  ;the keyword for more informations related to the following command is &quot;dotted pairs&quot;
+  (setq lyrlst (strcat lyrlst (cdr (assoc 2 lyr)) &quot;, &quot;))
+  (setq lyrlst (strcat lyrlst (itoa (cdr (assoc 62 lyr))) &quot;, &quot;))
+  (setq lyrlst (strcat lyrlst (cdr (assoc 6 lyr)) &quot;; &quot;))
+)</code></pre>
 <p>Was ist mir alles aufgefallen?</p>
 <ul>
 <li>Die Anzahl der Layer ist überschaubar, eine Trennung nach den

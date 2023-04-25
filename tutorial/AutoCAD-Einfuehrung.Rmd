@@ -10,16 +10,16 @@ header-includes:
 bibliography: AutoCAD-cours-references.bib
 csl: journal-of-archaeological-science.csl
 output:
-  html_document:
-    toc: yes
-    toc_float: true
-    df_print: paged
-    number_sections: yes
   pdf_document:
     fig_caption: yes
     number_sections: yes
     toc: yes
     df_print: kable
+  html_document:
+    toc: yes
+    toc_float: true
+    df_print: paged
+    number_sections: yes
 papersize: a4 
 urlcolor: blue
 link-citations: yes # make citations hyperlinks
@@ -991,6 +991,19 @@ Eine mögliche Vorgehensweise:
 - Sind weitere BKS definiert?
 - Kontrolle der Einheiten (```einheit```).
 - Alles markieren, Eigenschaftenmenü, *drop-down* Menü der Objekte und einen Überblick über die verwendeten Elemente und deren Anzahl verschaffen. 
+
+Sollte sich die Layerliste nicht kopieren lassen liefert die folgende LISP-Anweisung einen langen Text mit "Layername, Farbzahl, Linientyp;".
+
+```{lisp, 'Layer in Text'}
+;A string with layer name, colour(nr), line type
+(setq lyrlst "")
+(while (setq lyr (tblnext "layer" (not lyr)))
+  ;the keyword for more informations related to the following command is "dotted pairs"
+  (setq lyrlst (strcat lyrlst (cdr (assoc 2 lyr)) ", "))
+  (setq lyrlst (strcat lyrlst (itoa (cdr (assoc 62 lyr))) ", "))
+  (setq lyrlst (strcat lyrlst (cdr (assoc 6 lyr)) "; "))
+)
+```
 
 Was ist mir alles aufgefallen?
 
